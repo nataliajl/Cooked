@@ -1,2 +1,11 @@
+# Descrição do Projeto
 
-O projeto é um site de Receitas, no qual o usuário informa previamente os ingredientes que possui e a aplicação retorna uma lista de receitas que incluem todos/alguns ingredientes informados.
+O projeto consiste em uma aplicação web para o compartilhamento de receitas, em que usuários podem selecionar que ingredientes têm em sua cozinha e filtrar receitas com base nesses ingredientes.
+
+## Integrantes
+- Natalia Joventino
+- Michell Lucino
+- Andrey Torres
+- Frederico Rappa
+- Francisco Pena
+
