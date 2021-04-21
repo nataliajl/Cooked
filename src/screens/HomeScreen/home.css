@@ -8,5 +8,27 @@
     margin-bottom: 3.2rem;
 }
 
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
 
-            
+.buttons-container a {
+    height: 3rem;
+
+    border-radius: 0.8rem;
+    margin-right: 0.6rem;
+
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    transition: background 0.2s;
+}
+
+   
