@@ -23,14 +23,6 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
-
-
-
-
-
-
-
-
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
