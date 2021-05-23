@@ -1,11 +1,10 @@
-import { makeStyles, Slider, Switch, withStyles } from '@material-ui/core';
+import { makeStyles, Slider, Switch, withStyles,InputBase } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
-      //   margin: theme.spacing(1),
-      //   width: '25ch',
+    flex: {
       flexGrow: 1,
+      display: 'flex',
     },
     margin: {
       margin: theme.spacing(1),
@@ -13,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
     extendedIcon: {
       marginRight: theme.spacing(1),
     },
-    rot: {
+    list: {
       width: '100%',
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
@@ -22,87 +21,127 @@ export const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(4),
     },
   },
-}));
 
-export const ServeRage = withStyles({
-  root: {
-    color: '#FB4E4B',
-    height: 8,
+  add_icon: {
+    fontSize: 35,
   },
-  thumb: {
-    height: 24,
-    width: 24,
-    backgroundColor: '#fff',
-    border: '2px solid currentColor',
-    marginTop: -8,
-    marginLeft: -12,
-    '&:focus, &:hover, &$active': {
-      boxShadow: 'inherit',
-    },
-  },
-  active: {},
-  valueLabel: {
-    left: 'calc(-50% + 4px)',
-  },
-  track: {
-    height: 8,
-    borderRadius: 4,
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4,
-  },
-})(Slider);
 
-export const OnlyIngredients = withStyles((theme) => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
+  align: {
+    display: 'flex',
+    alignContent: 'center',
     margin: theme.spacing(1),
   },
-  switchBase: {
-    padding: 1,
-    '&$checked': {
-      transform: 'translateX(16px)',
-      color: theme.palette.common.white,
-      '& + $track': {
-        backgroundColor: '#FB4E4B',
-        opacity: 1,
-        border: 'none',
+
+  subtitle: {
+    color: '#616161',
+    fontSize: 14,
+  }
+
+}));
+
+export const StyledSlider = withStyles({
+    root: {
+      color: '#FB4E4B',
+      height: 8,
+    },
+    thumb: {
+      height: 24,
+      width: 24,
+      backgroundColor: '#fff',
+      border: '2px solid currentColor',
+      marginTop: -8,
+      marginLeft: -12,
+      '&:focus, &:hover, &$active': {
+        boxShadow: 'inherit',
       },
     },
-    '&$focusVisible $thumb': {
-      color: '#52d869',
-      border: '6px solid #fff',
+    active: {},
+    valueLabel: {
+      left: 'calc(-50% + 4px)',
     },
+    track: {
+      height: 8,
+      borderRadius: 4,
+    },
+    rail: {
+      height: 8,
+      borderRadius: 4,
+    },
+})(Slider);
+
+export const StyledInputBase = withStyles({
+  root: {
+    display: 'flex',
+    border: '0rem',
+    borderRadius: '2rem',
+    backgroundColor: '#F0F0F0',
+    height: '3rem',
+    paddingLeft: '2rem',
+  },
+
+})(InputBase);
+
+export const OnlyIngredients = withStyles((theme) => ({
+root: {
+      width: 80,
+      height: 48,
+      padding: 8,
+      margin: theme.spacing(1),
+    },
+  switchBase: {
+    padding: 11,
+    color: '#F0F0F0',
   },
   thumb: {
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
+    backgroundColor: '#fff',
   },
   track: {
-    borderRadius: 26 / 2,
-    border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
-    opacity: 1,
-    transition: theme.transitions.create(['background-color', 'border']),
+    background: 'linear-gradient(to right, #d1d1d1, #F0F0F0)',
+    opacity: '1 !important',
+    borderRadius: 20,
+    position: 'relative',
+    '&:before, &:after': {
+      display: 'inline-block',
+      position: 'absolute',
+      top: '50%',
+      width: '50%',
+      transform: 'translateY(-50%)',
+      color: '#fff',
+      textAlign: 'center',
+    },
+    // '&:before': {
+    //   content: '"on"',
+    //   left: 4,
+    //   opacity: 0,
+    // },
+    // '&:after': {
+    //   content: '"off"',
+    //   right: 4,
+    // },
   },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
+  checked: {
+    '&$switchBase': {
+      color: '#DE2D33',
+      transform: 'translateX(32px)',
+      '&:hover': {
+        backgroundColor: '##DE2D33',
+
+      },
+    },
+    '& $thumb': {
+      backgroundColor: '#fff',
+    },
+    '& + $track': {
+      background: 'linear-gradient(to right, #FC7A78, #DE2D33)',
+      '&:before': {
+        opacity: 1,
+      },
+      '&:after': {
+        opacity: 0,
+      }
+    },
+  },
+}))(Switch);
+
