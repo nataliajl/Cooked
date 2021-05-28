@@ -8,4 +8,4 @@ Ponto C: Integração; Funcionalidade; Estrutural
 O filtro de receitas dentro da aplicação permite a busca por ingredientes inseridos na receita como principal filtragem e entre outras, assim compreender a funcionalidade com filtros especificos se apresenta como técnica de teste para análise comportamental com os resultados das receitas.
 
 Ponto D: Sistema; Segurança: Baseado em defeito
-Todas as informações do usuário utilizadas para o cadastro são protegidas e criptografadas conforme GPDR e possivéis vune.
+Todas as informações do usuário utilizadas para o cadastro são protegidas e criptografadas conforme GPDR e possivéis vunerabilidades.
