@@ -10,9 +10,17 @@ O projeto consiste em uma aplicação web para o compartilhamento de receitas, e
 - Francisco Pena
 
 ## Arquitetura do Projeto
-- Modelo C4
+- **Modelo C4 Context**
+
+    ![Imagem do Modelo C4](ModeloC4_Context.png)
+
+- **Modelo C4 Containers**
 
     ![Imagem do Modelo C4](ModeloC4.jpg)
+    
+- **Modelo C4 Components** 
+
+    ![Imagem do Modelo C4](ModeloC4_Component.png)
 
 - Estilos Arquiteturais:
     - RESTful API's
@@ -20,14 +28,20 @@ O projeto consiste em uma aplicação web para o compartilhamento de receitas, e
 
 - Descrição dos Componentes:
 
-    - Single Page Application:
-    Front-end desenvolvido em ReactJS. Tem a responsabilidade de exibir as páginas de visualização/publicação de receitas e efetuar a conexão com o servidor.
+    - Homescreen:
+    [To complete]
 
-    - API Application:
-    Back-end desenvolvido em NodeJS. Tem a responsabilidade de se conectar com o banco de dados e com o SPA. Além disso, define as regras de negócio da aplicação.
+    - Filter Recipe:
+    [To complete]
 
-    - Database:
-    Banco de dados relacional PostgreSQL. Tem a responsabilidade de armazenar e disponibilizar dados dos usuários e receitas.
+    - Recipes List:
+    [To complete]
 
-    - User Authentication:
-    Protocolo de autenticação OAuth 2.0. Tem a função de controlar a autenticação de login e cadastro do usuário por plataformas externas.  
+    - Keep a Recipe:
+    [To complete]  
+    
+    - Add Recipe Form:
+    [To complete]
+
+    - User Space:
+    [To complete]
