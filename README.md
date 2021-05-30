@@ -29,19 +29,19 @@ O projeto consiste em uma aplicação web para o compartilhamento de receitas, e
 - Descrição dos Componentes:
 
     - Homescreen:
-    [To complete]
+    Tela inicial da aplicação: permite que os usuários naveguem para as outras telas, pesquisem e filtrem as receitas com o componente Filter Recipe.
 
     - Filter Recipe:
-    [To complete]
+    Componente que possibilita a entrada e seleção de filtros para buscas de receitas na plataforma com base em nas opções do usuário e faz comunicação com a API Application com as informações
 
     - Recipes List:
-    [To complete]
+    Após interação do filtro com a API, a API manda a base de dados que deve ser apresentada ao usuário para a página. Assim, permitindo a visualização e interação com a receita.
 
     - Keep a Recipe:
-    [To complete]  
+    Tela React JS que possibilita e contém as funcionabilidades, campos e dados necessários para que o usuário consiga adicionar novas receitas na plataforma.  
     
     - Add Recipe Form:
-    [To complete]
+    Componente React JS responsável por controlar, validar e enviar as informações de criação da receita para o back-end.
 
     - User Space:
-    [To complete]
+    Este componente é responsável por manter as informações do contexto do usuário, como seu estado de autenticação, informações pessoais, configurações e atividades, obtidas em chamadas à API Application.
