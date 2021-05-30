@@ -1,22 +1,10 @@
-import React from "react";
-
-import Navbar from '../../components/Navbar/Navbar'
-import {Button, TextField} from '@material-ui/core'
+import React from 'react';
+import AddRecipeForm from '../../components/AddRecipe/AddRecipeForm';
 
 const AddRecipeScreen = () => {
     return (
-        <div>
-            <Navbar/>
-            <p>Adicionar receita</p>
-            <TextField id="outlined-classic" label="Ingrediente 3" variant="outlined" margin="normal" />
-            <TextField id="outlined-classic" label="Ingrediente 3" variant="outlined" margin="normal" />
-            <TextField id="outlined-classic" label="Ingrediente 3" variant="outlined" margin="normal" />
-            <Button
-                variant="contained"
-                color = "primary"
-            >
-                Salvar
-            </Button>
+        <div style={{ padding: '0 80px 0 80px', margin: 'auto', width: '-webkit-fill-available' }}>
+            <AddRecipeForm />
         </div>
     );
 }

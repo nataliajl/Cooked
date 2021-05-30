@@ -1,0 +1,12 @@
+.listForm__container {
+    margin-bottom: 30px;
+
+    max-height: 20rem; 
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+.addInput__button {
+    margin-top: 10px;
+    justify-content: center;
+}
