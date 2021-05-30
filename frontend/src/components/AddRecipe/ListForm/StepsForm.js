@@ -3,6 +3,8 @@ import React from 'react';
 import { Grid, IconButton, TextField } from '@material-ui/core';
 import { AddCircle, RemoveCircleOutline } from '@material-ui/icons';
 
+import ItemCircle from '../../ItemCircle/ItemCircle';
+
 import './style.css';
 
 
@@ -31,7 +33,7 @@ const StepsForm = ({ steps, setSteps, values }) => {
                     return (
                         <Grid key={i} container justify="flex-start" alignItems="center">
                             <Grid item xs={1}>
-                                <span>{i + 1}</span>
+                                <ItemCircle number={i + 1} />
                             </Grid>
                             <Grid item xs={10}>
                                 <TextField
