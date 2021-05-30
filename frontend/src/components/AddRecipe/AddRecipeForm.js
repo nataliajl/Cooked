@@ -22,6 +22,28 @@ const onSubmit = async values => {
     window.alert(JSON.stringify(values, 0, 2));
 };
 
+const validate = values => {
+    const errors = {};
+
+    if (!values.title) {
+        errors.title = 'Required';
+    }
+    if (!values.description) {
+        errors.description = 'Required';
+    }
+    if (!values.cuisine) {
+        errors.cuisine = 'Required';
+    }
+    if (!values['cook-time']) {
+        errors['cook-time'] = 'Required';
+    }
+    if (!values.serves) {
+        errors.serves = 'Required';
+    }
+
+    return errors;
+};
+
 const AddRecipeForm = () => {
     const [recipeImage, setRecipeImage] = React.useState();
     const [privateSwitch, setPrivateSwitch] = React.useState(false);
@@ -56,7 +78,7 @@ const AddRecipeForm = () => {
     return (
         <Form
             onSubmit={onSubmit}
-            validate={() => {}}
+            validate={validate}
             render={({ handleSubmit, reset, submitting, pristine, values }) => (
                 <form onSubmit={handleSubmit} noValidate>
                     <Paper style={{ padding: 16, boxShadow: 'none' }}>
@@ -72,7 +94,7 @@ const AddRecipeForm = () => {
                                 />
                                 <label htmlFor="recipe-button-file">
                                     <Button variant="contained" color="primary" component="span">
-                                        Upload
+                                        Upload recipe photo
                                     </Button>
                                 </label>
                                 <Field
@@ -102,7 +124,7 @@ const AddRecipeForm = () => {
                                     fullWidth
                                     required
                                     id="cuisine-select"
-                                    name="Cuisine"
+                                    name="cuisine"
                                     component={Select}
                                     label="Cuisine"
                                     formControlProps={{ fullWidth: true }}
@@ -210,7 +232,6 @@ const AddRecipeForm = () => {
                             </Grid>
                         </Grid>
                     </Paper>
-                    <Typography variant="h6">{JSON.stringify(values, 0, 2)}</Typography>
                 </form>
             )} 
         />
