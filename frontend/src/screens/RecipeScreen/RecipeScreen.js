@@ -4,6 +4,8 @@ import '@fontsource/lato';
 import Navbar from '../../components/Navbar/Navbar';
 import './RecipeScreen.css';
 import ItemCircle from '../../components/ItemCircle/ItemCircle'
+import foodtray from './food-tray.png';
+import timer from './timer.png';
 
 
 const RecipeScreen = () => {
@@ -77,8 +79,8 @@ const RecipeScreen = () => {
                 <div className="left-container">
                     <img src={data.imageSource} className="image"/>
                     <div className="info-view">
-                        <InfoItem src="food-tray.png" text={`${data.time} minutes`}/>
-                        <InfoItem src="food-tray.png" text={`${data.portionSize} people`}/>
+                        <InfoItem src={timer} text={`${data.time} minutes`}/>
+                        <InfoItem src={foodtray} text={`${data.portionSize} people`}/>
                     </div>  
                     <p>
                         <p className="title">{data.title}</p>
