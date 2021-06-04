@@ -1,4 +1,4 @@
-import { makeStyles, Slider, Switch, withStyles,InputBase } from '@material-ui/core';
+import { makeStyles, Slider, Switch, withStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,18 +68,6 @@ export const StyledSlider = withStyles({
       borderRadius: 4,
     },
 })(Slider);
-
-export const StyledInputBase = withStyles({
-  root: {
-    display: 'flex',
-    border: '0rem',
-    borderRadius: '2rem',
-    backgroundColor: '#F0F0F0',
-    height: '3rem',
-    paddingLeft: '2rem',
-  },
-
-})(InputBase);
 
 export const OnlyIngredients = withStyles((theme) => ({
 root: {

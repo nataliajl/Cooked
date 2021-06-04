@@ -4,7 +4,6 @@ import logo from './cooked.png';
 import './home.css';
 import 'fontsource-roboto';
 import Navbar from '../../components/Navbar/Navbar';
-import AddRecipeScreen from '../../screens/AddRecipeScreen/AddRecipeScreen';
 import { Button } from '@material-ui/core';
 
 const HomeScreen = () => {

@@ -1,36 +1,12 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-import {
-  Checkbox,
-  TextField,
-  IconButton,
-  List,
-  Collapse,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Slider,
-  InputAdornment,
-  InputBase,
-  FormControl
-} from '@material-ui/core';
-
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-
-import {
-  ExpandMore,
-  AddCircle,
-  StarBorder,
-  NavigateNext,
-  HighlightOff
-} from '@material-ui/icons';
-
-import { OnlyIngredients, StyledSlider , StyledInputBase, useStyles } from './FilterStyles';
+import { ExpandMore, StarBorder, NavigateNext } from '@material-ui/icons';
+import { OnlyIngredients, StyledSlider , useStyles } from './FilterStyles';
+import Tag from './Tags/Tag';
 
 export default function Filter() {
   const classes = useStyles(); 
@@ -58,38 +34,10 @@ export default function Filter() {
 
   return (
     <form className={classes.root} noValidate autoComplete='off'>
-      <div>
-        <div class='keywords'>
-          <Grid container spacing={2} className={classes.align}>
-            <Grid item xs={10}>
-              <StyledInputBase
-                type='search'
-                placeholder='Please enter your ingredients'
-                inputProps={{ 'aria-label': 'naked' }}
-              />
-              </Grid>
-              <Grid item xs={2}>
-              <IconButton>
-                <AddCircle className={classes.add_icon}/>
-              </IconButton>
-            </Grid>
-          </Grid>
-        </div>
 
-        {/* <div class='pills'>
-          <FormControl className={classes.margin}>
-            <InputBase
-              id="input-with-icon-adornment"
-              // placeholder={}
-              disabled= 'true'
-              endAdornment={
-                <InputAdornment position="end">
-                  <HighlightOff />
-                </InputAdornment>
-              }
-            />  
-          </FormControl>
-        </div> */}
+        <div class='pills'>
+          <Tag/>
+        </div>
         
         <div class='ingredients'>
           <FormControlLabel
@@ -116,7 +64,7 @@ export default function Filter() {
                   <ListItemIcon>
                     <Checkbox edge='start' disableRipple />
                   </ListItemIcon>
-                  <ListItemText primary='Item 1' />
+                  <ListItemText primary='Mexican' />
                 </ListItem>
               </List>
             </Collapse>
@@ -194,7 +142,7 @@ export default function Filter() {
             </Grid>
           </Grid>
         </div>
-      </div>
+
     </form>
   );
 }
