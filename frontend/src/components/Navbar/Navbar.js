@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 
 
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import withStyles from '@material-ui/core/styles'
 import 'fontsource-roboto';
-import Typography from '@material-ui/core/Typography'
 import Appbar from '@material-ui/core/AppBar'
 
 import { useHistory } from "react-router-dom";
