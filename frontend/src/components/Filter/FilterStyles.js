@@ -1,4 +1,5 @@
 import { makeStyles, Slider, Switch, withStyles } from '@material-ui/core';
+import { colors} from './../../cookedStyles.js';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   subtitle: {
-    color: '#616161',
+    color: colors.palette.basic.b3,
     fontSize: 14,
   }
 
@@ -37,13 +38,14 @@ export const useStyles = makeStyles((theme) => ({
 
 export const StyledSlider = withStyles({
     root: {
-      color: '#FB4E4B',
+      color: colors.palette.primary.main,
       height: 8,
     },
+
     thumb: {
       height: 24,
       width: 24,
-      backgroundColor: '#fff',
+      backgroundColor: colors.palette.background.main,
       border: '2px solid currentColor',
       marginTop: -8,
       marginLeft: -12,
@@ -51,14 +53,17 @@ export const StyledSlider = withStyles({
         boxShadow: 'inherit',
       },
     },
+
     active: {},
     valueLabel: {
       left: 'calc(-50% + 4px)',
     },
+
     track: {
       height: 8,
       borderRadius: 4,
     },
+
     rail: {
       height: 8,
       borderRadius: 4,
@@ -72,17 +77,20 @@ root: {
       padding: 8,
       margin: theme.spacing(1),
     },
+
   switchBase: {
     padding: 11,
-    color: '#F0F0F0',
+    color: colors.palette.basic.b5,
   },
+
   thumb: {
     width: 26,
     height: 26,
-    backgroundColor: '#fff',
+    backgroundColor: colors.palette.basic.b7,
   },
+
   track: {
-    background: 'linear-gradient(to right, #d1d1d1, #F0F0F0)',
+    background: 'linear-gradient(to right, '+colors.palette.basic.b4+', '+colors.palette.basic.b5+')',
     opacity: '1 !important',
     borderRadius: 20,
     position: 'relative',
@@ -92,33 +100,25 @@ root: {
       top: '50%',
       width: '50%',
       transform: 'translateY(-50%)',
-      color: '#fff',
+      color: colors.palette.basic.b7,
       textAlign: 'center',
     },
-    // '&:before': {
-    //   content: '"on"',
-    //   left: 4,
-    //   opacity: 0,
-    // },
-    // '&:after': {
-    //   content: '"off"',
-    //   right: 4,
-    // },
   },
+
   checked: {
     '&$switchBase': {
-      color: '#DE2D33',
+      color: colors.palette.primary.dark,
       transform: 'translateX(32px)',
       '&:hover': {
-        backgroundColor: '##DE2D33',
+        backgroundColor: colors.palette.primary.dark,
 
       },
     },
     '& $thumb': {
-      backgroundColor: '#fff',
+      backgroundColor: colors.palette.basic.b7,
     },
     '& + $track': {
-      background: 'linear-gradient(to right, #FC7A78, #DE2D33)',
+      background: 'linear-gradient(to right, '+colors.palette.primary.lighter+', '+colors.palette.primary.dark+')',
       '&:before': {
         opacity: 1,
       },

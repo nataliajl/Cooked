@@ -1,6 +1,8 @@
-import { makeStyles, withStyles, InputBase } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import { colors} from '../../../cookedStyles.js';
 
 const inputPadding = '0.5rem';
+
 export const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -31,10 +33,10 @@ export const useStyles = makeStyles((theme) => ({
 
   input: {
     borderRadius: '2rem',
-    backgroundColor: '#F0F0F0',
     width: '25rem',
     padding: inputPadding,
     paddingLeft: '1.5rem',
+    backgroundColor: colors.palette.basic.b5,
   },
 
   inputContainer: {
