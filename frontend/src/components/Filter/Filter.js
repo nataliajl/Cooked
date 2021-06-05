@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import { ExpandMore, StarBorder, NavigateNext } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider , useStyles } from './FilterStyles';
@@ -142,7 +142,10 @@ export default function Filter() {
             </Grid>
           </Grid>
         </div>
-
+        
+        <div class='send'>
+          <Button variant="contained">Let's Cook</Button>
+        </div>
     </form>
   );
 }

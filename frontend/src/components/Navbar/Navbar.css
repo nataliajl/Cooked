@@ -1,0 +1,49 @@
+
+
+
+.appbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+
+}
+
+.leftappbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    flex: 60%
+}
+.rightappbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    flex: 60%;
+    padding-right: 100px;
+}
+
+.navbar-item-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+
+}
+
+
+
+
+.navbar-item {
+    font-family: "Roboto";
+    font-weight:600;
+    font-size: 16px;
+    color: #261d22;
+
+}
