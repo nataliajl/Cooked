@@ -10,6 +10,15 @@ import Tag from './Tags/Tag';
 
 export default function Filter() {
   const classes = useStyles(); 
+
+  const [open, setOpen] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
+
+  const [cuisineList, setCuisineList] = React.useState([
+    {type: 'Mexican'}, 
+    {type: 'Italian'}
+  ]);
+
   const marks = [
     {
       value: 1,
@@ -20,132 +29,136 @@ export default function Filter() {
       label: '100',
     },
   ];
-  const [checked, setChecked] = React.useState(false);
 
   const toggleChecked = () => {
     setChecked((prev) => !prev);
   };
 
-  const [open, setOpen] = React.useState(true);
-
   const handleClick = () => {
     setOpen(!open);
   };
 
+  const handleSubmit= () => {
+  };
+
   return (
-    <form className={classes.root} noValidate autoComplete='off'>
-
-        <div class='pills'>
-          <Tag/>
-        </div>
-        
-        <div class='ingredients'>
-          <FormControlLabel
-            control={
-              <OnlyIngredients checked={checked} onChange={toggleChecked} />
-            }
-            label='Only inserted ingredients'
-            labelPlacement='start'
-          />
-        </div>
-
-        <div class='cuisine'>
-          <List className={classes.list}>
-            <ListItem button onClick={handleClick}>
-              <ListItemText
-                primary='Cuisine'
-                secondary='Choose by cooking style'
-              />
-              {open ? <ExpandMore /> : <NavigateNext />}
-            </ListItem>
-            <Collapse in={open} timeout='auto' unmountOnExit>
-              <List component='div' disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <Checkbox edge='start' disableRipple />
-                  </ListItemIcon>
-                  <ListItemText primary='Mexican' />
-                </ListItem>
-              </List>
-            </Collapse>
-          </List>
-        </div>
-
-        <div class='serve'>
-            <Grid container spacing={0} className={classes.align}>
-              <Grid item xs={12}>
-                <Typography id='discrete-slider-custom' gutterBottom>
-                  Serving Rage
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography className={classes.subtitle}>
-                  How many people do you want to serve?
-                </Typography>
-              </Grid>
-            
-              <Grid item xs={12} >
-                <StyledSlider 
-                  defaultValue={1}
-                  aria-labelledby='discrete-slider-custom'
-                  step={1}
-                  valueLabelDisplay='auto'
-                  min={1}
-                  max={100}
-                  marks={marks}
-                />
-              </Grid>
-            </Grid>
-        </div>
-
-        <div class='cooking'>
+    <div>
+      <form className={classes.root} onSubmit={handleSubmit}>
+          <div class='insertIngredients'>
+            <Tag />
+          </div>
           
-          <Grid container spacing={2} className={classes.align}>
-            <Grid item xs={12}>
-              <Typography gutterBottom>Cooking Time</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <TextField
-                id='outlined-search'
-                type='search'
-                placeholder='Min'
-                variant='outlined'
-              />
-            </Grid>
-            <Grid item xs={1} container alignContent='center'>
-              <Typography className={classes.subtitle} >to</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <TextField
-                id='outlined-search'
-                type='search'
-                placeholder='Max'
-                variant='outlined'
-              />
-            </Grid>
-            <Grid item xs={3} container alignContent='center'>
-              <Typography className={classes.subtitle}>minutes</Typography>
-            </Grid>
-          </Grid>
-        </div>
+          <div class='ingreSwitch'>
+            <FormControlLabel
+              control={
+                <OnlyIngredients checked={checked} onChange={toggleChecked} />
+              }
+              label='Only inserted ingredients'
+              labelPlacement='start'
+            />
+          </div>
 
-        <div class='rate'>
-          <Grid container spacing={2} className={classes.align}>
-            <Grid item xs={12}>
-                  <Typography component='legend'>Rate</Typography>
-                  <Rating
-                    name='customized-empty'
+          <div class='cuisineList'>
+            <List className={classes.list}>
+              <ListItem button onClick={handleClick}>
+                <ListItemText
+                  primary='Cuisine'
+                  secondary='Choose by cooking style'
+                />
+                {open ? <ExpandMore /> : <NavigateNext />}
+              </ListItem>
+
+              <Collapse in={open} timeout='auto' unmountOnExit>
+                <List component='div' disablePadding>                 
+                    {cuisineList.map((data) => (
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon>
+                          <Checkbox edge='start' disableRipple />
+                        </ListItemIcon>
+                        <ListItemText primary={data.type} />
+                      </ListItem>
+                    ))}
+                </List>
+              </Collapse>
+            </List>
+          </div>
+
+          <div class='serveSlider'>
+              <div class='title'>
+                  <Typography id='discrete-slider-custom' gutterBottom>
+                    Serving Rage
+                  </Typography>
+                </div>
+
+              <div class='subtitle'>
+                  <Typography className={classes.subtitle}>
+                    How many people do you want to serve?
+                  </Typography>
+                </div>
+              
+              <div class='slider'>
+                  <StyledSlider 
                     defaultValue={1}
-                    precision={0.5}
-                    emptyIcon={<StarBorder fontSize='inherit' />}
+                    aria-labelledby='discrete-slider-custom'
+                    step={1}
+                    valueLabelDisplay='auto'
+                    min={1}
+                    max={100}
+                    marks={marks}
                   />
-            </Grid>
-          </Grid>
-        </div>
-        
-        <div class='send'>
-          <Button variant="contained">Let's Cook</Button>
-        </div>
-    </form>
+                </div>
+          </div>
+
+          <div class='cookingContainer'>
+              <div class='title'>
+                <Typography gutterBottom>Cooking Time</Typography>
+              </div>
+              <div class='inputContainer'>
+                <div class='input'>
+                  <TextField
+                    id='outlined-search'
+                    type='search'
+                    placeholder='Min'
+                    variant='outlined'
+                    type='number'
+                  />
+                </div>
+                <div class='subtitle'>
+                  <Typography className={classes.subtitle} >to</Typography>
+                </div>
+                <div class='input'>
+                  <TextField
+                    id='outlined-search'
+                    type='search'
+                    placeholder='Max'
+                    variant='outlined'
+                    type='number'
+                  />
+                </div>
+              <div>
+                <Typography className={classes.subtitle}>minutes</Typography>
+              </div>
+          </div>
+          </div>
+
+          <div class='startRating'>
+              <div class='title'>
+                <Typography component='legend'>Rate</Typography>
+              </div>
+              <div class='rating'>
+                <Rating
+                  name='customized-empty'
+                  defaultValue={1}
+                  precision={0.5}
+                  emptyIcon={<StarBorder fontSize='inherit' />}
+                  />
+              </div>
+          </div>
+          
+          <div class='sendButton'>
+            <Button variant="contained" type="submit">Let's Cook</Button>
+          </div>
+      </form>
+    </div>
   );
 }

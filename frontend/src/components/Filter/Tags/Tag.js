@@ -1,7 +1,7 @@
 import React from 'react';
-import { useStyles, StyledInputBase } from './TagStyles';
+import { useStyles } from './TagStyles';
 import { AddCircle } from '@material-ui/icons';
-import {IconButton, Grid, Chip} from '@material-ui/core';
+import {IconButton, Chip, InputBase} from '@material-ui/core';
 
 export default function ChipsArray(){
   const classes = useStyles();
@@ -32,22 +32,23 @@ export default function ChipsArray(){
   };
 
   return ( 
-    <div>
-      <Grid container spacing={2} className={classes.align}>
-        <Grid item xs={10}>
-          <StyledInputBase
-          placeholder='Please enter your ingredients'
-          inputProps={{ 'aria-label': 'naked' }}
-          value={inputData}
-          onChange={event => handleChange(event)}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <IconButton onClick={handleSubmit}>
-            <AddCircle className={classes.add_icon}/>
-          </IconButton>
-        </Grid>
-      </Grid>
+    <div className={classes.root}>
+      <div className={classes.inputContainer}>
+          <div className={classes.input}>
+            <InputBase
+            placeholder='Please enter your ingredients'
+            value={inputData}
+            onChange={event => handleChange(event)}
+            
+            />
+          </div>
+          <div class='addButton'>
+            <IconButton onClick={handleSubmit}>
+              <AddCircle className={classes.add_icon}/>
+            </IconButton>
+          </div>
+      </div>
+      
       <div className={classes.tag}>
           {chipData.map((data) => (
             <li key={data.key}>

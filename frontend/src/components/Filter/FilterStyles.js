@@ -22,10 +22,6 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
-  add_icon: {
-    fontSize: 35,
-  },
-
   align: {
     display: 'flex',
     alignContent: 'center',
