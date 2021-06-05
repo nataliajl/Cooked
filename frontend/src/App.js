@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './App.css';
-
 import Filter from './components/Filter/Filter';
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
@@ -16,7 +14,7 @@ function App() {
     <AuthProvider>
       <Router>
           <>
-            {/* <Route exact path="/" component={Landing} /> */}
+            <Route exact path="/" component={Landing} />
             <Route exact path="/recipe" component={RecipeScreen} />
             <Route exact path="/keeparecipe" component={AddRecipeScreen} />
           </>

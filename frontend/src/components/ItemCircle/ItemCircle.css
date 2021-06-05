@@ -1,3 +1,5 @@
+@import '../../cookedStyles.css';
+
 .circle {
     display: flex;
     justify-content: center;
@@ -5,15 +7,15 @@
     width: 30px;
     height: 30px;
     border-radius: 100%;
-    background: linear-gradient(225.26deg, #9AB364 5.06%, #DFE3C6 117.81%);
+    background: linear-gradient(225.26deg, var(--secondary-dark) 5.06%, var(--secondary-light) 117.81%);
 }
 
 .circle-text {
-    font-family: "Lato";
+    font-family: var(--font-family);
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
     line-height: 22px;
     letter-spacing: 0em;
-    color: #401C00;
+    color: var(--basic-1);
 }
