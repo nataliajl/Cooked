@@ -3,7 +3,6 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { TextField, Select } from 'final-form-material-ui';
 import {
-    Typography,
     Paper,
     Grid,
     Button,
