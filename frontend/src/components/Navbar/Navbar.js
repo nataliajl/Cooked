@@ -15,11 +15,7 @@ import './Navbar.css';
 import {AuthContext} from '../../context/AuthContext';
 import ClickableComponent from '../../components/ClickableComponent/ClickableComponent'
 
-const useStyles = makeStyles((theme) => ({
-    title: {
-        flexGrow: 1,
-    }
-}));
+import useStyles from './NavbarStyles';
 
 const StyledRightIcon = withStyles({
     root: {
