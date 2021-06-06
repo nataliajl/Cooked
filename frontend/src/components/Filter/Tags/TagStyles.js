@@ -1,5 +1,5 @@
 import { makeStyles, withStyles, InputBase } from '@material-ui/core';
-
+import { colors} from '../../../cookedStyles.js';
 
 export const useStyles = makeStyles((theme) => ({
   tag: {
@@ -20,7 +20,7 @@ export const StyledInputBase = withStyles({
     display: 'flex',
     border: '0rem',
     borderRadius: '2rem',
-    backgroundColor: '#F0F0F0',
+    backgroundColor: colors.palette.basic.b5,
     height: '3rem',
     paddingLeft: '2rem',
   },
