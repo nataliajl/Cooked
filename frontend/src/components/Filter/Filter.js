@@ -1,11 +1,9 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
-import { ExpandMore, StarBorder, NavigateNext } from '@material-ui/icons';
-import { OnlyIngredients, StyledSlider , useStyles } from './FilterStyles';
+import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
+import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
 import Tag from './Tags/Tag';
 
 export default function Filter() {
@@ -48,20 +46,18 @@ export default function Filter() {
             <Tag />
           </div>
           
-          <div class='ingreSwitch'>
-            <FormControlLabel
-              control={
-                <OnlyIngredients checked={checked} onChange={toggleChecked} />
-              }
-              label='Only inserted ingredients'
-              labelPlacement='start'
-            />
+          <div class='ingreSwitch' className={classes.row}>
+            <div className={classes.font}>
+              <Typography className={classes.subtitle} gutterBottom>Only Inserted Ingredients</Typography>
+            </div>
+              <OnlyIngredients checked={checked} onChange={toggleChecked} />  
+            
           </div>
 
           <div class='cuisineList'>
             <List className={classes.list}>
               <ListItem button onClick={handleClick}>
-                <ListItemText
+                <ListItemText className={classes.font}
                   primary='Cuisine'
                   secondary='Choose by cooking style'
                 />
@@ -75,7 +71,7 @@ export default function Filter() {
                         <ListItemIcon>
                           <Checkbox edge='start' disableRipple />
                         </ListItemIcon>
-                        <ListItemText primary={data.type} />
+                        <ListItemText className={classes.font} primary={data.type} />
                       </ListItem>
                     ))}
                 </List>
@@ -85,13 +81,13 @@ export default function Filter() {
 
           <div class='serveSlider'>
               <div class='title'>
-                  <Typography id='discrete-slider-custom' gutterBottom>
+                  <Typography className={classes.font} id='discrete-slider-custom' gutterBottom>
                     Serving Rage
                   </Typography>
                 </div>
 
               <div class='subtitle'>
-                  <Typography className={classes.subtitle}>
+                  <Typography className={classes.subtitle, classes.font}>
                     How many people do you want to serve?
                   </Typography>
                 </div>
@@ -111,9 +107,9 @@ export default function Filter() {
 
           <div class='cookingContainer'>
               <div class='title'>
-                <Typography gutterBottom>Cooking Time</Typography>
+                <Typography className={classes.font} gutterBottom>Cooking Time</Typography>
               </div>
-              <div class='inputContainer'>
+              <div class='inputContainer' className={classes.row}>
                 <div class='input'>
                   <TextField
                     id='outlined-search'
@@ -124,7 +120,7 @@ export default function Filter() {
                   />
                 </div>
                 <div class='subtitle'>
-                  <Typography className={classes.subtitle} >to</Typography>
+                  <Typography className={classes.subtitle, classes.font} >to</Typography>
                 </div>
                 <div class='input'>
                   <TextField
@@ -136,27 +132,27 @@ export default function Filter() {
                   />
                 </div>
               <div>
-                <Typography className={classes.subtitle}>minutes</Typography>
+                <Typography className={classes.subtitle, classes.font}>minutes</Typography>
               </div>
-          </div>
+            </div>
           </div>
 
           <div class='startRating'>
               <div class='title'>
-                <Typography component='legend'>Rate</Typography>
+                <Typography className={classes.font} component='legend'>Rate</Typography>
               </div>
               <div class='rating'>
-                <Rating
-                  name='customized-empty'
+                <StyledRating
+                  name='customized-icons'
                   defaultValue={1}
                   precision={0.5}
-                  emptyIcon={<StarBorder fontSize='inherit' />}
+                  icon={<FavoriteTwoTone fontSize='inherit' />}
                   />
               </div>
           </div>
           
           <div class='sendButton'>
-            <Button variant="contained" type="submit">Let's Cook</Button>
+            <Button className={classes.font, classes.button}  variant="contained" type="submit">Let's Cook</Button>
           </div>
       </form>
     </div>

@@ -1,38 +1,48 @@
 import { makeStyles, Slider, Switch, withStyles } from '@material-ui/core';
-import { colors} from './../../cookedStyles.js';
+import Rating from '@material-ui/lab/Rating';
+import { colors, inputElements} from './../../cookedStyles.js';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    flex: {
-      flexGrow: 1,
-      display: 'flex',
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-    list: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-      paddingLeft: theme.spacing(4),
-    },
-  },
-
-  align: {
     display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     alignContent: 'center',
-    margin: theme.spacing(1),
+    padding: '1rem',
   },
 
-  subtitle: {
-    color: colors.palette.basic.b3,
-    fontSize: 14,
-  }
+  list: {
+    width: '100%',
+    maxWidth: 360,
+  },
+
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+
+  row: {
+      
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+
+
+  },
+
+  font: {
+    fontFamily: inputElements.font.fontFamily,
+    fontWeight: inputElements.inputFont.fontWeight,
+    fontSize: inputElements.inputFont.fontSize,
+
+    '& $subtitle': {
+      color: colors.palette.basic.b7,
+      fontSize: inputElements.font.fontSize,
+    }
+  },
+
+
+  
+
 
 }));
 
@@ -129,3 +139,15 @@ root: {
   },
 }))(Switch);
 
+export const StyledRating = withStyles({
+  iconEmpty: {
+    color: colors.palette.secondary.light,
+  },
+
+  iconFilled: {
+    color: colors.palette.primary.main,
+  },
+  iconHover: {
+    color: colors.palette.primary.dark,
+  },
+})(Rating);
