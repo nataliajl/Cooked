@@ -1,0 +1,43 @@
+:root{
+    --primary-lighter:      #FC7A78;
+    --primary-light:        #FB4E4B;
+    --primary-main:         #FB4E4B;
+    --primary-dark:         #DE2D33;
+    --secondary-light:      #DFE3C6;
+    --secondary-main:       #A9B654;
+    --secondary-dark:       #9AB364;
+    --basic-0:              #000000;
+    --basic-1:              #401C00;
+    --basic-2:              #1C1A10;
+    --basic-3:              #261D22;
+    --basic-4:              #616161;
+    --basic-5:              #d1d1d1;
+    --basic-6:              #F0F0F0;
+    --basic-7:              #F4F4F4;
+    --basic-8:              #FFFFFF;
+    
+
+    --font-family: Roboto;
+    font-size: 60%;
+}
+
+input,
+button,
+area {
+    font-weight: 500;
+    font-family: var(--font-family);
+    font-size: 1.6rem;
+    color: var(--basic-0);
+}
+
+button {
+    color: var(--basic-5);
+}
+
+@media (min-width: 700px) {
+    :root {
+        font-size: 62.5%; /* todo 1 rem vai ser equivalente a 10px*/
+    }
+}  
+
+
