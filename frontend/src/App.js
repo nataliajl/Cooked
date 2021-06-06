@@ -16,7 +16,7 @@ function App() {
     <AuthProvider>
       <Router>
           <>
-            {/* <Route exact path="/" component={Landing} /> */}
+            <Route exact path="/" component={Landing} />
             <Route exact path="/recipe" component={RecipeScreen} />
             <Route exact path="/keeparecipe" component={AddRecipeScreen} />
           </>

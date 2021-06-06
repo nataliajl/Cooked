@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 
 
-import withStyles from '@material-ui/core/styles'
+import {withStyles} from '@material-ui/core/styles'
 import 'fontsource-roboto';
 import Appbar from '@material-ui/core/AppBar'
 
@@ -70,35 +70,13 @@ export default function Navbar() {
         );
     }
 
-    // TODO corrigir rotas 
-
-  
-    // return (
-    //     <Appbar color="#ffffff">
-
-    //         <Toolbar>
-    //             <Typography className={classes.title} variant="h5">
-    //                 Cooked
-    //             </Typography>
-    //             <ListItem text="Keep a Recipe"/>
-    //             <ListItem text="Favorites"/>
-    //             <ListItem text="Threads"/>
-    //             <IconButton aria-label="search" color="inherit">
-    //                 <SearchIcon />
-    //             </IconButton>
-    //         </Toolbar>
-    //     </Appbar>
-    // );
     return (
-        <Appbar color="#ffffff"  elevation={0}>
+        <Appbar color="#ffffff" position="sticky" elevation={0}>
             <div className="appbar">
                 <div className="leftappbar">
                     <ClickableComponent onClick={() => history.push('/')}>
                         <img src={logo}/>
                     </ClickableComponent>
-                    {/* <a  onClick={() => console.log("hghgh")} onMouseOver="" style={{cursor: "pointer"}}>
-                        <img src={logo}/>
-                    </a> */}
                     <ListItem 
                         text="Keep a Recipe"
                         link='/keeparecipe'
