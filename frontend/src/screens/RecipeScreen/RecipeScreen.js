@@ -4,17 +4,14 @@ import '@fontsource/lato';
 import Navbar from '../../components/Navbar/Navbar';
 import './RecipeScreen.css';
 import ItemCircle from '../../components/ItemCircle/ItemCircle'
-import foodtray from './food-tray.png';
-import timer from './timer.png';
-import {Grid, Divider} from '@material-ui/core';
-import { Star, Favorite } from '@material-ui/icons';
+import RecipeInfo from '../../components/RecipeInfo/RecipeInfo';
 
 
 const RecipeScreen = () => {
     const data = {
         title: 'Recipe title',
         imageSource: 'https://industryeats.com/wp-content/uploads/2017/07/cucumber-asparagus-salad.jpg',
-        instructions: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean erat justo, pretium sit amet sem nec, aliquet dignissim purus. Donec non velit rutrum, luctus nunc eget, aliquam nisl. Nulla sit amet eros nec risus volutpat porttitor. Cras sit amet leo et leo facilisis gravida. In commodo sapien vitae tellus iaculis, a sodales nunc blandit. Aliquam eget diam gravida, ullamcorper sem at, placerat elit. Vestibulum eget tellus sagittis, laoreet augue faucibus, viverra lorem. Curabitur tincidunt convallis volutpat. Nunc a odio est. Integer bibendum sagittis arcu vel ornare.
+        descripion: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean erat justo, pretium sit amet sem nec, aliquet dignissim purus. Donec non velit rutrum, luctus nunc eget, aliquam nisl. Nulla sit amet eros nec risus volutpat porttitor. Cras sit amet leo et leo facilisis gravida. In commodo sapien vitae tellus iaculis, a sodales nunc blandit. Aliquam eget diam gravida, ullamcorper sem at, placerat elit. Vestibulum eget tellus sagittis, laoreet augue faucibus, viverra lorem. Curabitur tincidunt convallis volutpat. Nunc a odio est. Integer bibendum sagittis arcu vel ornare.
 
         Nullam erat felis, venenatis eu lectus sed, pellentesque pharetra dolor. Morbi cursus lobortis leo, vitae euismod metus dapibus ut. Praesent placerat diam non massa lobortis, sed rhoncus sem elementum. Sed aliquet ultricies lorem id venenatis. Nulla mollis, mauris in tincidunt tincidunt, lorem lacus pulvinar arcu, sed elementum nibh quam quis diam. Vivamus elit nisi, vehicula quis purus eu, pharetra auctor quam. Fusce non suscipit dui, vitae dignissim ipsum. Integer pretium risus vitae dignissim pulvinar. Cras lectus sem, molestie ut lacinia nec, bibendum eget arcu. Pellentesque pharetra ut eros eu finibus. Curabitur nec massa id ipsum bibendum placerat sit amet ac dolor. Aliquam a commodo erat. Suspendisse potenti. Pellentesque sed erat rhoncus, iaculis est ut, vulputate enim. Sed ullamcorper massa at diam pulvinar hendrerit.
         
@@ -39,6 +36,10 @@ const RecipeScreen = () => {
             'Squeeze the cucumbers',
             'Unwrap the chilis'
         ],
+        vegetarian: true,
+        vegan: true,
+        glutenFree: true,
+        lactoseFree: true,
         comments: [
             {
                 name: "User X",
@@ -63,14 +64,6 @@ const RecipeScreen = () => {
         ]
     } 
 
-    const InfoItem = ({src, text}) => {
-        return (
-            <div className="infoitem">
-                <img src={src}/>
-                <p className="itemtext">{text}</p>
-            </div>            
-        );        
-    }
 
     const StepItem = ({number, text}) => {
         return (
@@ -97,52 +90,37 @@ const RecipeScreen = () => {
         );
     }
 
-    const Comment = ({name, text, likes}) => {
-        return (
-            <Grid container>
-                <Grid container alignItems="center" justify="space-around">
-                    <Grid item xs={4}>
-                        <h3 className="itemtext">{name}</h3>
-                    </Grid>
-                    <Grid container alignItems="center" justify="center" xs={2}>
-                        <Favorite htmlColor="#ff6d75" />
-                        <p className="itemtext">{likes}</p>
-                    </Grid>
-                </Grid>
-                <p className="itemtext">{text}</p>                
-            </Grid>
-        );
-    }
-
     return ( 
         <div>
             <Navbar/>
             <div className="outer-container">
-                <div className="left-container">
-                    <img src={data.imageSource} className="image"/>
-                    <Grid container spacing={1} >
-                        <Grid item xs={6}>
-                            <InfoItem src={timer} text={`${data.time} minutes`}/>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <InfoItem src={foodtray} text={`${data.portionSize} people`}/>
-                        </Grid>
-                    </Grid> 
-                    <Grid container spacing={1} >
-                        <Grid container xs={12} alignItems="center" justify="space-around" >
-                            <p className="itemtext">Rating:</p>
-                            <Grid container alignItems="center" justify="center" xs={3}>
-                                <p className="itemtext">{data.rating}</p>
-                                <Star htmlColor="#ffb400" fontsize="inherit"/>
-                            </Grid>
-                        </Grid>
-                    </Grid> 
-                    <p>
-                        <p className="title">{data.title}</p>
-                    </p>
-                    <p className="text">{data.instructions}</p>
-                    {data.comments.map(comment => <Comment name={comment.name} text={comment.comment} likes={comment.likes} />)}
-                </div>
+                <RecipeInfo 
+                    title={data.title}
+                    description={data.descripion}
+                    imageSource={data.imageSource}
+                    time={data.time}
+                    portionSize={data.portionSize}
+                    rating={data.rating}
+                    comments={data.comments}
+                    diet={[
+                        {
+                          type: "vegetarian",
+                          value: data.vegetarian,
+                        },
+                        {
+                          type: "vegan",
+                          value: data.vegan,
+                        },
+                        {
+                          type: "glutenFree",
+                          value: data.glutenFree,
+                        },
+                        {
+                          type: "lactoseFree",
+                          value: data.lactoseFree,
+                        },
+                    ]}
+                />
                 <div className="right-container">
                     <p className="section-text">Ingredients</p>
                     <p>
