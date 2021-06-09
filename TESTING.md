@@ -7,5 +7,11 @@ Dentro da aplicação Cooked a funcionalidade de cadastro de receitas deve ser c
 Ponto C: Integração; Funcionalidade; Estrutural  
 O filtro de receitas dentro da aplicação permite a busca por ingredientes inseridos na receita como principal filtragem e entre outras, assim compreender a funcionalidade com filtros especificos se apresenta como técnica de teste para análise comportamental com os resultados das receitas.
 
-Ponto D: Sistema; Segurança: Baseado em defeito  
+Ponto D: Sistema; Segurança; Baseado em defeito  
 Todas as informações do usuário utilizadas para o cadastro são protegidas e criptografadas conforme GPDR e possivéis vunerabilidades.
+
+Ponto E: Sistema; Desempenho; Funcional
+Ao realizar o filtro de receitas o tempo até o retorno de resultados deve ser rápido.
+
+Ponto F: Integração; Funcionalidade; Funcional
+O usuário deve conseguir realizar sua autenticação na aplicação pelo OAuth2.
