@@ -10,8 +10,8 @@ O filtro de receitas dentro da aplicação permite a busca por ingredientes inse
 Ponto D: Sistema; Segurança; Baseado em defeito  
 Todas as informações do usuário utilizadas para o cadastro são protegidas e criptografadas conforme GPDR e possivéis vunerabilidades.
 
-Ponto E: Sistema; Desempenho; Funcional
+Ponto E: Sistema; Desempenho; Funcional  
 Ao realizar o filtro de receitas o tempo até o retorno de resultados deve ser rápido.
 
-Ponto F: Integração; Funcionalidade; Funcional
+Ponto F: Integração; Funcionalidade; Funcional  
 O usuário deve conseguir realizar sua autenticação na aplicação pelo OAuth2.
