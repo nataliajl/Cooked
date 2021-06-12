@@ -1,6 +1,5 @@
 import React from 'react';
 
-import '@fontsource/lato';
 import './ItemCircle.css';
 
 const ItemCircle = ({number}) => {

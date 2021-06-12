@@ -1,5 +1,4 @@
-
-
+@import '../../cookedStyles.css';
 
 .appbar {
     display: flex;
@@ -41,9 +40,9 @@
 
 
 .navbar-item {
-    font-family: "Roboto";
+    font-family: var(--font-family);
     font-weight:600;
     font-size: 16px;
-    color: #261d22;
+    color: var(--basic-3);
 
 }
