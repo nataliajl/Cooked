@@ -4,15 +4,14 @@ import '@fontsource/lato';
 import Navbar from '../../components/Navbar/Navbar';
 import './RecipeScreen.css';
 import ItemCircle from '../../components/ItemCircle/ItemCircle'
-import foodtray from './food-tray.png';
-import timer from './timer.png';
+import RecipeInfo from '../../components/RecipeInfo/RecipeInfo';
 
 
 const RecipeScreen = () => {
     const data = {
         title: 'Recipe title',
         imageSource: 'https://industryeats.com/wp-content/uploads/2017/07/cucumber-asparagus-salad.jpg',
-        instructions: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean erat justo, pretium sit amet sem nec, aliquet dignissim purus. Donec non velit rutrum, luctus nunc eget, aliquam nisl. Nulla sit amet eros nec risus volutpat porttitor. Cras sit amet leo et leo facilisis gravida. In commodo sapien vitae tellus iaculis, a sodales nunc blandit. Aliquam eget diam gravida, ullamcorper sem at, placerat elit. Vestibulum eget tellus sagittis, laoreet augue faucibus, viverra lorem. Curabitur tincidunt convallis volutpat. Nunc a odio est. Integer bibendum sagittis arcu vel ornare.
+        descripion: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean erat justo, pretium sit amet sem nec, aliquet dignissim purus. Donec non velit rutrum, luctus nunc eget, aliquam nisl. Nulla sit amet eros nec risus volutpat porttitor. Cras sit amet leo et leo facilisis gravida. In commodo sapien vitae tellus iaculis, a sodales nunc blandit. Aliquam eget diam gravida, ullamcorper sem at, placerat elit. Vestibulum eget tellus sagittis, laoreet augue faucibus, viverra lorem. Curabitur tincidunt convallis volutpat. Nunc a odio est. Integer bibendum sagittis arcu vel ornare.
 
         Nullam erat felis, venenatis eu lectus sed, pellentesque pharetra dolor. Morbi cursus lobortis leo, vitae euismod metus dapibus ut. Praesent placerat diam non massa lobortis, sed rhoncus sem elementum. Sed aliquet ultricies lorem id venenatis. Nulla mollis, mauris in tincidunt tincidunt, lorem lacus pulvinar arcu, sed elementum nibh quam quis diam. Vivamus elit nisi, vehicula quis purus eu, pharetra auctor quam. Fusce non suscipit dui, vitae dignissim ipsum. Integer pretium risus vitae dignissim pulvinar. Cras lectus sem, molestie ut lacinia nec, bibendum eget arcu. Pellentesque pharetra ut eros eu finibus. Curabitur nec massa id ipsum bibendum placerat sit amet ac dolor. Aliquam a commodo erat. Suspendisse potenti. Pellentesque sed erat rhoncus, iaculis est ut, vulputate enim. Sed ullamcorper massa at diam pulvinar hendrerit.
         
@@ -26,6 +25,7 @@ const RecipeScreen = () => {
             '3 chilis',
             '5 springs of aspargus'
         ],
+        rating: 4.5,
         steps: [
             'Wash the cucumbers', 
             'Season the chilis',
@@ -35,17 +35,35 @@ const RecipeScreen = () => {
             'Squeeze the chilis',
             'Squeeze the cucumbers',
             'Unwrap the chilis'
+        ],
+        vegetarian: true,
+        vegan: true,
+        glutenFree: true,
+        lactoseFree: true,
+        comments: [
+            {
+                name: "User X",
+                comment: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae.",
+                likes: 12
+            },
+            {
+                name: "User Y",
+                comment: "Nullam sit.",
+                likes: 1000
+            },
+            {
+                name: "User Z",
+                comment: `Morbi eu accumsan elit. Nullam ac efficitur arcu. Quisque condimentum laoreet sem, non elementum purus tempor eget. Ut sit amet libero elementum est sollicitudin consequat non sed urna. Duis aliquet eros eros, ut aliquam nibh ullamcorper vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras condimentum tellus libero, cursus placerat tellus auctor ac. Quisque vitae lectus a turpis dapibus euismod.\nNullam accumsan odio felis, at porttitor velit bibendum a. Morbi vitae porta erat, finibus molestie felis. Sed cursus risus ante. Morbi consequat dui magna, vel ultricies augue egestas placerat. Praesent vel metus eget urna pulvinar pretium. Donec non maximus enim, vitae sollicitudin ligula. Pellentesque at tristique leo. Suspendisse augue nunc, commodo ac hendrerit vitae, tempor vitae libero. Sed a massa a tortor lobortis lacinia ac eget purus.`,
+                likes: 0
+            },
+            {
+                name: "User W",
+                comment: "Duis rutrum augue placerat, sollicitudin dolor ac, lobortis urna. In pretium nisi nibh. Aliquam erat volutpat. Nulla ac sagittis sem, vel ultricies velit. In efficitur.",
+                likes: 100
+            }
         ]
     } 
 
-    const InfoItem = ({src, text}) => {
-        return (
-            <div className="stepitem">
-                <img src={src}/>
-                <p className="itemtext">{text}</p>
-            </div>            
-        );        
-    }
 
     const StepItem = ({number, text}) => {
         return (
@@ -76,17 +94,33 @@ const RecipeScreen = () => {
         <div>
             <Navbar/>
             <div className="outer-container">
-                <div className="left-container">
-                    <img src={data.imageSource} className="image"/>
-                    <div className="info-view">
-                        <InfoItem src={timer} text={`${data.time} minutes`}/>
-                        <InfoItem src={foodtray} text={`${data.portionSize} people`}/>
-                    </div>  
-                    <p>
-                        <p className="title">{data.title}</p>
-                    </p>
-                    <p className="text">{data.instructions}</p>
-                </div>
+                <RecipeInfo 
+                    title={data.title}
+                    description={data.descripion}
+                    imageSource={data.imageSource}
+                    time={data.time}
+                    portionSize={data.portionSize}
+                    rating={data.rating}
+                    comments={data.comments}
+                    diet={[
+                        {
+                          type: "vegetarian",
+                          value: data.vegetarian,
+                        },
+                        {
+                          type: "vegan",
+                          value: data.vegan,
+                        },
+                        {
+                          type: "glutenFree",
+                          value: data.glutenFree,
+                        },
+                        {
+                          type: "lactoseFree",
+                          value: data.lactoseFree,
+                        },
+                    ]}
+                />
                 <div className="right-container">
                     <p className="section-text">Ingredients</p>
                     <p>

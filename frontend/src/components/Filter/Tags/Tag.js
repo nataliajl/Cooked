@@ -43,7 +43,7 @@ export default function ChipsArray(){
           />
         </Grid>
         <Grid item xs={2}>
-          <IconButton onClick={handleSubmit}>
+          <IconButton onClick={handleSubmit} disabled={inputData.length === 0}>
             <AddCircle className={classes.add_icon}/>
           </IconButton>
         </Grid>

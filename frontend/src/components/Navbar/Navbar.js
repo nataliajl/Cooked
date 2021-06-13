@@ -27,15 +27,12 @@ export default function Navbar() {
     }
 
     return (
-        <Appbar color="#ffffff"  elevation={0}>
+        <Appbar color="#ffffff" position="sticky" elevation={0}>
             <div className="appbar">
                 <div className="leftappbar">
                     <ClickableComponent onClick={() => history.push('/')}>
                         <img src={logo}/>
                     </ClickableComponent>
-                    {/* <a  onClick={() => console.log("hghgh")} onMouseOver="" style={{cursor: "pointer"}}>
-                        <img src={logo}/>
-                    </a> */}
                     <ListItem 
                         text="Keep a Recipe"
                         link='/keeparecipe'
