@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { ThemeProvider } from '@material-ui/core/styles';
+import {colors} from '../../cookedStyles.js';
 import { Form, Field } from 'react-final-form';
 import { TextField, Select } from 'final-form-material-ui';
 import {
@@ -89,6 +90,7 @@ const AddRecipeForm = () => {
 
 
     return (
+        <ThemeProvider theme={colors}>
         <Form
             onSubmit={onSubmit}
             validate={validate}
@@ -276,6 +278,7 @@ const AddRecipeForm = () => {
                 </form>
             )} 
         />
+        </ThemeProvider>
     );
 }
 

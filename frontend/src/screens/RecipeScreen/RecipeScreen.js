@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import './RecipeScreen.css';
 import ItemCircle from '../../components/ItemCircle/ItemCircle'
 import RecipeInfo from '../../components/RecipeInfo/RecipeInfo';
-
+import ShareDial from '../../components/RecipeInfo/ShareDial/ShareDial'
 
 const RecipeScreen = () => {
     const data = {
@@ -121,6 +121,7 @@ const RecipeScreen = () => {
                         },
                     ]}
                 />
+                <ShareDial data={data}/>
                 <div className="right-container">
                     <p className="section-text">Ingredients</p>
                     <p>

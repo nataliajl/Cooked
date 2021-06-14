@@ -1,13 +1,11 @@
 import React from 'react';
 
 import '@fontsource/lato';
-import ItemCircle from '../../components/ItemCircle/ItemCircle'
 import foodtray from './food-tray.png';
 import timer from './timer.png';
 import {Grid, Divider, List} from '@material-ui/core';
-import { Star, Favorite, Eco } from '@material-ui/icons';
+import { Star, Favorite } from '@material-ui/icons';
 import DietaryRestrictions from './DietaryRestrictions'
-
 
 const RecipeInfo = ({title, description, imageSource, time, portionSize, comments, rating, diet}) => {
 
