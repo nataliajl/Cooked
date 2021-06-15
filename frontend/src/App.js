@@ -11,18 +11,15 @@ import { Home } from '@material-ui/icons';
 
 function App() {
   return (
-    // <AuthProvider>
-    //   <Router>
-    //       <>
-    //         <Route exact path="/" component={Landing} />
-    //         <Route exact path="/recipe" component={RecipeScreen} />
-    //         <Route exact path="/keeparecipe" component={AddRecipeScreen} />
-    //       </>
-    //   </Router>
-    // </AuthProvider>
-    <div>
-      <Filter />
-    </div>
+    <AuthProvider>
+      <Router>
+          <>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/recipe" component={RecipeScreen} />
+            <Route exact path="/keeparecipe" component={AddRecipeScreen} />
+          </>
+      </Router>
+    </AuthProvider>
   );
 }
 

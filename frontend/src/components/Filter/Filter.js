@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button, Container } from '@material-ui/core';
 import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
 import Tag from './Tags/Tag';
@@ -40,46 +40,50 @@ export default function Filter() {
   };
 
   return (
-    <div>
-      <form className={classes.root} onSubmit={handleSubmit}>
-          <div class='insertIngredients'>
+    <Container maxWidth="sm">
+      <form  className={classes.root} onSubmit={handleSubmit}>
+        <div class='insertIngredients' className={classes.row3}>
             <Tag />
           </div>
           
-          <div class='ingreSwitch' className={classes.row}>
-            <div className={classes.font}>
-              <Typography className={classes.subtitle} gutterBottom>Only Inserted Ingredients</Typography>
+        <div class='ingreSwitch' className={classes.row}>
+            <div>
+              <Typography className={classes.font} gutterBottom>Only Inserted Ingredients</Typography>
             </div>
-              <OnlyIngredients checked={checked} onChange={toggleChecked} />  
+            <OnlyIngredients checked={checked} onChange={toggleChecked} />  
             
           </div>
 
-          <div class='cuisineList'>
+        <div class='cuisineList'>
+          <div>
             <List className={classes.list}>
               <ListItem button onClick={handleClick}>
-                <ListItemText className={classes.font}
+                <ListItemText
                   primary='Cuisine'
                   secondary='Choose by cooking style'
+                  classes={{primary:classes.font}}
                 />
                 {open ? <ExpandMore /> : <NavigateNext />}
               </ListItem>
 
               <Collapse in={open} timeout='auto' unmountOnExit>
-                <List component='div' disablePadding>                 
+                <List component='div'  disablePadding>                 
                     {cuisineList.map((data) => (
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <Checkbox edge='start' disableRipple />
                         </ListItemIcon>
-                        <ListItemText className={classes.font} primary={data.type} />
+                        <ListItemText primary={data.type} classes={{primary:classes.font}}/>
                       </ListItem>
                     ))}
                 </List>
               </Collapse>
             </List>
           </div>
+        </div>
 
-          <div class='serveSlider'>
+        <div class='serveSlider' className={classes.row}>
+          <div>
               <div class='title'>
                   <Typography className={classes.font} id='discrete-slider-custom' gutterBottom>
                     Serving Rage
@@ -87,7 +91,7 @@ export default function Filter() {
                 </div>
 
               <div class='subtitle'>
-                  <Typography className={classes.subtitle, classes.font}>
+                  <Typography className={classes.subtitle}>
                     How many people do you want to serve?
                   </Typography>
                 </div>
@@ -104,8 +108,10 @@ export default function Filter() {
                   />
                 </div>
           </div>
+        </div>
 
-          <div class='cookingContainer'>
+        <div class='cookingContainer' className={classes.row}>
+          <div>
               <div class='title'>
                 <Typography className={classes.font} gutterBottom>Cooking Time</Typography>
               </div>
@@ -120,7 +126,7 @@ export default function Filter() {
                   />
                 </div>
                 <div class='subtitle'>
-                  <Typography className={classes.subtitle, classes.font} >to</Typography>
+                  <Typography className={classes.subSpace} >to</Typography>
                 </div>
                 <div class='input'>
                   <TextField
@@ -132,29 +138,32 @@ export default function Filter() {
                   />
                 </div>
               <div>
-                <Typography className={classes.subtitle, classes.font}>minutes</Typography>
+                <Typography className={classes.subSpace}>minutes</Typography>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class='startRating'>
-              <div class='title'>
-                <Typography className={classes.font} component='legend'>Rate</Typography>
-              </div>
-              <div class='rating'>
-                <StyledRating
-                  name='customized-icons'
-                  defaultValue={1}
-                  precision={0.5}
-                  icon={<FavoriteTwoTone fontSize='inherit' />}
-                  />
-              </div>
+        <div class='startRating' className={classes.row1}>
+          <div>
+            <div class='title'>
+              <Typography className={classes.font} component='legend'>Rate</Typography>
+            </div>
+            <div class='rating'>
+              <StyledRating
+                name='customized-icons'
+                defaultValue={1}
+                precision={0.5}
+                icon={<FavoriteTwoTone fontSize='inherit' />}
+                />
+            </div>
           </div>
+        </div>
           
-          <div class='sendButton'>
-            <Button className={classes.font, classes.button}  variant="contained" type="submit">Let's Cook</Button>
-          </div>
+        <div class='sendButton' className={classes.row2}>
+            <Button className={classes.button}  variant="contained" type="submit">Let's Cook</Button>
+        </div>
       </form>
-    </div>
+    </Container>
   );
 }

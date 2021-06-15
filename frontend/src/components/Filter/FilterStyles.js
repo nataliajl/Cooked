@@ -8,12 +8,12 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignContent: 'center',
-    padding: '1rem',
+    padding: '4rem',
   },
 
   list: {
-    width: '100%',
-    maxWidth: 360,
+    maxWidth: '52rem',
+    marginLeft: '-1rem',
   },
 
   nested: {
@@ -25,24 +25,75 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginLeft: '1rem',
 
+  },
 
+  row1: {
+      
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop: '2rem',
+    marginLeft: '1rem',
+  },
+
+  row2: {
+      
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '2rem',
+  },
+
+  row3: {
+      
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+
+  },
+
+  button: {
+    width: '15rem',
+    height: '4rem',
+    fontFamily: inputElements.font.fontFamily,
+    fontWeight: inputElements.inputFont.fontWeight,
+    fontSize: inputElements.inputFont.fontSize * 90,
+    backgroundColor: colors.palette.secondary.dark,
+    color: colors.palette.basic.b7,
+
+    '&:hover': {
+      backgroundColor: colors.palette.secondary.light,
+      color: colors.palette.basic.b3,
+    },
   },
 
   font: {
     fontFamily: inputElements.font.fontFamily,
     fontWeight: inputElements.inputFont.fontWeight,
     fontSize: inputElements.inputFont.fontSize,
-
-    '& $subtitle': {
-      color: colors.palette.basic.b7,
-      fontSize: inputElements.font.fontSize,
-    }
   },
 
+  subtitle: {
+    fontFamily: inputElements.font.fontFamily,
+    fontWeight: inputElements.inputFont.fontWeight,
+    fontSize: inputElements.inputFont.fontSize * 70,
+    color: colors.palette.basic.b3,
+  },
 
-  
-
+  subSpace: {
+    fontFamily: inputElements.font.fontFamily,
+    fontWeight: inputElements.inputFont.fontWeight,
+    fontSize: inputElements.inputFont.fontSize * 80,
+    color: colors.palette.basic.b3,
+    marginLeft: '1rem',
+    marginRight: '1rem',
+  },
 
 }));
 
@@ -50,15 +101,17 @@ export const StyledSlider = withStyles({
     root: {
       color: colors.palette.primary.main,
       height: 8,
+      marginTop: '1rem',
+      marginLeft: '2rem',
     },
 
     thumb: {
-      height: 24,
-      width: 24,
+      height: 18,
+      width: 18,
       backgroundColor: colors.palette.background.main,
       border: '2px solid currentColor',
       marginTop: -8,
-      marginLeft: -12,
+      marginLeft: -6,
       '&:focus, &:hover, &$active': {
         boxShadow: 'inherit',
       },
@@ -66,16 +119,16 @@ export const StyledSlider = withStyles({
 
     active: {},
     valueLabel: {
-      left: 'calc(-50% + 4px)',
+      left: 'calc(-70% + 2px)',
     },
 
     track: {
-      height: 8,
+      height: 4,
       borderRadius: 4,
     },
 
     rail: {
-      height: 8,
+      height: 4,
       borderRadius: 4,
     },
 })(Slider);

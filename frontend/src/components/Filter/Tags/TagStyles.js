@@ -8,7 +8,6 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignContent: 'center',
-    padding: '1rem',
     
     '& div': {
       display: 'flex',

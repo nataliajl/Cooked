@@ -12,18 +12,18 @@ const HomeScreen = () => {
   const classes = useStyles();
   return ( 
     <div className={classes.root}>
-    <Grid container spacing={1} >
-
-      <Grid item xs={12} >
+      <div>
         <Navbar />
-      </Grid>
-      <Grid item xs={6}>
-        <Filter />
-      </Grid>
-      <Grid item xs={6}>
-        <img src={logo} alt="Cooked - Making the leftovers a festivity"/>
-      </Grid>
-    </Grid>
+      </div>
+
+      <div className={classes.page}>
+        <div>
+          <Filter />
+        </div>
+        <div>
+          <img src={logo} alt="Cooked - Making the leftovers a festivity"/>
+        </div>
+      </div>
     </div>
   );
 };
