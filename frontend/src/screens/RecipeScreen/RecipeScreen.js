@@ -11,7 +11,7 @@ const RecipeScreen = () => {
     const data = {
         title: 'Recipe title',
         imageSource: 'https://industryeats.com/wp-content/uploads/2017/07/cucumber-asparagus-salad.jpg',
-        descripion: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean erat justo, pretium sit amet sem nec, aliquet dignissim purus. Donec non velit rutrum, luctus nunc eget, aliquam nisl. Nulla sit amet eros nec risus volutpat porttitor. Cras sit amet leo et leo facilisis gravida. In commodo sapien vitae tellus iaculis, a sodales nunc blandit. Aliquam eget diam gravida, ullamcorper sem at, placerat elit. Vestibulum eget tellus sagittis, laoreet augue faucibus, viverra lorem. Curabitur tincidunt convallis volutpat. Nunc a odio est. Integer bibendum sagittis arcu vel ornare.
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean erat justo, pretium sit amet sem nec, aliquet dignissim purus. Donec non velit rutrum, luctus nunc eget, aliquam nisl. Nulla sit amet eros nec risus volutpat porttitor. Cras sit amet leo et leo facilisis gravida. In commodo sapien vitae tellus iaculis, a sodales nunc blandit. Aliquam eget diam gravida, ullamcorper sem at, placerat elit. Vestibulum eget tellus sagittis, laoreet augue faucibus, viverra lorem. Curabitur tincidunt convallis volutpat. Nunc a odio est. Integer bibendum sagittis arcu vel ornare.
 
         Nullam erat felis, venenatis eu lectus sed, pellentesque pharetra dolor. Morbi cursus lobortis leo, vitae euismod metus dapibus ut. Praesent placerat diam non massa lobortis, sed rhoncus sem elementum. Sed aliquet ultricies lorem id venenatis. Nulla mollis, mauris in tincidunt tincidunt, lorem lacus pulvinar arcu, sed elementum nibh quam quis diam. Vivamus elit nisi, vehicula quis purus eu, pharetra auctor quam. Fusce non suscipit dui, vitae dignissim ipsum. Integer pretium risus vitae dignissim pulvinar. Cras lectus sem, molestie ut lacinia nec, bibendum eget arcu. Pellentesque pharetra ut eros eu finibus. Curabitur nec massa id ipsum bibendum placerat sit amet ac dolor. Aliquam a commodo erat. Suspendisse potenti. Pellentesque sed erat rhoncus, iaculis est ut, vulputate enim. Sed ullamcorper massa at diam pulvinar hendrerit.
         
@@ -96,7 +96,7 @@ const RecipeScreen = () => {
             <div className="outer-container">
                 <RecipeInfo 
                     title={data.title}
-                    description={data.descripion}
+                    description={data.description}
                     imageSource={data.imageSource}
                     time={data.time}
                     portionSize={data.portionSize}
