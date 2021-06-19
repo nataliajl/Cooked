@@ -49,7 +49,7 @@ const AddRecipeForm = () => {
     const [privateSwitch, setPrivateSwitch] = React.useState(false);
     const [vegetarianCheck, setVegetarianCheck] = React.useState(false);
     const [veganCheck, setVeganCheck] = React.useState(false);
-    const [ingredients, setIngredients] = React.useState([]);
+    const [ingredients, setIngredients] = React.useState([{ title: "", quantity: "" }]);
     const [steps, setSteps] = React.useState([]);
 
     const handleRecipeImage = (event, formValues) => {
@@ -124,7 +124,7 @@ const AddRecipeForm = () => {
                                     fullWidth
                                     required
                                     id="cuisine-select"
-                                    name="cuisine"
+                                    name="category"
                                     component={Select}
                                     label="Cuisine"
                                     formControlProps={{ fullWidth: true }}
