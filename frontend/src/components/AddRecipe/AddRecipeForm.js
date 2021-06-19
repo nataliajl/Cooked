@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { ThemeProvider } from '@material-ui/core/styles';
+import {colors} from '../../cookedStyles.js';
 import { Form, Field } from 'react-final-form';
 import { TextField, Select } from 'final-form-material-ui';
 import {
-    Typography,
     Paper,
     Grid,
     Button,
@@ -50,6 +50,8 @@ const AddRecipeForm = () => {
     const [vegetarianCheck, setVegetarianCheck] = React.useState(false);
     const [veganCheck, setVeganCheck] = React.useState(false);
     const [ingredients, setIngredients] = React.useState([{ title: "", quantity: "" }]);
+    const [glutenFreeCheck, setGlutenFreeCheck] = React.useState(false);
+    const [lactoseFreeCheck, setLactoseFreeCheck] = React.useState(false);
     const [steps, setSteps] = React.useState([]);
 
     const handleRecipeImage = (event, formValues) => {
@@ -70,12 +72,25 @@ const AddRecipeForm = () => {
     const handleVeganCheck = (event, formValues) => {
         setVeganCheck(event.target.checked);
         setVegetarianCheck(event.target.checked);
-
+        setLactoseFreeCheck(event.target.checked);
         formValues['vegan'] = event.target.checked;
         formValues['vegetarian'] = event.target.checked;
+        formValues['lactosefree'] = event.target.checked;
     };
 
+    const handleGlutenFreeCheck = (event, formValues) => {
+        setGlutenFreeCheck(event.target.checked);
+        formValues['glutenfree'] = event.target.checked;
+    };
+
+    const handleLactoseFreeCheck = (event, formValues) => {
+        setLactoseFreeCheck(event.target.checked);
+        formValues['lactosefree'] = event.target.checked;
+    };
+
+
     return (
+        <ThemeProvider theme={colors}>
         <Form
             onSubmit={onSubmit}
             validate={validate}
@@ -193,6 +208,34 @@ const AddRecipeForm = () => {
                                         />
                                     </Grid>
                                 </Grid>
+                                <Grid container spacing={10} justify="space-between">
+                                    <Grid item xs={5}>
+                                        <FormControlLabel
+                                            label="Gluten free"
+                                            control={
+                                                <Checkbox
+                                                    checked={glutenFreeCheck}
+                                                    onChange={(e) => handleGlutenFreeCheck(e, values)}
+                                                    name="glutenfree"
+                                                    color="primary"
+                                                />
+                                            }
+                                        />
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        <FormControlLabel
+                                            label="Lactose free"
+                                            control={
+                                                <Checkbox
+                                                    checked={lactoseFreeCheck}
+                                                    onChange={(e) => handleLactoseFreeCheck(e, values)}
+                                                    name="lactosefree"
+                                                    color="primary"
+                                                />
+                                            }
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={6}>
                                 <AddRecipeTabs 
@@ -235,6 +278,7 @@ const AddRecipeForm = () => {
                 </form>
             )} 
         />
+        </ThemeProvider>
     );
 }
 
