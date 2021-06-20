@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {useFormControls} from './FormControls';
 import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button, Container } from '@material-ui/core';
 import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
@@ -9,39 +9,32 @@ import Tag from './Tags/Tag';
 export default function Filter() {
   const classes = useStyles(); 
 
-  const [open, setOpen] = React.useState(true);
-  const [checked, setChecked] = React.useState(false);
+  const {      
+    checked,
+    toggleChecked,
+      
+    open,
+    cuisineList,
+    handleClick,
+    handleCheck,
+      
 
-  const [cuisineList, setCuisineList] = React.useState([
-    {type: 'Mexican'}, 
-    {type: 'Italian'}
-  ]);
+    marks,
+    sliderValue,
+    handleSlider,
 
-  const marks = [
-    {
-      value: 1,
-      label: '1',
-    },
-    {
-      value: 99,
-      label: '100',
-    },
-  ];
+    handleMax,
+    handleMin,
 
-  const toggleChecked = () => {
-    setChecked((prev) => !prev);
-  };
+    ratingValue,
+    handleRating,
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const handleSubmit= () => {
-  };
+    handleFormSubmit
+  } = useFormControls();
 
   return (
     <Container maxWidth="sm">
-      <form  className={classes.root} onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <div class='insertIngredients' className={classes.row3}>
             <Tag />
           </div>
@@ -53,7 +46,7 @@ export default function Filter() {
             <OnlyIngredients checked={checked} onChange={toggleChecked} />  
             
           </div>
-
+        
         <div class='cuisineList'>
           <div>
             <List className={classes.list}>
@@ -71,7 +64,7 @@ export default function Filter() {
                     {cuisineList.map((data) => (
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
-                          <Checkbox edge='start' disableRipple />
+                          <Checkbox edge='start' onChange={e => {handleCheck(data, e)}} disableRipple/>
                         </ListItemIcon>
                         <ListItemText primary={data.type} classes={{primary:classes.font}}/>
                       </ListItem>
@@ -98,13 +91,14 @@ export default function Filter() {
               
               <div class='slider'>
                   <StyledSlider 
-                    defaultValue={1}
+                    defaultValue={sliderValue}
                     aria-labelledby='discrete-slider-custom'
                     step={1}
                     valueLabelDisplay='auto'
                     min={1}
                     max={100}
                     marks={marks}
+                    onChange={handleSlider}
                   />
                 </div>
           </div>
@@ -123,6 +117,7 @@ export default function Filter() {
                     placeholder='Min'
                     variant='outlined'
                     type='number'
+                    onChange={handleMin}
                   />
                 </div>
                 <div class='subtitle'>
@@ -135,6 +130,7 @@ export default function Filter() {
                     placeholder='Max'
                     variant='outlined'
                     type='number'
+                    onChange={handleMax}
                   />
                 </div>
               <div>
@@ -152,9 +148,10 @@ export default function Filter() {
             <div class='rating'>
               <StyledRating
                 name='customized-icons'
-                defaultValue={1}
+                defaultValue={ratingValue}
                 precision={0.5}
                 icon={<FavoriteTwoTone fontSize='inherit' />}
+                onChange={handleRating}
                 />
             </div>
           </div>

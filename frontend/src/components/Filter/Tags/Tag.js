@@ -2,35 +2,18 @@ import React from 'react';
 import { useStyles } from './TagStyles';
 import { AddCircleRounded } from '@material-ui/icons';
 import {IconButton, Chip, InputBase} from '@material-ui/core';
-import { colors } from '../../../cookedStyles.js';
+import {useFormControls} from './../FormControls';
 
 export default function ChipsArray(){
   const classes = useStyles();
-
-  const [inputData, setInputData] = React.useState("");
-
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'Onion' },
-    { key: 1, label: 'Tomato' },
-    { key: 2, label: 'Cucumber' },
-  ]);
-
-  const handleDelete = (chipToDelete) => () => {
-    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
-  };
-
-  const handleChange = (input)  => {
-    setInputData(input.target.value);
-  };
-
-  const handleSubmit= () => {
-    let newChipData = [...chipData];
-    if (inputData.length != 0) {
-      newChipData = [...newChipData, {key: chipData.length, label: inputData}];
-    }
-    setInputData("");
-    setChipData(newChipData);
-  };
+  const {     
+    inputData,
+    chipData,
+    handleChange,
+    handleAddChip,
+    handleDelete,
+  } = useFormControls();
+  
 
   return ( 
     <div className={classes.root}>
@@ -44,7 +27,7 @@ export default function ChipsArray(){
         </div>
 
         <div className={classes.button}>
-          <IconButton onClick={handleSubmit}>
+          <IconButton onClick={handleAddChip}>
             <AddCircleRounded className={classes.img} />
           </IconButton>
         </div>
