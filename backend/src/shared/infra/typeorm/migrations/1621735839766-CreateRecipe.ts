@@ -34,6 +34,26 @@ export default class CreateRecipe1621735839766 implements MigrationInterface {
             type: 'smallint',
           },
           {
+            name: 'vegetarian',
+            type: 'boolean',
+          },
+          {
+            name: 'lactosefree',
+            type: 'boolean',
+          },
+          {
+            name: 'vegan',
+            type: 'boolean',
+          },
+          {
+            name: 'private',
+            type: 'boolean',
+          },
+          {
+            name: 'glutenfree',
+            type: 'boolean',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

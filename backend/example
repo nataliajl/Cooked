@@ -1,0 +1,23 @@
+{
+  "title": "Te",
+  "description": "sadsadas  husahduash u sa hisah",
+  "category": "italian",
+  "cook-time": "122",
+  "serves": "5",
+  "vegetarian": true,
+  "vegan": true,
+  "lactosefree": true,
+  "glutenfree": true,
+  "ingredients": [
+    "asdasdsa",
+    "asdsadasdsas",
+    "asdsasdassadsa"
+  ],
+  "private": false,
+  "steps": [
+    "asdsadsasad",
+    "sadsadsadas",
+    "asdsadsas",
+    "asdasdsa"
+  ]
+}

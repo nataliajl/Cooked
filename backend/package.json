@@ -19,7 +19,9 @@
     "nodemon": "^2.0.7",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.32"
+    "typeorm": "^0.2.32",
+    "date-fns": "^2.22.1",
+    "tsyringe": "^4.5.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
