@@ -1,18 +1,25 @@
+import Recipe from '@modules/recipes/infra/typeorm/entities/Recipe';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
-@Entity('culinaries')
-class Culinary {
+@Entity('steps')
+class Step {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  title: string;
+  text: string;
+
+  @ManyToOne(() => Recipe)
+  @JoinColumn({ name: 'recipe_id' })
+  recipe: Recipe;
 
   @CreateDateColumn()
   created_at: Date;
@@ -21,4 +28,4 @@ class Culinary {
   updated_at: Date;
 }
 
-export default Culinary;
+export default Step;

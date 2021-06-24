@@ -1,13 +1,16 @@
+import Recipe from '@modules/recipes/infra/typeorm/entities/Recipe';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity('ingredients')
-class ingredients {
+class Ingredient {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -15,7 +18,11 @@ class ingredients {
   title: string;
 
   @Column()
-  quantity: string;
+  amount: number;
+
+  @ManyToOne(() => Recipe)
+  @JoinColumn({ name: 'recipe_id' })
+  recipe: Recipe;
 
   @CreateDateColumn()
   created_at: Date;
@@ -24,4 +31,4 @@ class ingredients {
   updated_at: Date;
 }
 
-export default ingredients;
+export default Ingredient;
