@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import FindCategoryService from '@modules/categories/services/FindCategoryService';
 import addIngredientService from '@modules/ingredients/services/addIngredientService';
+import addStepService from '@modules/steps/services/addStepService';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
 import RequestIngredients from '@shared/models/RequestIngredients';
 
@@ -21,7 +22,7 @@ interface IRequest {
   steps: string[];
 }
 
-export default class CategoryController {
+export default class RecipeController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       private: isPrivate,
@@ -43,6 +44,7 @@ export default class CategoryController {
     const FindCategory = container.resolve(FindCategoryService);
     const createRecipe = container.resolve(CreateRecipeService);
     const addIngredientToRecipe = container.resolve(addIngredientService);
+    const addStepsToRecipe = container.resolve(addStepService);
 
     //Buscando ou criando uma categoria
     const category =
@@ -62,8 +64,9 @@ export default class CategoryController {
       category,
     });
 
-    addIngredientToRecipe.execute(ingredients, recipe);
+    await addIngredientToRecipe.execute(ingredients, recipe);
+    await addStepsToRecipe.execute(steps, recipe);
 
-    return response.json(category);
+    return response.json({ Created: true }).status(201);
   }
 }

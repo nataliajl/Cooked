@@ -3,7 +3,7 @@ import RawRecipe from '@shared/models/RawRecipe';
 import { getRepository, Repository } from 'typeorm';
 import Recipe from '../entities/Recipe';
 
-class IngredientsRepository implements IRecipesRepository {
+class RecipesRepository implements IRecipesRepository {
   private ormRepository: Repository<Recipe>;
 
   constructor() {
@@ -32,4 +32,4 @@ class IngredientsRepository implements IRecipesRepository {
   }
 }
 
-export default IngredientsRepository;
+export default RecipesRepository;
