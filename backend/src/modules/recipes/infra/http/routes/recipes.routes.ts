@@ -17,4 +17,6 @@ recipesRouter.get('/',  recipesController.getRecipe);
 
 recipesRouter.delete('/', recipesController.removeRecipe);
 
+recipesRouter.patch('/', recipesController.updateRecipe);
+
 export default recipesRouter;

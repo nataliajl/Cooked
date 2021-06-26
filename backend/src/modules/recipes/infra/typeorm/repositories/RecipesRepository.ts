@@ -45,6 +45,28 @@ class RecipesRepository implements IRecipesRepository {
 
     this.ormRepository.delete((await recipe).id);
   }
+
+  public async update(rawRecipe: RawRecipe): Promise<Recipe> {
+    const recipeExists = this.ormRepository.findOneOrFail({
+      where: { title: rawRecipe.title }
+    });
+
+    const recipe = this.ormRepository.save({
+      id: (await recipeExists).id,
+      title: (await recipeExists).title,
+      category: rawRecipe.category,
+      cookingTime: rawRecipe.cookTime,
+      glutenfree: rawRecipe.glutenfree,
+      description: rawRecipe.description,
+      lactosefree: rawRecipe.lactosefree,
+      private: rawRecipe.isPrivate,
+      servingSize: rawRecipe.serves,
+      vegan: rawRecipe.vegan,
+      vegetarian: rawRecipe.vegetarian,
+    });
+
+    return recipe;
+  }
 }
 
 export default RecipesRepository;

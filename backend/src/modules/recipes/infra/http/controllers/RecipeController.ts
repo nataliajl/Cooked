@@ -12,6 +12,7 @@ import findStepService from '@modules/steps/services/findStepService';
 import FindIngredientService from '@modules/ingredients/services/findIngredientService';
 import RemoveStepService from '@modules/steps/services/RemoveStepService';
 import RemoveIngredientService from '@modules/ingredients/services/removeIngredientService'
+import UpdateRecipeService from '@modules/recipes/services/UpdateRecipeService';
 
 interface IRequest {
   title: string;
@@ -138,5 +139,62 @@ export default class RecipeController {
     await removeRecipe.execute(request.body.title);
 
     return response.json({ Removed: true }).status(200);
-  }  
+  }
+
+  public async updateRecipe(request: Request, response: Response): Promise<Response> {
+    const {
+      private: isPrivate,
+      category: categoryName,
+      ingredients,
+      title,
+      cookTime,
+      description,
+      glutenfree,
+      lactosefree,
+      serves,
+      steps,
+      vegan,
+      vegetarian,
+    }: IRequest = request.body;
+
+    const createCategory = container.resolve(CreateCategoryService);
+    const FindCategory = container.resolve(FindCategoryService);
+    const updateRecipe = container.resolve(UpdateRecipeService);
+    const addIngredientToRecipe = container.resolve(addIngredientService);
+    const addStepsToRecipe = container.resolve(addStepService);
+
+    const category =
+      (await FindCategory.execute(categoryName)) ||
+      (await createCategory.execute(categoryName));
+
+    const recipe = await updateRecipe.execute({
+      title,
+      cookTime,
+      description,
+      glutenfree,
+      lactosefree,
+      serves,
+      vegan,
+      vegetarian,
+      isPrivate,
+      category,
+    });
+
+    await addIngredientToRecipe.execute(ingredients, recipe);
+    await addStepsToRecipe.execute(steps, recipe);
+
+    return response.json({title: recipe.title,
+      description: recipe.description,
+      category: recipe.category.title,
+      cookTime: recipe.cookingTime,
+      serves: recipe.servingSize,
+      vegetarian: recipe.vegetarian,
+      vegan: recipe.vegan,
+      lactosefree: recipe.lactosefree,
+      glutenfree: recipe.glutenfree,
+      ingredients: ingredients,
+      private: recipe.private,
+      steps: steps})
+      .status(201);
+  }
 }

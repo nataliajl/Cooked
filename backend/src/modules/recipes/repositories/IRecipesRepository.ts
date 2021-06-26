@@ -7,4 +7,6 @@ export default interface IRecipesRepository {
   findRecipe(title: string): Promise<Recipe | undefined>;
 
   remove(title: string): Promise<void>;
+
+  update(rawRecipe: RawRecipe): Promise<Recipe>;
 }
