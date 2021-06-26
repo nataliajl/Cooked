@@ -42,6 +42,9 @@ class Recipe {
   @Column()
   private: boolean;
 
+  @Column({ name: 'category_id' })
+  categoryId: string;
+
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
   category: Category;

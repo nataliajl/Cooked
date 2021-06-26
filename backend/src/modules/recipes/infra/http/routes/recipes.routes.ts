@@ -13,4 +13,8 @@ const recipesController = new RecipeController();
 //Rota: localhost:3333/recipes
 recipesRouter.post('/', recipesController.create);
 
+recipesRouter.get('/',  recipesController.getRecipe);
+
+recipesRouter.delete('/', recipesController.removeRecipe);
+
 export default recipesRouter;

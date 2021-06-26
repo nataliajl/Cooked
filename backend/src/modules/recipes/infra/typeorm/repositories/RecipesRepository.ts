@@ -30,6 +30,21 @@ class RecipesRepository implements IRecipesRepository {
 
     return recipe;
   }
+
+  public async findRecipe(title: string): Promise<Recipe | undefined> {
+    const recipe = this.ormRepository.findOne({
+      where: { title }
+    });
+    return recipe;
+  }
+
+  public async remove(title: string): Promise<void> {
+    const recipe = this.ormRepository.findOneOrFail({
+      where: { title }
+    });
+
+    this.ormRepository.delete((await recipe).id);
+  }
 }
 
 export default RecipesRepository;

@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, PrimaryColumnCannotBeNullableError, Repository } from 'typeorm';
 
 import IIngredientsRepository from '@modules/ingredients/repositories/IIngredientsRepository';
 import Ingredient from '../entities/Ingredient';
@@ -17,6 +17,9 @@ class IngredientsRepository implements IIngredientsRepository {
     recipe: Recipe
   ): Promise<Ingredient[]> {
     //Criando os ingredientes
+
+    this.removeIngredientsByRecipe(recipe);
+
     const newIngredients = ingredients.map(({ amount, title }) => {
       return this.ormRepository.create({
         recipe,
@@ -29,6 +32,24 @@ class IngredientsRepository implements IIngredientsRepository {
     await this.ormRepository.save(newIngredients);
 
     return newIngredients;
+  }
+
+  public async findIngredientsByRecipe(recipe: Recipe): Promise<Ingredient[]> {
+    
+    const recipeIngredients = await this.ormRepository.find({
+      where: { recipe },
+    });
+
+    return recipeIngredients;
+
+  }
+
+  public async removeIngredientsByRecipe(recipe: Recipe): Promise<void> {
+    const recipeIngredients = await this.ormRepository.find({
+      where: { recipe },
+    });
+
+    await this.ormRepository.remove(recipeIngredients)
   }
 }
 

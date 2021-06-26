@@ -6,6 +6,12 @@ import addIngredientService from '@modules/ingredients/services/addIngredientSer
 import addStepService from '@modules/steps/services/addStepService';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
 import RequestIngredients from '@shared/models/RequestIngredients';
+import FindRecipeService from '@modules/recipes/services/FindRecipeService';
+import RemoveRecipeService from '@modules/recipes/services/RemoveRecipeService';
+import findStepService from '@modules/steps/services/findStepService';
+import FindIngredientService from '@modules/ingredients/services/findIngredientService';
+import RemoveStepService from '@modules/steps/services/RemoveStepService';
+import RemoveIngredientService from '@modules/ingredients/services/removeIngredientService'
 
 interface IRequest {
   title: string;
@@ -69,4 +75,68 @@ export default class RecipeController {
 
     return response.json({ Created: true }).status(201);
   }
+
+  public async getRecipe(request: Request, response: Response): Promise<Response> {
+    
+    const findRecipe = container.resolve(FindRecipeService);
+    const findSteps = container.resolve(findStepService);
+    const findIngredients =  container.resolve(FindIngredientService);
+    const findCategory = container.resolve(FindCategoryService);
+
+    const recipe = await findRecipe.execute(request.body.title);
+
+    if (typeof recipe == 'undefined') {
+      return response.status(404).send("Recipe not found");
+    }
+    
+    const foundCategory = await findCategory.executeId(recipe.categoryId);
+    const foundIngredients = await findIngredients.execute(recipe);
+    const foundSteps = await findSteps.execute(recipe);
+    
+
+    var ingr = foundIngredients.map((item) => {
+      return {title: item.title,
+              amount: item.amount};
+    });
+
+    var steps = foundSteps.map((item) => {
+      return item.text;
+    });
+
+
+    return response.json({
+      title: recipe.title,
+      description: recipe.description,
+      category: foundCategory,
+      cookTime: recipe.cookingTime,
+      serves: recipe.servingSize,
+      vegetarian: recipe.vegetarian,
+      vegan: recipe.vegan,
+      lactosefree: recipe.lactosefree,
+      glutenfree: recipe.glutenfree,
+      ingredients: ingr,
+      private: recipe.private,
+      steps: steps
+    }).status(200);
+  }
+
+  public async removeRecipe(request: Request, response: Response): Promise<Response> {
+    const findRecipe = container.resolve(FindRecipeService);
+    const removeRecipe = container.resolve(RemoveRecipeService);
+    const removeSteps = container.resolve(RemoveStepService);
+    const removeIngredients = container.resolve(RemoveIngredientService);
+
+    const recipe = await findRecipe.execute(request.body.title);
+
+    if (typeof recipe == 'undefined') {
+      return response.status(404).send("Recipe not found");
+    }
+
+    await removeSteps.execute(recipe);
+    await removeIngredients.execute(recipe);
+
+    await removeRecipe.execute(request.body.title);
+
+    return response.json({ Removed: true }).status(200);
+  }  
 }

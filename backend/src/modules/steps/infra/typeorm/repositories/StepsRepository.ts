@@ -15,6 +15,9 @@ class StepsRepository implements IStepsRepository {
     rawSteps: string[],
     recipe: Recipe
   ): Promise<Step[]> {
+
+    this.removeStepsByRecipe(recipe);
+
     const newSteps = rawSteps.map((text) => {
       return this.ormRepository.create({
         text,
@@ -22,6 +25,23 @@ class StepsRepository implements IStepsRepository {
       });
     });
     return await this.ormRepository.save(newSteps);
+  }
+
+  public async findStep(recipe: Recipe): Promise<Step[]> {
+
+    const recipeSteps = await this.ormRepository.find({
+      where: { recipe }
+    });
+
+    return recipeSteps;
+  }
+
+  public async removeStepsByRecipe(recipe: Recipe): Promise<void> {
+    const recipeSteps = await this.ormRepository.find({
+      where: { recipe }
+    });
+
+    await this.ormRepository.remove(recipeSteps);
   }
 }
 
