@@ -32,19 +32,15 @@ export const colors = createMuiTheme({
 export const inputElements = createMuiTheme({
     font: {
         fontFamily: 'Roboto',
-        fontSize: '60%',
-
-        [colors.breakpoints.down(700)]: { 
-            fontSize: '62.5%',
-        },
+        fontSize: `${2*0.8}rem`,
     },
 
     inputFont: {
         fontWeight: '500',
-        fontSize: '1.6rem',
+        fontSize: '2rem',
         color: colors.palette.basic.b0,
         
-        '& $button': {
+        '&$button': {
             color: colors.palette.basic.b7,
         }
     },

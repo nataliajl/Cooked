@@ -1,4 +1,4 @@
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles, Button, makeStyles} from '@material-ui/core';
 import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 import { colors} from './../../cookedStyles.js';
 
@@ -36,3 +36,9 @@ export const SignInButton = withStyles({
         fontSize: 16
     },
 })(Button);
+
+export const useStyles = makeStyles((theme) => ({
+    img: {
+        marginTop: '1rem'
+    }
+}));

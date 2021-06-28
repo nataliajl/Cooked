@@ -33,20 +33,19 @@ export default function ChipsArray(){
         </div>
       </div>
       
-      <div>
-        <div className={classes.tag}>
-            {chipData.map((data) => (
-              <li key={data.key}>
-                <Chip
-                label={data.label}
-                onDelete={handleDelete(data)}
-                className={classes.chip}
-                classes = {{deleteIcon: classes.deleteIcon}}
-        
-                />
-              </li>
-            ))}
-        </div>
+
+      <div className={classes.tag}>
+          {chipData.map((data) => (
+            <li key={data.key}>
+              <Chip
+              label={data.label}
+              onDelete={handleDelete(data)}
+              className={classes.chip}
+              classes = {{deleteIcon: classes.deleteIcon}}
+      
+              />
+            </li>
+          ))}
       </div>
     </div>
   );

@@ -6,9 +6,6 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignContent: 'center',
-    
     '& div': {
       display: 'flex',
       flexDirection: 'row',
@@ -24,7 +21,7 @@ export const useStyles = makeStyles((theme) => ({
       width: '42rem',
       height: '3rem',
       paddingLeft: '2rem',
-      backgroundColor: colors.palette.basic.b5,
+      background: 'linear-gradient(to right, '+colors.palette.basic.b5+', '+colors.palette.basic.b6+')',
       fontFamily: inputElements.font.fontFamily,
       fontWeight: inputElements.inputFont.fontWeight,
       fontSize: inputElements.inputFont.fontSize,
@@ -33,12 +30,7 @@ export const useStyles = makeStyles((theme) => ({
     '& $button': {
       marginLeft: theme.spacing(2),
     },
-    
-    [theme.breakpoints.down(700)]: { //@media
-      '& $input': {
-        width: '27rem',
-      },
-    },
+  
   },
 
   img: {

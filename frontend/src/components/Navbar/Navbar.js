@@ -10,10 +10,11 @@ import ClickableComponent from '../../components/ClickableComponent/ClickableCom
 
 import './Navbar.css';
 import logo from './Logo.png'
-import { AccountButton, SignInButton, StyledRightIcon } from './NavbarStyles';
+import { AccountButton, SignInButton, StyledRightIcon, useStyles } from './NavbarStyles';
 
 
 export default function Navbar() {
+    const classes = useStyles();
     const {user} = useContext(AuthContext);
     const history = useHistory();
 
@@ -31,7 +32,7 @@ export default function Navbar() {
             <div className="appbar">
                 <div className="leftappbar">
                     <ClickableComponent onClick={() => history.push('/')}>
-                        <img src={logo}/>
+                        <img className={classes.img} src={logo}/>
                     </ClickableComponent>
                     <ListItem 
                         text="Keep a Recipe"
