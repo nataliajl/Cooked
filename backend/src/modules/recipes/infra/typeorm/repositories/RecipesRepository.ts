@@ -33,6 +33,27 @@ class RecipesRepository implements IRecipesRepository {
   }
 
   public async getRecipeByIngredient(filter : Filter) : Promise<String> {
+    if (filter.isOnlyIngredient){
+      const recipes : Promise<Recipe[]> = this.ormRepository.find({
+        ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
+        category: Raw(filter.category.toString()), 
+        private: Raw('false'), 
+        cookingTime: Between(filter.cookingTime.min, filter.cookingTime.min)
+      });
+
+      
+      recipes.then((value) => {
+        for (let i = (value.length -1); i >= 0 ; i--){
+          value[i].ingredients.forEach((ingredient) => {
+            if (!filter.ingredients.includes(ingredient))
+              return value.pop();
+          });
+        }
+      });
+
+      return JSON.stringify(recipes);
+    }
+    
     const recipes = this.ormRepository.find({
       ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
       category: Raw(filter.category.toString()), 
@@ -41,6 +62,10 @@ class RecipesRepository implements IRecipesRepository {
     });
 
     return JSON.stringify(recipes);
+  
+    
+
+    
   }
 }
 
