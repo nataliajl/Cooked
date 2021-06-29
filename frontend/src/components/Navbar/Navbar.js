@@ -14,7 +14,7 @@ import { AccountButton, SignInButton, StyledRightIcon } from './NavbarStyles';
 
 
 export default function Navbar() {
-    const {isUserLoggedIn, logout} = useContext(AuthContext);
+    const {isUserLoggedIn, logout, user} = useContext(AuthContext);
     const history = useHistory();
 
     const ListItem = ({text, link}) => {
@@ -56,7 +56,7 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                                <p>Olá</p>
+                                <p>Olá {user.name}</p>
                                 <AccountButton onClick={logout}>
                                     Log Out
                                 </AccountButton>

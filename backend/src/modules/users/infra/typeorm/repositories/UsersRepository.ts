@@ -26,6 +26,13 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  public async remove(email: string): Promise<void> {
+    const user = this.ormRepository.findOneOrFail({
+      where: { email }
+    });
+    this.ormRepository.delete((await user).id);
+  }
+
 
 }
 

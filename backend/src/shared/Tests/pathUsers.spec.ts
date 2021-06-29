@@ -47,12 +47,12 @@ describe("This test describes the user deletion process ", () => {
 		expect(res.status).toBe(404);	
 	})
 
-	it("should remove the user from the database and return 201", async () => {
+	it("should remove the user from the database and return 200", async () => {
 		await request(app).post('/users').send(newUser);
 		const res = await request(app).delete('/users').send({email: newUser.email});
 		const findUser = await request(app).get('/users').send({email: newUser.email});
 		expect(findUser.status).toBe(404);
-		expect(res.status).toBe(201);
+		expect(res.status).toBe(200);
 	})
 
 });
