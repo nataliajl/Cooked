@@ -39,7 +39,6 @@ function recipeTabsProps(index) {
 }
 
 const AddRecipeTabs = ({ 
-    values, 
     ingredients,
     setIngredients, 
     steps,
@@ -68,16 +67,14 @@ const AddRecipeTabs = ({
                 <ListForm 
                     type='ingredients'
                     ingredients={ingredients} 
-                    setIngredients={setIngredients} 
-                    values={values}
+                    setIngredients={setIngredients}
                 />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <ListForm 
                     type='steps'
                     steps={steps} 
-                    setSteps={setSteps} 
-                    values={values}
+                    setSteps={setSteps}
                 />
             </TabPanel>
         </>

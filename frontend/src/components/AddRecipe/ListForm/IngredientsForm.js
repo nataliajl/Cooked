@@ -8,28 +8,25 @@ import ItemCircle from '../../ItemCircle/ItemCircle';
 import './style.css';
 
 
-const IngredientsForm = ({ ingredients, setIngredients, values }) => {
+const IngredientsForm = ({ ingredients, setIngredients }) => {
     
     const addIngredient = () => {
         setIngredients([...ingredients, {}]);
     }
 
-    const removeIngredient = (index, formValues) => {
+    const removeIngredient = (index) => {
         ingredients.splice(index, 1);
         setIngredients([...ingredients]);
-        formValues['ingredients'] = ingredients;
     }
 
-    const handleIngredientChange = (event, index, formValues) => {
+    const handleIngredientChange = (event, index) => {
         ingredients[index].title = event.target.value;
         setIngredients([...ingredients]);
-        formValues['ingredients'] = ingredients;
     }
 
-    const handleQuantityChange = (event, index, formValues) => {
+    const handleQuantityChange = (event, index) => {
         ingredients[index].quantity = event.target.value;
         setIngredients([...ingredients]);
-        formValues['ingredients'] = ingredients;
     }
 
     return (
@@ -46,7 +43,7 @@ const IngredientsForm = ({ ingredients, setIngredients, values }) => {
                                     fullWidth
                                     required
                                     type="number"
-                                    onChange={(e) => handleQuantityChange(e, i, values)}
+                                    onChange={(e) => handleQuantityChange(e, i)}
                                     value={ingredient.quantity}
                                     helperText="Quantity"
                                     margin="normal"
@@ -57,7 +54,7 @@ const IngredientsForm = ({ ingredients, setIngredients, values }) => {
                                     fullWidth
                                     required
                                     type="text"
-                                    onChange={(e) => handleIngredientChange(e, i, values)}
+                                    onChange={(e) => handleIngredientChange(e, i)}
                                     value={ingredient.title}
                                     helperText="i.e. Caesar Salad"
                                     margin="normal"
@@ -68,7 +65,7 @@ const IngredientsForm = ({ ingredients, setIngredients, values }) => {
                                     color="secondary" 
                                     aria-label="remove ingredient" 
                                     component="span"
-                                    onClick={(e) => removeIngredient(i, values)}
+                                    onClick={(e) => removeIngredient(i)}
                                 >
                                     <RemoveCircleOutline />
                                 </IconButton>

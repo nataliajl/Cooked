@@ -8,22 +8,20 @@ import ItemCircle from '../../ItemCircle/ItemCircle';
 import './style.css';
 
 
-const StepsForm = ({ steps, setSteps, values }) => {
+const StepsForm = ({ steps, setSteps }) => {
     
     const addSteps = () => {
         setSteps([...steps, ""]);
     }
 
-    const removeSteps = (index, formValues) => {
+    const removeSteps = (index) => {
         steps.splice(index, 1);
         setSteps([...steps]);
-        formValues['steps'] = steps;
     }
 
-    const handleStepsChange = (event, index, formValues) => {
+    const handleStepsChange = (event, index) => {
         steps[index] = event.target.value;
         setSteps([...steps]);
-        formValues['steps'] = steps;
     }
 
     return (
@@ -40,7 +38,7 @@ const StepsForm = ({ steps, setSteps, values }) => {
                                     fullWidth
                                     required
                                     type="text"
-                                    onChange={(e) => handleStepsChange(e, i, values)}
+                                    onChange={(e) => handleStepsChange(e, i)}
                                     value={step}
                                     helperText="i.e. Put the lettuce in a bowl with water"
                                     margin="normal"
@@ -51,7 +49,7 @@ const StepsForm = ({ steps, setSteps, values }) => {
                                     color="secondary" 
                                     aria-label="remove step" 
                                     component="span"
-                                    onClick={(e) => removeSteps(i, values)}
+                                    onClick={(e) => removeSteps(i)}
                                 >
                                     <RemoveCircleOutline />
                                 </IconButton>

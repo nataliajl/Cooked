@@ -14,8 +14,12 @@ import { AccountButton, SignInButton, StyledRightIcon, useStyles } from './Navba
 
 
 export default function Navbar() {
+<<<<<<< HEAD
     const classes = useStyles();
     const {user} = useContext(AuthContext);
+=======
+    const {isUserLoggedIn, logout, user} = useContext(AuthContext);
+>>>>>>> origin/develop
     const history = useHistory();
 
     const ListItem = ({text, link}) => {
@@ -49,19 +53,16 @@ export default function Navbar() {
                 </div>
                 <div className="rightappbar">
                     {
-                        user === null ? (
+                        !isUserLoggedIn() ? (
                             <>
-                                <AccountButton>
-                                    Create account
-                                </AccountButton>
-                                <SignInButton>
+                                <SignInButton onClick={() => history.push('/login')}>
                                     Sign in
                                 </SignInButton>
                             </>
                         ) : (
                             <>
-                                <p>Olá</p>
-                                <AccountButton>
+                                <p>Olá {user.name}</p>
+                                <AccountButton onClick={logout}>
                                     Log Out
                                 </AccountButton>
                             </>
