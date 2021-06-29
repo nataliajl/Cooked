@@ -36,7 +36,7 @@ class RecipesRepository implements IRecipesRepository {
     if (filter.isOnlyIngredient){
       const recipes : Promise<Recipe[]> = this.ormRepository.find({
         ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
-        category: Raw(filter.category.toString()), 
+        category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
         private: Raw('false'), 
         cookingTime: Between(filter.cookingTime.min, filter.cookingTime.min)
       });
