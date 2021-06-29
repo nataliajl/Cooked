@@ -4,7 +4,6 @@ import IIngredientsRepository from '@modules/ingredients/repositories/IIngredien
 import Ingredient from '../entities/Ingredient';
 import Recipe from '@modules/recipes/infra/typeorm/entities/Recipe';
 import RequestIngredients from '@shared/models/RequestIngredients';
-import AppError from '@shared/errors/Error';
 
 class IngredientsRepository implements IIngredientsRepository {
   private ormRepository: Repository<Ingredient>;
@@ -19,16 +18,6 @@ class IngredientsRepository implements IIngredientsRepository {
   ): Promise<Ingredient[]> {
     //Criando os ingredientes
 
-    if(!ingredients || ingredients.length < 1){
-      throw new AppError("Missing Ingredients", 400);
-    }
-
-    ingredients.forEach(element => {
-      if (element.amount < 1 || element.amount > 50){
-        throw new AppError("Ingredient " + element.title + " has unpermitted amount of " + element.amount, 400);
-      }      
-    });
-    
     this.removeIngredientsByRecipe(recipe);
 
     const newIngredients = ingredients.map(({ amount, title }) => {
