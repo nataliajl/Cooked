@@ -36,6 +36,10 @@ class CategoriesRepository implements ICategoriesRepository {
     });({ name: 'category_id' })
     return category.title;
   }
+
+  public async removeCategoryByTitle(title: string): Promise<void> {
+    await this.ormRepository.delete({title: title});
+  }
 }
 
 export default CategoriesRepository;

@@ -6,4 +6,5 @@ export default interface ICategoriesRepository {
   create(title: string): Promise<Category>;
   findByTitle(title: string): Promise<Category | undefined>;
   findTitleById(id: string): Promise<string>;
+  removeCategoryByTitle(title: string): Promise<void>;
 }
