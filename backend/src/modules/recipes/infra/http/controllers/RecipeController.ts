@@ -6,6 +6,9 @@ import addIngredientService from '@modules/ingredients/services/addIngredientSer
 import addStepService from '@modules/steps/services/addStepService';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
 import RequestIngredients from '@shared/models/RequestIngredients';
+import GetRecipeByIngredientsService from '@modules/recipes/services/GetRecipeByIngredientsService';
+import Ingredient from '@modules/ingredients/infra/typeorm/entities/Ingredient';
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 
 interface IRequest {
   title: string;
@@ -20,6 +23,26 @@ interface IRequest {
   ingredients: RequestIngredients[];
   private: boolean;
   steps: string[];
+}
+
+interface IFilter {
+  ingredients: Ingredient[];
+  isOnlyIngredient: boolean;
+  
+  category: Category;
+  servingSize: number;
+  rate: number;
+
+  restriction: {
+      vegetarian: boolean;
+      vegan: boolean;
+  };
+
+  cookingTime: {
+      min: number;
+      max: number;
+  };
+
 }
 
 export default class RecipeController {
@@ -69,4 +92,52 @@ export default class RecipeController {
 
     return response.json({ Created: true }).status(201);
   }
+
+  public async getRecipeByIngredients(request: Request): Promise<String> {
+    const {
+      ingredients,
+      isOnlyIngredient,
+
+      category,
+      servingSize,
+      rate,
+
+      restriction: {
+          vegetarian,
+          vegan
+      },
+
+      cookingTime: {
+          min,
+          max,
+      },
+
+    }: IFilter = request.body;
+
+    const getRecipeByIngredients = container.resolve(GetRecipeByIngredientsService);
+
+    const recipe = await getRecipeByIngredients.execute({
+      ingredients,
+      isOnlyIngredient,
+
+      category,
+      servingSize,
+      rate,
+
+      restriction: {
+          vegetarian,
+          vegan
+      },
+
+      cookingTime: {
+          min,
+          max,
+      },
+    });
+
+    console.log(JSON.stringify(recipe));
+    
+    return JSON.stringify(recipe);
+  }
+
 }

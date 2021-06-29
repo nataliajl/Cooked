@@ -1,6 +1,7 @@
 import IRecipesRepository from '@modules/recipes/repositories/IRecipesRepository';
+import Filter from '@shared/models/Filter';
 import RawRecipe from '@shared/models/RawRecipe';
-import { getRepository, Repository } from 'typeorm';
+import { Between, getRepository, Raw, Repository } from 'typeorm';
 import Recipe from '../entities/Recipe';
 
 class RecipesRepository implements IRecipesRepository {
@@ -29,6 +30,17 @@ class RecipesRepository implements IRecipesRepository {
     await this.ormRepository.save(recipe);
 
     return recipe;
+  }
+
+  public async getRecipeByIngredient(filter : Filter) : Promise<String> {
+    const recipes = this.ormRepository.find({
+      ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
+      category: Raw(filter.category.toString()), 
+      private: Raw('false'), 
+      cookingTime: Between(filter.cookingTime.min, filter.cookingTime.min)
+    });
+
+    return JSON.stringify(recipes);
   }
 }
 

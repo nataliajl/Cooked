@@ -44,7 +44,7 @@ class Recipe {
   @Column()
   private: boolean;
 
-  @OneToMany(() => Ingredient, ingredients => ingredients.recipe)
+  @OneToMany(() => Ingredient, ingredient => ingredient.recipe)
   ingredients: Ingredient[];
 
   @ManyToOne(() => Category)

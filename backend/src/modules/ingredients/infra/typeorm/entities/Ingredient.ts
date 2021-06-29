@@ -20,7 +20,7 @@ class Ingredient {
   @Column()
   amount: number;
 
-  @ManyToOne(() => Recipe)
+  @ManyToOne(() => Recipe, recipe => recipe.ingredients)
   @JoinColumn({ name: 'recipe_id' })
   recipe: Recipe;
 
