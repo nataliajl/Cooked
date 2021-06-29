@@ -6,7 +6,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from 'typeorm';
 
 @Entity('users')
@@ -20,7 +22,8 @@ class User {
   @Column()
   email: string;
 
-  @OneToMany(() => Recipe, favourites => favourites.id)
+  @ManyToMany(() => Recipe)
+  @JoinTable()
   favourites: Recipe[];
 
   @CreateDateColumn()

@@ -9,7 +9,7 @@ class FindUserService {
   private userRepository: IUsersRepository;
 
   constructor(
-    @inject('RecipesRepository')
+    @inject('UsersRepository')
     userRepository: IUsersRepository
   ) {
     this.userRepository = userRepository;

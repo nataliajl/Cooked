@@ -9,11 +9,11 @@ const userRouter = Router();
 //Controller
 const userController = new UserController();
 
-//Rota Principal -> Como estamos usando um index.ts que indica que aqui é o lugar que deve ser salvo então não precisamos escrever as rotas por completo
-//Rota: localhost:3333/recipes
 userRouter.post('/', userController.create);
 
 userRouter.get('/',  userController.getUser);
+
+userRouter.get('/login/',  userController.getUserForLogin);
 
 export default userRouter;
 
