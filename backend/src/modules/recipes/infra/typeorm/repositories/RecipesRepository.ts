@@ -1,4 +1,5 @@
 import IRecipesRepository from '@modules/recipes/repositories/IRecipesRepository';
+import AppError from '@shared/errors/Error';
 import RawRecipe from '@shared/models/RawRecipe';
 import { getRepository, Repository } from 'typeorm';
 import Recipe from '../entities/Recipe';
@@ -11,6 +12,14 @@ class RecipesRepository implements IRecipesRepository {
   }
 
   public async create(rawRecipe: RawRecipe): Promise<Recipe> {
+
+    if (rawRecipe.title == null   || rawRecipe.description == null  || rawRecipe.category == null  
+      || rawRecipe.cookTime == null  || rawRecipe.serves == null || rawRecipe.vegetarian == null 
+      || rawRecipe.vegan == null || rawRecipe.lactosefree == null || rawRecipe.glutenfree == null 
+      || rawRecipe.isPrivate == null) {
+        throw new AppError("Missing recipe fields", 400);
+    }
+
     //Criando a receita
     const recipe = this.ormRepository.create({
       category: rawRecipe.category,

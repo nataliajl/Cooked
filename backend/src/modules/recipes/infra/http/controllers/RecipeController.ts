@@ -13,6 +13,7 @@ import FindIngredientService from '@modules/ingredients/services/findIngredientS
 import RemoveStepService from '@modules/steps/services/RemoveStepService';
 import RemoveIngredientService from '@modules/ingredients/services/removeIngredientService'
 import UpdateRecipeService from '@modules/recipes/services/UpdateRecipeService';
+import AppError from '@shared/errors/Error';
 
 interface IRequest {
   title: string;
@@ -45,7 +46,7 @@ export default class RecipeController {
       vegan,
       vegetarian,
     }: IRequest = request.body;
-
+    try {
     //Obtendo a função criadora de categorias - Utilizando o container que servirá para a injeção de dependencias
     const createCategory = container.resolve(CreateCategoryService);
     const FindCategory = container.resolve(FindCategoryService);
@@ -74,7 +75,11 @@ export default class RecipeController {
     await addIngredientToRecipe.execute(ingredients, recipe);
     await addStepsToRecipe.execute(steps, recipe);
 
-    return response.json({ Created: true }).status(201);
+    return response.status(201).json({ Created: true });
+  }
+    catch (err) {
+      return response.status(err.statusCode).send({err});
+    }
   }
 
   public async getRecipe(request: Request, response: Response): Promise<Response> {
@@ -105,7 +110,7 @@ export default class RecipeController {
     });
 
 
-    return response.json({
+    return response.status(200).json({
       title: recipe.title,
       description: recipe.description,
       category: foundCategory,
@@ -118,7 +123,7 @@ export default class RecipeController {
       ingredients: ingr,
       private: recipe.private,
       steps: steps
-    }).status(200);
+    });
   }
 
   public async removeRecipe(request: Request, response: Response): Promise<Response> {
@@ -138,7 +143,7 @@ export default class RecipeController {
 
     await removeRecipe.execute(request.body.title);
 
-    return response.json({ Removed: true }).status(200);
+    return response.status(202).json({ Removed: true });
   }
 
   public async updateRecipe(request: Request, response: Response): Promise<Response> {
@@ -183,7 +188,7 @@ export default class RecipeController {
     await addIngredientToRecipe.execute(ingredients, recipe);
     await addStepsToRecipe.execute(steps, recipe);
 
-    return response.json({title: recipe.title,
+    return response.status(200).json({title: recipe.title,
       description: recipe.description,
       category: recipe.category.title,
       cookTime: recipe.cookingTime,
@@ -194,7 +199,6 @@ export default class RecipeController {
       glutenfree: recipe.glutenfree,
       ingredients: ingredients,
       private: recipe.private,
-      steps: steps})
-      .status(201);
+      steps: steps});
   }
 }
