@@ -14,12 +14,8 @@ import { AccountButton, SignInButton, StyledRightIcon, useStyles } from './Navba
 
 
 export default function Navbar() {
-<<<<<<< HEAD
     const classes = useStyles();
-    const {user} = useContext(AuthContext);
-=======
     const {isUserLoggedIn, logout, user} = useContext(AuthContext);
->>>>>>> origin/develop
     const history = useHistory();
 
     const ListItem = ({text, link}) => {

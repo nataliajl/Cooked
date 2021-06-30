@@ -33,19 +33,19 @@ class RecipesRepository implements IRecipesRepository {
   }
 
   public async getRecipeByIngredient(filter : Filter) : Promise<String> {
-    if (filter.isOnlyIngredient){
+    if (Boolean(filter.isOnlyIngredient)){
       const recipes : Promise<Recipe[]> = this.ormRepository.find({
         ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
         category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
         private: Raw('false'), 
-        cookingTime: Between(filter.cookingTime.min, filter.cookingTime.min)
+        cookingTime: Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
       });
 
-      
+      const ingredients = filter.ingredients.split(',');
       recipes.then((value) => {
         for (let i = (value.length -1); i >= 0 ; i--){
           value[i].ingredients.forEach((ingredient) => {
-            if (!filter.ingredients.includes(ingredient))
+            if (!ingredients.includes(ingredient.title))
               return value.pop();
           });
         }
@@ -56,9 +56,9 @@ class RecipesRepository implements IRecipesRepository {
     
     const recipes = this.ormRepository.find({
       ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
-      category: Raw(filter.category.toString()), 
+      category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
       private: Raw('false'), 
-      cookingTime: Between(filter.cookingTime.min, filter.cookingTime.min)
+      cookingTime: Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
     });
 
     return JSON.stringify(recipes);

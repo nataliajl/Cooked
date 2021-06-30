@@ -1,12 +1,7 @@
 import React from 'react';
-// const initialFormValues = {
-//     fullName: "",
-//     email: "",
-//     message:"",
-//     formSubmitted: false,
-//     success: false
-//   }
-  
+import {getRecipes} from './../../services/recipe';
+
+
 export const useFormControls = () => {
   const [inputData, setInputData] = React.useState("");
   const handleChange = (input)  => {
@@ -73,35 +68,40 @@ const [checked, setChecked] = React.useState(false);
   };
 
 
-  const inputFieldsValues = { 
-      ingredients: {
-        add: chipData
-      },
+  const filterInput = { 
+      ingredients: chipData,
 
-      onlyIngredients: {
-        value: checked
-      },
+
+      onlyIngredients: checked,
+
       
-      cuisine: {
-        selected: cuisineSelected
-      },
+      cuisine: cuisineSelected,
 
-      serving: {
-        people: sliderValue
-      },
+
+      serving: sliderValue,
 
       cookingTime: {
         min: minMinutes,
         max: maxMinutes
       },
 
-      rating: {
-        average: ratingValue
-      }
+      rating: ratingValue
+
     };
 
   const handleFormSubmit= async () => {
-    alert(JSON.stringify(inputFieldsValues));
+    alert(JSON.stringify(filterInput));
+    const resp = getRecipes(`ingredients=${filterInput.ingredients}
+                              &isOnlyIngredients=${filterInput.onlyIngredients}
+                              &category=${filterInput.cuisine}
+                              &servingSize=${filterInput.serving}
+                              &min=${filterInput.cookingTime.min}
+                              &max=${filterInput.cookingTime.max}
+                              &rate=${filterInput.rating}
+                              &vegan=false
+                              &vegetarian=false`);
+          
+    alert(resp);
   };
 
   return {

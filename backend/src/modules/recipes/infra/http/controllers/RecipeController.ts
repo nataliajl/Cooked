@@ -73,26 +73,26 @@ export default class RecipeController {
   }
 
   public async getRecipeByIngredients(request: Request, response: Response): Promise<Response> {
+    const queryRequest = JSON.stringify(request.query);
     const {
       ingredients,
       isOnlyIngredient,
-
       category,
       servingSize,
       rate,
 
       restriction: {
-          vegetarian,
-          vegan
-      },
+        vegetarian,
+        vegan
+    },
 
-      cookingTime: {
-          min,
-          max,
-      },
-
-    }: Filter = request.body;
-
+    cookingTime: {
+        min,
+        max,
+    },
+    }: Filter = JSON.parse(queryRequest);
+    alert(JSON.parse(queryRequest));
+    
     const getRecipeByIngredients = container.resolve(GetRecipeByIngredientsService);
 
     const recipe = await getRecipeByIngredients.execute({

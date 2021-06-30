@@ -1,8 +1,7 @@
-import { BASE_URL } from './base';
-import axios from 'axios';
+import api from './api';
 
-export const getRecipes = () => {
-    return axios.get(`${BASE_URL}/recipes`);
+export const getRecipes = (filter) => {
+    return api.get(`/recipes?${filter}`);
 };
 
 export const postRecipe = ({ 
@@ -19,7 +18,7 @@ export const postRecipe = ({
     privateSwitch,
     steps
  }) => {
-    return axios.post(`${BASE_URL}/recipes`, {
+    return api.post('/recipes', {
         title: title,
         description: description,
         category: category,
@@ -38,7 +37,7 @@ export const postRecipe = ({
 export const patchRecipe = ({
     recipeData
 }) => {
-    return axios.patch(`${BASE_URL}/recipes/${recipeData.title}`, {
+    return api.patch(`/recipes/${recipeData.title}`, {
         ...recipeData
     });
 };

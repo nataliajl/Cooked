@@ -8,7 +8,7 @@ import Tag from './Tags/Tag';
 
 export default function Filter() {
   const classes = useStyles(); 
-
+  
   const {      
     checked,
     toggleChecked,
