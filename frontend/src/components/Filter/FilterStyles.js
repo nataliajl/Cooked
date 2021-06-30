@@ -1,42 +1,75 @@
 import { makeStyles, Slider, Switch, withStyles } from '@material-ui/core';
-import { colors} from './../../cookedStyles.js';
+import Rating from '@material-ui/lab/Rating';
+import { colors, inputElements} from './../../cookedStyles.js';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    flex: {
-      flexGrow: 1,
-      display: 'flex',
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-    list: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-      paddingLeft: theme.spacing(4),
-    },
+    '& div': {
+      marginTop: '1rem'
+    }
+    
   },
 
-  add_icon: {
-    fontSize: 35,
+  list: {
+    width: '54rem',
+    marginLeft: '-1rem',
+    marginTop: '-3rem'
   },
 
-  align: {
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+
+  row: {
     display: 'flex',
-    alignContent: 'center',
-    margin: theme.spacing(1),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyItems: 'center',
   },
 
-  subtitle: {
+  button: {
+    '& div': {
+      marginTop: '2rem',
+
+      '& button': {
+        width: '20rem',
+        height: '6rem',
+      }
+    }
+  },
+
+  font: {
+    fontFamily: inputElements.font.fontFamily,
+    fontWeight: inputElements.inputFont.fontWeight,
+    fontSize: inputElements.inputFont.fontSize,
+
+    '& subtitle' : {
+      fontSize: inputElements.font.fontSize,
+      color: colors.palette.basic.b3,
+    },
+
+    '& button': {
+      fontWeight: '600',
+      backgroundColor: colors.palette.secondary.dark,
+      color: colors.palette.basic.b7,
+
+      '&:hover': {
+        color: colors.palette.basic.b3,
+        backgroundColor: colors.palette.secondary.light,
+      },
+    },
+
+  },
+
+  subtitle : {
+    fontSize: inputElements.font.fontSize,
     color: colors.palette.basic.b3,
-    fontSize: 14,
-  }
+  },
+
+  margin: {
+    marginLeft: '1rem',
+    marginRight: '1rem',
+  },
 
 }));
 
@@ -44,15 +77,17 @@ export const StyledSlider = withStyles({
     root: {
       color: colors.palette.primary.main,
       height: 8,
+      marginTop: '1rem',
+      marginLeft: '2rem',
     },
 
     thumb: {
-      height: 24,
-      width: 24,
+      height: 18,
+      width: 18,
       backgroundColor: colors.palette.background.main,
-      border: '2px solid currentColor',
+      border: '2px solid #ffff',
       marginTop: -8,
-      marginLeft: -12,
+      marginLeft: -6,
       '&:focus, &:hover, &$active': {
         boxShadow: 'inherit',
       },
@@ -60,16 +95,16 @@ export const StyledSlider = withStyles({
 
     active: {},
     valueLabel: {
-      left: 'calc(-50% + 4px)',
+      left: 'calc(-70% + 0.2rem)',
     },
 
     track: {
-      height: 8,
+      height: 4,
       borderRadius: 4,
     },
 
     rail: {
-      height: 8,
+      height: 4,
       borderRadius: 4,
     },
 })(Slider);
@@ -94,7 +129,7 @@ root: {
   },
 
   track: {
-    background: 'linear-gradient(to right, '+colors.palette.basic.b4+', '+colors.palette.basic.b5+')',
+    background: 'linear-gradient(to right, '+colors.palette.basic.b5+', '+colors.palette.basic.b6+')',
     opacity: '1 !important',
     borderRadius: 20,
     position: 'relative',
@@ -113,10 +148,6 @@ root: {
     '&$switchBase': {
       color: colors.palette.primary.dark,
       transform: 'translateX(32px)',
-      '&:hover': {
-        backgroundColor: colors.palette.primary.dark,
-
-      },
     },
     '& $thumb': {
       backgroundColor: colors.palette.basic.b7,
@@ -133,3 +164,15 @@ root: {
   },
 }))(Switch);
 
+export const StyledRating = withStyles({
+  iconEmpty: {
+    color: colors.palette.secondary.light,
+  },
+
+  iconFilled: {
+    color: colors.palette.primary.main,
+  },
+  iconHover: {
+    color: colors.palette.primary.dark,
+  },
+})(Rating);

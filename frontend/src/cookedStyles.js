@@ -4,10 +4,9 @@ export const colors = createMuiTheme({
     palette: {
         primary: {
             lighter:    '#FC7A78',
-            light:      '#FB4E4B',
+            light:      '#F87E7E',
             main:       '#FB4E4B',
             dark:       '#DE2D33',
-            darker:     '#E43636',
         },
 
         secondary: {
@@ -33,19 +32,16 @@ export const colors = createMuiTheme({
 export const inputElements = createMuiTheme({
     font: {
         fontFamily: 'Roboto',
-        fontSize: '60%',
-        [colors.breakpoints.down(700)]: { 
-            fontSize: '62.5%',
-        },
+        fontSize: `${2*0.8}rem`,
+    },
+
+    inputFont: {
+        fontWeight: '500',
+        fontSize: '2rem',
+        color: colors.palette.basic.b0,
         
-        inputFont: {
-            fontWeight: '500',
-            fontSize: '1.6rem',
-            color: colors.palette.basic.b0,
-            
-            button: {
-                color: colors.palette.basic.b7,
-            }
-        },
+        '&$button': {
+            color: colors.palette.basic.b7,
+        }
     },
 });

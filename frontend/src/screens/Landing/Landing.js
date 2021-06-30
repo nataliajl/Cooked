@@ -1,29 +1,34 @@
 import React from 'react';
-
+import Typography from '@material-ui/core/Typography';
 import Filter from '../../components/Filter/Filter';
-import logo from './Home Landing.png';
-import './home.css';
-import 'fontsource-roboto';
+import homeVisual from './home-img.png';
 import Navbar from '../../components/Navbar/Navbar';
-import { Grid } from '@material-ui/core';
 import {useStyles } from './LandingStyles';
 
 const HomeScreen = () => {
   const classes = useStyles();
   return ( 
     <div className={classes.root}>
-    <Grid container spacing={1} >
+      <Navbar />
+      
+      <div className={classes.content}>
 
-      <Grid item xs={12} >
-        <Navbar />
-      </Grid>
-      <Grid item xs={6}>
-        <Filter />
-      </Grid>
-      <Grid item xs={6}>
-        <img src={logo} alt="Cooked - Making the leftovers a festivity"/>
-      </Grid>
-    </Grid>
+        <div >
+          <div className={classes.text}>
+            <Typography variant='h2' component='name'>
+              Cooked
+            </Typography>
+            <Typography variant='h4' component='slogan'>
+              Make the leftovers a festivity
+            </Typography>
+          </div>
+          <Filter />
+        </div>
+        
+        <div className={classes.visual}>
+          <img src={homeVisual} alt="Cooked - Making the leftovers a festivity"/>
+        </div>
+      </div>
     </div>
   );
 };

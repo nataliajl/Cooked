@@ -1,4 +1,5 @@
 import Category from '@modules/categories/infra/typeorm/entities/Category';
+import Ingredient from '@modules/ingredients/infra/typeorm/entities/Ingredient';
 import Step from '@modules/steps/infra/typeorm/entities/Step';
 import {
   Entity,
@@ -8,6 +9,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('recipes')
@@ -42,6 +44,9 @@ class Recipe {
   @Column()
   private: boolean;
 
+  @OneToMany(() => Ingredient, ingredient => ingredient.recipe)
+  ingredients: Ingredient[];
+  
   @Column({ name: 'category_id' })
   categoryId: string;
 

@@ -8,6 +8,8 @@ import IIngredientsRepository from '@modules/ingredients/repositories/IIngredien
 import IngredientsRepository from '@modules/ingredients/infra/typeorm/repositories/IngredientsRepository';
 import IStepsRepository from '@modules/steps/repositories/IStepsRepository';
 import StepsRepository from '@modules/steps/infra/typeorm/repositories/StepsRepository';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository'
 
 //Esse arquivo (Container) serve para colocar em prática a Inversão de Dependencias
 
@@ -29,4 +31,9 @@ container.registerSingleton<IIngredientsRepository>(
 container.registerSingleton<IStepsRepository>(
   'StepsRepository',
   StepsRepository
+);
+
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository',
+  UsersRepository
 );

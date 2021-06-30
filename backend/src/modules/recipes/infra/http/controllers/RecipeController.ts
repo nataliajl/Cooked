@@ -6,6 +6,8 @@ import addIngredientService from '@modules/ingredients/services/addIngredientSer
 import addStepService from '@modules/steps/services/addStepService';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
 import RequestIngredients from '@shared/models/RequestIngredients';
+import GetRecipeByIngredientsService from '@modules/recipes/services/GetRecipeByIngredientsService';
+import Filter from '@shared/models/Filter';
 import FindRecipeService from '@modules/recipes/services/FindRecipeService';
 import RemoveRecipeService from '@modules/recipes/services/RemoveRecipeService';
 import findStepService from '@modules/steps/services/findStepService';
@@ -201,4 +203,51 @@ export default class RecipeController {
       private: recipe.private,
       steps: steps});
   }
+
+  public async getRecipeByIngredients(request: Request, response: Response): Promise<Response> {
+    const queryRequest = JSON.stringify(request.query);
+    const {
+      ingredients,
+      isOnlyIngredient,
+      category,
+      servingSize,
+      rate,
+
+      restriction: {
+        vegetarian,
+        vegan
+    },
+
+    cookingTime: {
+        min,
+        max,
+    },
+    }: Filter = JSON.parse(queryRequest);
+    alert(JSON.parse(queryRequest));
+    
+    const getRecipeByIngredients = container.resolve(GetRecipeByIngredientsService);
+
+    const recipe = await getRecipeByIngredients.execute({
+      ingredients,
+      isOnlyIngredient,
+
+      category,
+      servingSize,
+      rate,
+
+      restriction: {
+          vegetarian,
+          vegan
+      },
+
+      cookingTime: {
+          min,
+          max,
+      },
+    });
+
+
+    return response.json({Recipe: recipe});
+  }
+
 }

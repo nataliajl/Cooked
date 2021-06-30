@@ -10,11 +10,12 @@ import ClickableComponent from '../../components/ClickableComponent/ClickableCom
 
 import './Navbar.css';
 import logo from './Logo.png'
-import { AccountButton, SignInButton, StyledRightIcon } from './NavbarStyles';
+import { AccountButton, SignInButton, StyledRightIcon, useStyles } from './NavbarStyles';
 
 
 export default function Navbar() {
-    const {user} = useContext(AuthContext);
+    const classes = useStyles();
+    const {isUserLoggedIn, logout, user} = useContext(AuthContext);
     const history = useHistory();
 
     const ListItem = ({text, link}) => {
@@ -31,7 +32,7 @@ export default function Navbar() {
             <div className="appbar">
                 <div className="leftappbar">
                     <ClickableComponent onClick={() => history.push('/')}>
-                        <img src={logo}/>
+                        <img className={classes.img} src={logo}/>
                     </ClickableComponent>
                     <ListItem 
                         text="Keep a Recipe"
@@ -48,19 +49,16 @@ export default function Navbar() {
                 </div>
                 <div className="rightappbar">
                     {
-                        user === null ? (
+                        !isUserLoggedIn() ? (
                             <>
-                                <AccountButton>
-                                    Create account
-                                </AccountButton>
-                                <SignInButton>
+                                <SignInButton onClick={() => history.push('/login')}>
                                     Sign in
                                 </SignInButton>
                             </>
                         ) : (
                             <>
-                                <p>Olá</p>
-                                <AccountButton>
+                                <p>Olá {user.name}</p>
+                                <AccountButton onClick={logout}>
                                     Log Out
                                 </AccountButton>
                             </>
