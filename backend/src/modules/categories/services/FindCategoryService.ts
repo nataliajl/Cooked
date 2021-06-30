@@ -25,6 +25,10 @@ class FindCategoryService {
     //Buscando no banco categorias de mesmo titulo
     return await this.categoriesRepository.findByTitle(title);
   }
+
+  public async executeId(id: string): Promise<string> {
+    return await this.categoriesRepository.findTitleById(id);
+  }
 }
 
 export default FindCategoryService;
