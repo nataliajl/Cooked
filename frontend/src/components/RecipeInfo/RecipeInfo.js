@@ -4,11 +4,13 @@ import '@fontsource/lato';
 import foodtray from './food-tray.png';
 import timer from './timer.png';
 import {Grid, Divider, List} from '@material-ui/core';
-import { Star, Favorite } from '@material-ui/icons';
+import { Star, StarBorder, Favorite, FavoriteBorder } from '@material-ui/icons';
 import DietaryRestrictions from './DietaryRestrictions'
 
-const RecipeInfo = ({title, description, imageSource, time, portionSize, comments, rating, diet}) => {
+import {AuthContext} from '../../context/AuthContext';
 
+const RecipeInfo = ({title, description, imageSource, time, portionSize, comments, rating, diet}) => {
+    // const {isUserLoggedIn} = useContext(AuthContext);
     const InfoItem = ({src, text}) => {
         return (
             <div className="infoitem">
@@ -62,14 +64,14 @@ const RecipeInfo = ({title, description, imageSource, time, portionSize, comment
                 <p className="title">{title}</p>
             </p>
             <p className="text">{description}</p>
-            <List>
+            {/* <List>
                 {comments.map(comment => (
                     <>
                         <Comment name={comment.name} text={comment.comment} likes={comment.likes} /> 
                         <Divider />
                     </>
                 ))}
-            </List>
+            </List> */}
         </div>
     );
 };

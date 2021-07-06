@@ -17,6 +17,7 @@ export default function Navbar() {
     const classes = useStyles();
     const {isUserLoggedIn, logout, user} = useContext(AuthContext);
     const history = useHistory();
+    console.log(user)
 
     const ListItem = ({text, link}) => {
         return (
