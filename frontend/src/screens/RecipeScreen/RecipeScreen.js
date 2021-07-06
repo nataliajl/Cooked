@@ -8,8 +8,7 @@ import RecipeInfo from '../../components/RecipeInfo/RecipeInfo';
 import ShareDial from '../../components/RecipeInfo/ShareDial/ShareDial'
 import { Star, StarBorder, Favorite, FavoriteBorder } from '@material-ui/icons';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { Button } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import {AuthContext} from '../../context/AuthContext';
 import Rating from '@material-ui/lab/Rating';
@@ -75,66 +74,82 @@ const RecipeScreen = () => {
         );
     }
 
-    return ( 
-        <div>
-            <Navbar/>
-            {!isUserLoggedIn() && (
-                <div className="user-actions">
-                    <FormControlLabel
-                        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
-                        label="Add recipe to favourites"
-                    />
-                    <div className="rating">
-                        <Rating
-                            defaultValue={0.5}
-                            precision={0.5}
-                        />
-                        <p>Rate this recipe</p>
-                    </div>
-                </div>
+    function handleFavourite(){
+        // todo
+        return
+    }
 
-            )}
+    function handleRating(){
+        // todo
+        return
+    }
 
-            <div className="outer-container">
-                <RecipeInfo 
-                    title={data.title}
-                    description={data.description}
-                    imageSource={data.imageSource}
-                    time={data.time}
-                    portionSize={data.portionSize}
-                    rating={data.rating}
-                    diet={[
-                        {
-                          type: "vegetarian",
-                          value: data.vegetarian,
-                        },
-                        {
-                          type: "vegan",
-                          value: data.vegan,
-                        },
-                        {
-                          type: "glutenFree",
-                          value: data.glutenFree,
-                        },
-                        {
-                          type: "lactoseFree",
-                          value: data.lactoseFree,
-                        },
-                    ]}
+    return (
+      <div>
+        <Navbar />
+        {isUserLoggedIn() && (
+          <div className="user-actions">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onClick={handleFavourite}
                 />
-                <ShareDial data={data}/>
-                <div className="right-container">
-                    <p className="section-text">Ingredients</p>
-                    <p>
-                        {data.ingredients.map(ingredient => <IngredientItem text={ingredient}/>)}
-                    </p>
-                    <p className="section-text">Steps</p>
-                    <p>
-                        {data.steps.map((text, index) => <StepItem number={index + 1} text={text}/>)}
-                    </p>
-                </div>
+              }
+              label="Add recipe to favourites"
+            />
+            <div className="rating">
+              <Rating defaultValue={0.5} precision={0.5} />
+              <Button onClick={handleRating}>Rate this recipe</Button>
             </div>
+          </div>
+        )}
+
+        <div className="outer-container">
+          <RecipeInfo
+            title={data.title}
+            description={data.description}
+            imageSource={data.imageSource}
+            time={data.time}
+            portionSize={data.portionSize}
+            rating={data.rating}
+            diet={[
+              {
+                type: "vegetarian",
+                value: data.vegetarian,
+              },
+              {
+                type: "vegan",
+                value: data.vegan,
+              },
+              {
+                type: "glutenFree",
+                value: data.glutenFree,
+              },
+              {
+                type: "lactoseFree",
+                value: data.lactoseFree,
+              },
+            ]}
+          />
+          <ShareDial data={data} />
+          <div className="right-container">
+            <p className="section-text">Ingredients</p>
+            <p>
+              {data.ingredients.map((ingredient) => (
+                <IngredientItem text={ingredient} />
+              ))}
+            </p>
+            <p className="section-text">Steps</p>
+            <p>
+              {data.steps.map((text, index) => (
+                <StepItem number={index + 1} text={text} />
+              ))}
+            </p>
+          </div>
         </div>
+      </div>
     );
 };
 
