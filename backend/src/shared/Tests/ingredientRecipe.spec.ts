@@ -1,9 +1,9 @@
 import "reflect-metadata"
 
 import '@shared/infra/typeorm';
-// import "../container/index";
-import request from 'supertest';
-import app from '../../server';
+import "../container/index";
+const request = require("supertest");
+import app from '../infra/http/server';
 import { createConnection, getConnection } from 'typeorm';
 import RequestIngredients from '@shared/models/RequestIngredients'
 import IngredientsRepository from '@modules/ingredients/infra/typeorm/repositories/IngredientsRepository';

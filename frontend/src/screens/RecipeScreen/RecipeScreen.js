@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import '@fontsource/lato';
 import Navbar from '../../components/Navbar/Navbar';
@@ -6,8 +6,14 @@ import './RecipeScreen.css';
 import ItemCircle from '../../components/ItemCircle/ItemCircle'
 import RecipeInfo from '../../components/RecipeInfo/RecipeInfo';
 import ShareDial from '../../components/RecipeInfo/ShareDial/ShareDial'
-
+import { Star, StarBorder, Favorite, FavoriteBorder } from '@material-ui/icons';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Button } from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
+import {AuthContext} from '../../context/AuthContext';
+import Rating from '@material-ui/lab/Rating';
 const RecipeScreen = () => {
+    const {isUserLoggedIn} = useContext(AuthContext);
     const data = {
         title: 'Recipe title',
         imageSource: 'https://industryeats.com/wp-content/uploads/2017/07/cucumber-asparagus-salad.jpg',
@@ -21,9 +27,9 @@ const RecipeScreen = () => {
         portionSize: 10,
         time: 15,
         ingredients: [
-            '4 small cucumbers',
-            '3 chilis',
-            '5 springs of aspargus'
+            {quantity: 4, title: 'small cucumbers'},
+            {quantity: 3, title: 'chilis'},
+            {quantity: 5, title: 'springs of aspargus'}
         ],
         rating: 4.5,
         steps: [
@@ -40,28 +46,6 @@ const RecipeScreen = () => {
         vegan: true,
         glutenFree: true,
         lactoseFree: true,
-        comments: [
-            {
-                name: "User X",
-                comment: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae.",
-                likes: 12
-            },
-            {
-                name: "User Y",
-                comment: "Nullam sit.",
-                likes: 1000
-            },
-            {
-                name: "User Z",
-                comment: `Morbi eu accumsan elit. Nullam ac efficitur arcu. Quisque condimentum laoreet sem, non elementum purus tempor eget. Ut sit amet libero elementum est sollicitudin consequat non sed urna. Duis aliquet eros eros, ut aliquam nibh ullamcorper vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras condimentum tellus libero, cursus placerat tellus auctor ac. Quisque vitae lectus a turpis dapibus euismod.\nNullam accumsan odio felis, at porttitor velit bibendum a. Morbi vitae porta erat, finibus molestie felis. Sed cursus risus ante. Morbi consequat dui magna, vel ultricies augue egestas placerat. Praesent vel metus eget urna pulvinar pretium. Donec non maximus enim, vitae sollicitudin ligula. Pellentesque at tristique leo. Suspendisse augue nunc, commodo ac hendrerit vitae, tempor vitae libero. Sed a massa a tortor lobortis lacinia ac eget purus.`,
-                likes: 0
-            },
-            {
-                name: "User W",
-                comment: "Duis rutrum augue placerat, sollicitudin dolor ac, lobortis urna. In pretium nisi nibh. Aliquam erat volutpat. Nulla ac sagittis sem, vel ultricies velit. In efficitur.",
-                likes: 100
-            }
-        ]
     } 
 
 
@@ -85,55 +69,87 @@ const RecipeScreen = () => {
         return (
             <div className="stepitem">
                 <Square/>
-                <p className="itemtext">{text}</p>
+                <p className="itemtext">{text.quantity} {text.title}</p>
             </div>            
         );
     }
 
-    return ( 
-        <div>
-            <Navbar/>
-            <div className="outer-container">
-                <RecipeInfo 
-                    title={data.title}
-                    description={data.description}
-                    imageSource={data.imageSource}
-                    time={data.time}
-                    portionSize={data.portionSize}
-                    rating={data.rating}
-                    comments={data.comments}
-                    diet={[
-                        {
-                          type: "vegetarian",
-                          value: data.vegetarian,
-                        },
-                        {
-                          type: "vegan",
-                          value: data.vegan,
-                        },
-                        {
-                          type: "glutenFree",
-                          value: data.glutenFree,
-                        },
-                        {
-                          type: "lactoseFree",
-                          value: data.lactoseFree,
-                        },
-                    ]}
+    function handleFavourite(){
+        // todo
+        return
+    }
+
+    function handleRating(){
+        // todo
+        return
+    }
+
+    return (
+      <div>
+        <Navbar />
+        {isUserLoggedIn() && (
+          <div className="user-actions">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onClick={handleFavourite}
                 />
-                <ShareDial data={data}/>
-                <div className="right-container">
-                    <p className="section-text">Ingredients</p>
-                    <p>
-                        {data.ingredients.map(text => <IngredientItem text={text}/>)}
-                    </p>
-                    <p className="section-text">Steps</p>
-                    <p>
-                        {data.steps.map((text, index) => <StepItem number={index + 1} text={text}/>)}
-                    </p>
-                </div>
+              }
+              label="Add recipe to favourites"
+            />
+            <div className="rating">
+              <Rating defaultValue={0.5} precision={0.5} />
+              <Button onClick={handleRating}>Rate this recipe</Button>
             </div>
+          </div>
+        )}
+
+        <div className="outer-container">
+          <RecipeInfo
+            title={data.title}
+            description={data.description}
+            imageSource={data.imageSource}
+            time={data.time}
+            portionSize={data.portionSize}
+            rating={data.rating}
+            diet={[
+              {
+                type: "vegetarian",
+                value: data.vegetarian,
+              },
+              {
+                type: "vegan",
+                value: data.vegan,
+              },
+              {
+                type: "glutenFree",
+                value: data.glutenFree,
+              },
+              {
+                type: "lactoseFree",
+                value: data.lactoseFree,
+              },
+            ]}
+          />
+          <ShareDial data={data} />
+          <div className="right-container">
+            <p className="section-text">Ingredients</p>
+            <p>
+              {data.ingredients.map((ingredient) => (
+                <IngredientItem text={ingredient} />
+              ))}
+            </p>
+            <p className="section-text">Steps</p>
+            <p>
+              {data.steps.map((text, index) => (
+                <StepItem number={index + 1} text={text} />
+              ))}
+            </p>
+          </div>
         </div>
+      </div>
     );
 };
 

@@ -57,7 +57,7 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                                <p>Olá {user.name}</p>
+                                <p className="navbar-item">Welcome, {user.name}</p>
                                 <AccountButton onClick={logout}>
                                     Log Out
                                 </AccountButton>

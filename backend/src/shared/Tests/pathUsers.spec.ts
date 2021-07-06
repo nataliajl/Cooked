@@ -2,7 +2,7 @@ import "reflect-metadata"
 import '@shared/infra/typeorm';
 import "../container/index";
 const request = require("supertest");
-import app from '../../server'
+import app from '../infra/http/server';
 import { createConnection, getConnection } from 'typeorm';
 
 

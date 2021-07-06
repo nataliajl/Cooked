@@ -2,8 +2,8 @@ import "reflect-metadata"
 
 import '@shared/infra/typeorm';
 import "../container/index";
-import request from 'supertest';
-import app from '../../server';
+const request = require("supertest");
+import app from '../infra/http/server';
 import { createConnection, getConnection } from 'typeorm';
 
 //Recipe model used in tests
