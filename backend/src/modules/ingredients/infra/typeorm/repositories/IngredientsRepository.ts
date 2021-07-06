@@ -1,4 +1,4 @@
-import { getRepository, PrimaryColumnCannotBeNullableError, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import IIngredientsRepository from '@modules/ingredients/repositories/IIngredientsRepository';
 import Ingredient from '../entities/Ingredient';
@@ -16,7 +16,7 @@ class IngredientsRepository implements IIngredientsRepository {
   public async addToRecipe(
     ingredients: RequestIngredients[],
     recipe: Recipe
-  ): Promise<Ingredient[]> {
+  ): Promise<Ingredient> {
     //Criando os ingredientes
 
     if(!ingredients || ingredients.length < 1){
@@ -31,13 +31,18 @@ class IngredientsRepository implements IIngredientsRepository {
     
     this.removeIngredientsByRecipe(recipe);
 
-    const newIngredients = ingredients.map(({ amount, title }) => {
-      return this.ormRepository.create({
-        recipe,
-        title,
-        amount,
-      });
+    const titles: string[] = [];
+    const amounts: number[] = [];
+
+    ingredients.map(({ amount, title }) => {
+      titles.push(title);
+      amounts.push(amount);
     });
+
+    const newIngredients = this.ormRepository.create({     
+      recipe: recipe,
+      title: titles,
+      amount: amounts});
 
     //Salvando no banco
     await this.ormRepository.save(newIngredients);

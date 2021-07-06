@@ -1,5 +1,5 @@
 export default interface Filter {
-    ingredients: string;
+    ingredients: string[];
     isOnlyIngredient: string;
     
     category: string;

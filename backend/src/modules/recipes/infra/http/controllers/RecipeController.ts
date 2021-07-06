@@ -99,18 +99,13 @@ export default class RecipeController {
     
     const foundCategory = await findCategory.executeId(recipe.categoryId);
     const foundIngredients = await findIngredients.execute(recipe);
-    const foundSteps = await findSteps.execute(recipe);
+    const steps = await findSteps.execute(recipe);
     
 
     var ingr = foundIngredients.map((item) => {
       return {title: item.title,
               amount: item.amount};
     });
-
-    var steps = foundSteps.map((item) => {
-      return item.text;
-    });
-
 
     return response.status(200).json({
       title: recipe.title,
@@ -133,17 +128,17 @@ export default class RecipeController {
     const removeRecipe = container.resolve(RemoveRecipeService);
     const removeSteps = container.resolve(RemoveStepService);
     const removeIngredients = container.resolve(RemoveIngredientService);
-
-    const recipe = await findRecipe.execute(request.body.title);
+    const title = request.body.title;
+    const recipe = await findRecipe.execute(title);
 
     if (typeof recipe == 'undefined') {
       return response.status(404).send("Recipe not found");
     }
 
-    await removeSteps.execute(recipe);
-    await removeIngredients.execute(recipe);
+    removeSteps.execute(recipe);
+    removeIngredients.execute(recipe);
 
-    await removeRecipe.execute(request.body.title);
+    removeRecipe.execute(request.body.title);
 
     return response.status(202).json({ Removed: true });
   }
@@ -247,7 +242,17 @@ export default class RecipeController {
     });
 
 
-    return response.json({Recipe: recipe});
+    return response.status(200).json({
+      title: recipe[0].title,
+      description: recipe[0].description,
+      category: recipe[0].category,
+      cookTime: recipe[0].cookingTime,
+      serves: recipe[0].servingSize,
+      vegetarian: recipe[0].vegetarian,
+      vegan: recipe[0].vegan,
+      lactosefree: recipe[0].lactosefree,
+      glutenfree: recipe[0].glutenfree,
+    });
   }
 
 }

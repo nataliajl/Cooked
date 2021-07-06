@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe';
 
 import IRecipesRepository from '../repositories/IRecipesRepository';
 import Recipe from '../infra/typeorm/entities/Recipe';
-import RawRecipe from '../../../shared/models/RawRecipe';
 
 @injectable()
 class FindRecipeService {

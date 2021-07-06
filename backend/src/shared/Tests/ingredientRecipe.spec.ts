@@ -1,9 +1,9 @@
 import "reflect-metadata"
 
 import '@shared/infra/typeorm';
-import "../container/index";
+// import "../container/index";
 import request from 'supertest';
-import app from '../infra/http/server';
+import app from '../../server';
 import { createConnection, getConnection } from 'typeorm';
 import RequestIngredients from '@shared/models/RequestIngredients'
 import IngredientsRepository from '@modules/ingredients/infra/typeorm/repositories/IngredientsRepository';
@@ -13,11 +13,10 @@ import CategoriesRepository from "@modules/categories/infra/typeorm/repositories
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import FindCategoryService from '@modules/categories/services/FindCategoryService';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
-import findIngredientService from '@modules/ingredients/services/findIngredientService';
 import AddIngredientService from "@modules/ingredients/services/addIngredientService";
 import RemoveCategoryService from '@modules/categories/services/RemoveCategoryService';
 
-// Testes utilizando a estratégia de Classes de Valor-Limite
+// Testes utilizando a estratï¿½gia de Classes de Valor-Limite
 
 // Create Connection Before Tests 
 beforeAll(() => {
@@ -33,19 +32,22 @@ afterAll( async () => {
 describe("Post Recipe Tests", () => {    
 
   afterEach(async () => {
-    const catRepo = new CategoriesRepository();
-    const removeCateogry = new RemoveCategoryService(catRepo);
-    removeCateogry.execute("category_test")
-    await request(app).delete('/recipes').send({title: "Ingredient_Test"});
+    try{
+      request(app).delete('/recipes').send({title: "Ingredient_Test"});
+      const removeCateogry = new RemoveCategoryService(new CategoriesRepository());
+      removeCateogry.execute("category_test");
+    }catch(e){
+      expect(e.message).toMatch("Recipe not found");
+    }
+    
   })
 
-  it("Should successfully return recipe ingredients list", async () => {
+  test("Should successfully return recipe ingredients list", async () => {
 
     const recipeRepo = new RecipesRepository();
     const createRecipe = new CreateRecipeService(recipeRepo);
 
     const ingredientRepo = new IngredientsRepository();
-    const findIngredient = new findIngredientService(ingredientRepo);
     const addIngredient = new AddIngredientService(ingredientRepo);
 
     const catRepo = new CategoriesRepository();
@@ -84,14 +86,13 @@ describe("Post Recipe Tests", () => {
     
     let ingr = await addIngredient.execute(ingredients, recipe);
     
-    expect(ingr[0]).toHaveProperty("title", "Fejao");
-    expect(ingr[0]).toHaveProperty("amount", 1);
-    expect(ingr[1]).toHaveProperty("title", "Alho");
-    expect(ingr[1]).toHaveProperty("amount", 50);
-      
-})
+    expect(ingr.title[0]).toMatch("Fejao");
+    expect(ingr.title[1]).toMatch("Alho");
+    expect(ingr.amount[0]).toBe(1);
+    expect(ingr.amount[1]).toBe(50);
+  })
 
-  it("Should throw error if the amount of any Ingredients is less than 1", async () => {
+  test("Should throw error if the amount of any Ingredients is less than 1", async () => {
       
     const recipeRepo = new RecipesRepository();
     const createRecipe = new CreateRecipeService(recipeRepo);
@@ -134,15 +135,14 @@ describe("Post Recipe Tests", () => {
     const recipe = await createRecipe.execute(createRecipeForm);
     
     try {
-    let ingr = await addIngredient.execute(ingredients, recipe);}
-    catch (err) {
+        await addIngredient.execute(ingredients, recipe);
+    } catch (err) {
       expect(err.message).toBe("Ingredient Alho has unpermitted amount of 0");
       expect(err.statusCode).toBe(400);
     }
-
   })
 
-  it("Should throw error if the amount of any Ingredients is more than 50", async () => {
+  test("Should throw error if the amount of any Ingredients is more than 50", async () => {
       
     const recipeRepo = new RecipesRepository();
     const createRecipe = new CreateRecipeService(recipeRepo);
@@ -193,7 +193,7 @@ describe("Post Recipe Tests", () => {
 
   })
 
-  it("Should throw error if Igredient list are empty ", async () => {
+  test("Should throw error if Igredient list are empty ", async () => {
 
     const recipeRepo = new RecipesRepository();
     const createRecipe = new CreateRecipeService(recipeRepo);

@@ -1,5 +1,3 @@
-import Category from '@modules/categories/infra/typeorm/entities/Category';
-
 import { injectable, inject } from 'tsyringe';
 
 import IngredientsRepository from '../repositories/IIngredientsRepository';
@@ -27,7 +25,7 @@ class AddIngredientService {
   public async execute(
     ingredients: RequestIngredients[],
     recipe: Recipe
-  ): Promise<Ingredient[]> {
+  ): Promise<Ingredient> {
     //Atribuindo o ingrediente à receita
     return await this.ingredientsRepository.addToRecipe(ingredients, recipe);
   }

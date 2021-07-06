@@ -17,10 +17,10 @@ class Recipe {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column("text")
   title: string;
 
-  @Column()
+  @Column("text")
   description: string;
 
   @Column()

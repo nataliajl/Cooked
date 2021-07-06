@@ -5,7 +5,7 @@ import Filter from '@shared/models/Filter';
 export default interface IRecipesRepository {
   create(rawRecipe: RawRecipe): Promise<Recipe>;
   
-  getRecipeByIngredient(filter : Filter) : Promise<String>;
+  getRecipeByIngredient(filter : Filter) : Promise<Recipe[]>;
 
   findRecipe(title: string): Promise<Recipe | undefined>;
 

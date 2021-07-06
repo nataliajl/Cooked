@@ -8,7 +8,7 @@ export default interface IIngredientsRepository {
   addToRecipe(
     ingredients: RequestIngredients[],
     recipeId: Recipe
-  ): Promise<Ingredient[]>;
+  ): Promise<Ingredient>;
 
   findIngredientsByRecipe(recipe: Recipe): Promise<Ingredient[]>;
 

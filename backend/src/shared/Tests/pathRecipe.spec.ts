@@ -3,7 +3,7 @@ import "reflect-metadata"
 import '@shared/infra/typeorm';
 import "../container/index";
 import request from 'supertest';
-import app from '../infra/http/server';
+import app from '../../server';
 import { createConnection, getConnection } from 'typeorm';
 
 //Recipe model used in tests
