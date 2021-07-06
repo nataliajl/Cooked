@@ -5,6 +5,17 @@
     flex-direction: row;
     justify-content: center;
 }
+.user-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+}
 
 .image {
     width: 100%;

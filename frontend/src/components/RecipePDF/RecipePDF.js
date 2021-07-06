@@ -40,7 +40,7 @@ const RecipePDF = ({data}) => {
 				<View style={styles.section}>
 					<Text style={{fontWeight: "bold"}}>Ingredients:</Text>
 					<View style={styles.page}>
-						{data.ingredients.map(ingredient => <Text>	- {ingredient}</Text>)}
+						{data.ingredients.map(ingredient => <Text>	- {ingredient.quantity} {ingredient.title}</Text>)}
 					</View>
 				</View>
 				<View style={styles.section}>

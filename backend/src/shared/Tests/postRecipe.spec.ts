@@ -2,12 +2,12 @@ import "reflect-metadata"
 
 import '@shared/infra/typeorm';
 import "../container/index";
-import request from 'supertest';
+const request = require("supertest");
 import app from '../infra/http/server';
 import { createConnection, getConnection } from 'typeorm';
 import AppError from "@shared/errors/Error";
 
-// Testes utilizando a estratégia de Classes de Equivaência
+// Testes utilizando a estratï¿½gia de Classes de Equivaï¿½ncia
 
 //Recipe model used in tests
 let createRecipeForm = {

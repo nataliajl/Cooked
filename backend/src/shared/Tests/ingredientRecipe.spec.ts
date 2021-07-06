@@ -2,7 +2,7 @@ import "reflect-metadata"
 
 import '@shared/infra/typeorm';
 import "../container/index";
-import request from 'supertest';
+const request = require("supertest");
 import app from '../infra/http/server';
 import { createConnection, getConnection } from 'typeorm';
 import RequestIngredients from '@shared/models/RequestIngredients'
@@ -17,7 +17,7 @@ import findIngredientService from '@modules/ingredients/services/findIngredientS
 import AddIngredientService from "@modules/ingredients/services/addIngredientService";
 import RemoveCategoryService from '@modules/categories/services/RemoveCategoryService';
 
-// Testes utilizando a estratégia de Classes de Valor-Limite
+// Testes utilizando a estratï¿½gia de Classes de Valor-Limite
 
 // Create Connection Before Tests 
 beforeAll(() => {
