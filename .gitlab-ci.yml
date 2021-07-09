@@ -2,20 +2,8 @@ before-script:
   stage: build
   script:
     - cd frontend
-    - npm i
+    - npm install
     - cd ../backend
-    - yarn install
-
-build-job:
-  stage: build
-  script:
-    - cd frontend
-    - npm run build
-    - cd ../backend
+    - npm install yarn
     - yarn build
-
-test-job1:
-  stage: test
-  script:
-    - echo "Testes executados"
 
