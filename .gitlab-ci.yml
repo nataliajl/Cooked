@@ -1,12 +1,16 @@
+
 image: node:16.0.0
 
-before_script:
-  - echo "Instalando dependências"
-  - cd frontend
-  - npm i
+stages:
+  - build-front
 
-build:
+before_script:
+  - echo "Instalando dependências..."
+  - cd frontend
+  - yarn install
+
+build-front:
   stage: build
   script:
-    - npm run build
-    - echo "Build executado"
+    - CI='' yarn build
+    - echo "Build Frontend executado"
