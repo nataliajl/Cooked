@@ -34,8 +34,7 @@ class CategoriesRepository {
     }
     async getCategoryTitles() {
         const categories = this.ormRepository.find({ select: ["title"] });
-        console.log(categories);
-        return Object.values(categories);
+        return categories;
     }
 }
 exports.default = CategoriesRepository;

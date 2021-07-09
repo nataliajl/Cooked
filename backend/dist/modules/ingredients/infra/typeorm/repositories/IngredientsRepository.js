@@ -46,5 +46,21 @@ class IngredientsRepository {
         });
         await this.ormRepository.remove(recipeIngredients);
     }
+    async getIngredientsRecipe(ingredients) {
+        const ingredientsStr = ingredients.join(',');
+        const recipesAndIngr = await this.ormRepository.find({
+            join: {
+                alias: "ingredient",
+                innerJoinAndSelect: {
+                    recipe: "ingredient.recipe"
+                }
+            },
+            where: {
+                "title": typeorm_1.Raw(alias => `${alias} && '{${ingredientsStr}}'`),
+            },
+        });
+        const recipe_id = recipesAndIngr.map((value) => { return value.recipe.id; });
+        return recipe_id;
+    }
 }
 exports.default = IngredientsRepository;

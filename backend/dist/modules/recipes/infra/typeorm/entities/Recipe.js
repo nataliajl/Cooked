@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
-], Recipe.prototype, "cookingTime", void 0);
+], Recipe.prototype, "cooking_time", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)

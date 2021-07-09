@@ -17,8 +17,8 @@ let RecipeByIngredientsService = class RecipeByIngredientsService {
     constructor(recipesRepository) {
         this.recipesRepository = recipesRepository;
     }
-    async execute(filter) {
-        return await this.recipesRepository.recipeByIngredient(filter);
+    async execute(filter, recipeID) {
+        return await this.recipesRepository.recipeByIngredient(filter, recipeID);
     }
 };
 RecipeByIngredientsService = __decorate([

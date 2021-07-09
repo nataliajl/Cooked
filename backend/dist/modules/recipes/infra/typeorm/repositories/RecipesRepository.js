@@ -19,7 +19,7 @@ class RecipesRepository {
         }
         const recipe = this.ormRepository.create({
             category: rawRecipe.category,
-            cookingTime: rawRecipe.cookTime,
+            cooking_time: rawRecipe.cookTime,
             glutenfree: rawRecipe.glutenfree,
             description: rawRecipe.description,
             lactosefree: rawRecipe.lactosefree,
@@ -32,25 +32,18 @@ class RecipesRepository {
         await this.ormRepository.save(recipe);
         return recipe;
     }
-    async recipeByIngredient(filter) {
-        const reqtIngredients = filter.ingredients.split(",");
-        console.log(filter);
-        const recipes = this.ormRepository
-            .createQueryBuilder("recipe")
-            .innerJoin("recipe.ingredients", "ingredient")
-            .where('ingredient IN (:...title)', { title: reqtIngredients })
-            .getMany();
+    async recipeByIngredient(filter, recipeID) {
+        const ids = recipeID.join(',');
+        const categories = filter.categories.join(',');
+        const recipes = this.ormRepository.find({
+            where: {
+                private: 'false',
+                cooking_time: typeorm_1.Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.max)),
+                id: typeorm_1.Raw(alias => `${alias} = Any('{${ids}}')`),
+                categoryId: typeorm_1.Raw(alias => `${alias} = Any('{${categories}}')`),
+            }
+        });
         console.log(await recipes);
-        if (Boolean(filter.isOnlyIngredient)) {
-            recipes.then((value) => {
-                for (let i = (value.length - 1); i >= 0; i--) {
-                    reqtIngredients.forEach((ingredient) => {
-                        if (!Object.keys(value[i].ingredients).includes(ingredient))
-                            return value.pop();
-                    });
-                }
-            });
-        }
         return recipes;
     }
     async findRecipe(title) {

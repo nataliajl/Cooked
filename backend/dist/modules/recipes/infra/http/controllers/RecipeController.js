@@ -3,20 +3,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tsyringe_1 = require("tsyringe");
 const CreateCategoryService_1 = __importDefault(require("@modules/categories/services/CreateCategoryService"));
 const FindCategoryService_1 = __importDefault(require("@modules/categories/services/FindCategoryService"));
+const findIngredientService_1 = __importDefault(require("@modules/ingredients/services/findIngredientService"));
 const addIngredientService_1 = __importDefault(require("@modules/ingredients/services/addIngredientService"));
+const removeIngredientService_1 = __importDefault(require("@modules/ingredients/services/removeIngredientService"));
 const addStepService_1 = __importDefault(require("@modules/steps/services/addStepService"));
+const findStepService_1 = __importDefault(require("@modules/steps/services/findStepService"));
+const RemoveStepService_1 = __importDefault(require("@modules/steps/services/RemoveStepService"));
 const CreateRecipeService_1 = __importDefault(require("@modules/recipes/services/CreateRecipeService"));
 const RecipeByIngredientsService_1 = __importDefault(require("@modules/recipes/services/RecipeByIngredientsService"));
 const FindRecipeService_1 = __importDefault(require("@modules/recipes/services/FindRecipeService"));
 const RemoveRecipeService_1 = __importDefault(require("@modules/recipes/services/RemoveRecipeService"));
-const findStepService_1 = __importDefault(require("@modules/steps/services/findStepService"));
-const findIngredientService_1 = __importDefault(require("@modules/ingredients/services/findIngredientService"));
-const RemoveStepService_1 = __importDefault(require("@modules/steps/services/RemoveStepService"));
-const removeIngredientService_1 = __importDefault(require("@modules/ingredients/services/removeIngredientService"));
 const UpdateRecipeService_1 = __importDefault(require("@modules/recipes/services/UpdateRecipeService"));
+const tsyringe_1 = require("tsyringe");
+const GetRelatedRecipeIDService_1 = __importDefault(require("@modules/ingredients/services/GetRelatedRecipeIDService"));
 class RecipeController {
     async create(request, response) {
         const { private: isPrivate, category: categoryName, ingredients, title, cookTime, description, glutenfree, lactosefree, serves, steps, vegan, vegetarian, } = request.body;
@@ -68,7 +69,7 @@ class RecipeController {
             title: recipe.title,
             description: recipe.description,
             category: foundCategory,
-            cookTime: recipe.cookingTime,
+            cookTime: recipe.cooking_time,
             serves: recipe.servingSize,
             vegetarian: recipe.vegetarian,
             vegan: recipe.vegan,
@@ -120,7 +121,7 @@ class RecipeController {
         return response.status(200).json({ title: recipe.title,
             description: recipe.description,
             category: recipe.category.title,
-            cookTime: recipe.cookingTime,
+            cookTime: recipe.cooking_time,
             serves: recipe.servingSize,
             vegetarian: recipe.vegetarian,
             vegan: recipe.vegan,
@@ -131,12 +132,22 @@ class RecipeController {
             steps: steps });
     }
     async recipeByIngredients(request, response) {
-        const { ingredients, isOnlyIngredient, category, servingSize, rate, restriction: { vegetarian, vegan }, cookingTime: { min, max, }, } = request.body;
+        const { ingredients, isOnlyIngredient, categories, servingSize, rate, restriction: { vegetarian, vegan }, cookingTime: { min, max, }, } = request.body;
+        const findCategory = tsyringe_1.container.resolve(FindCategoryService_1.default);
+        const categoryList = [];
+        categories.forEach(async (value) => {
+            const cat = await findCategory.execute(value);
+            const ids = cat ? cat.id : null;
+            if (ids)
+                categoryList.push(ids);
+        });
+        const getRecipesID = tsyringe_1.container.resolve(GetRelatedRecipeIDService_1.default);
+        const recipe_id = await getRecipesID.execute(ingredients);
         const getRecipeByIngredients = tsyringe_1.container.resolve(RecipeByIngredientsService_1.default);
         const recipe = await getRecipeByIngredients.execute({
             ingredients,
             isOnlyIngredient,
-            category,
+            categories: categoryList,
             servingSize,
             rate,
             restriction: {
@@ -147,18 +158,8 @@ class RecipeController {
                 min,
                 max,
             },
-        });
-        return response.status(200).json({
-            title: recipe[0].title,
-            description: recipe[0].description,
-            category: recipe[0].category,
-            cookTime: recipe[0].cookingTime,
-            serves: recipe[0].servingSize,
-            vegetarian: recipe[0].vegetarian,
-            vegan: recipe[0].vegan,
-            lactosefree: recipe[0].lactosefree,
-            glutenfree: recipe[0].glutenfree,
-        });
+        }, recipe_id);
+        return response.status(200).json(recipe);
     }
 }
 exports.default = RecipeController;

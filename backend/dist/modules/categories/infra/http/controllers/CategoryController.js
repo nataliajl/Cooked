@@ -15,8 +15,11 @@ class CategoryController {
     }
     async getTitles(request, response) {
         const getCategoryTitles = tsyringe_1.container.resolve(GetCategoryTitlesService_1.default);
-        const categoryTitles = await getCategoryTitles.execute();
-        return response.json(categoryTitles);
+        const categories = await getCategoryTitles.execute();
+        const titles = categories.map((value) => {
+            return value.title;
+        });
+        return response.json(titles);
     }
 }
 exports.default = CategoryController;
