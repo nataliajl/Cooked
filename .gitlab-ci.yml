@@ -1,9 +1,7 @@
-before-script:
-  stage: build
-  script:
-    - cd frontend
-    - npm install
-    - cd ../backend
-    - npm install yarn
-    - yarn build
+image: node:16.0.0
 
+before_script:
+  - cd frontend
+  - yarn install --cache-folder .yarn
+  - cd ../backend
+  - yarn install --cache-folder .yarn
