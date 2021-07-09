@@ -24,7 +24,7 @@ class RecipesRepository implements IRecipesRepository {
     //Criando a receita
     const recipe = this.ormRepository.create({
       category: rawRecipe.category,
-      cookingTime: rawRecipe.cookTime,
+      cooking_time: rawRecipe.cookTime,
       glutenfree: rawRecipe.glutenfree,
       description: rawRecipe.description,
       lactosefree: rawRecipe.lactosefree,
@@ -41,39 +41,23 @@ class RecipesRepository implements IRecipesRepository {
     return recipe;
   }
 
-  public async getRecipeByIngredient(filter : Filter) : Promise<String> {
-    if (Boolean(filter.isOnlyIngredient)){
-      const recipes : Promise<Recipe[]> = this.ormRepository.find({
-        ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
-        category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
-        private: Raw('false'), 
-        cookingTime: Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
-      });
+  public async recipeByIngredient(filter : Filter, recipeID : string[]) : Promise<Recipe[]> {
+    const ids = recipeID.join(',');
+    const categories = filter.categories.join(',');
 
-      const ingredients = filter.ingredients.split(',');
-      recipes.then((value) => {
-        for (let i = (value.length -1); i >= 0 ; i--){
-          value[i].ingredients.forEach((ingredient) => {
-            if (!ingredients.includes(ingredient.title))
-              return value.pop();
-          });
-        }
-      });
-
-      return JSON.stringify(recipes);
-    }
-    
     const recipes = this.ormRepository.find({
-      ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
-      category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
-      private: Raw('false'), 
-      cookingTime: Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
+      where: {
+        private: 'false',
+        cooking_time: Between(parseInt(filter.cookingTime.min),parseInt(filter.cookingTime.max)),
+        id: Raw(alias =>`${alias} = Any('{${ids}}')`),
+        categoryId: Raw(alias =>`${alias} = Any('{${categories}}')`),
+      }
     });
 
-    return JSON.stringify(recipes);
+    console.log(await recipes);
+    return recipes;
   }
 
-    
   public async findRecipe(title: string): Promise<Recipe | undefined> {
     const recipe = this.ormRepository.findOne({
       where: { title }

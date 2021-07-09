@@ -60,7 +60,7 @@ export default function Filter() {
                         <ListItemIcon>
                           <Checkbox edge='start' onChange={e => {handleCheck(data, e)}} disableRipple/>
                         </ListItemIcon>
-                        <ListItemText primary={data.type} classes={{primary:classes.font}}/>
+                        <ListItemText primary={data} classes={{primary:classes.font}}/>
                       </ListItem>
                     ))}
                 </List>

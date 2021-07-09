@@ -1,16 +1,13 @@
 export default interface Filter {
-    ingredients: string;
+    ingredients: string[];
     isOnlyIngredient: string;
-    
-    category: string;
+    categories: string[];
     servingSize: string;
     rate: string;
-
     restriction: {
         vegetarian: string;
         vegan: string;
     };
-
     cookingTime: {
         min: string;
         max: string;

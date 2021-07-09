@@ -1,7 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
 import IngredientsRepository from '../repositories/IIngredientsRepository';
-import Ingredient from '../infra/typeorm/entities/Ingredient';
 import Recipe from '@modules/recipes/infra/typeorm/entities/Recipe';
 
 @injectable()

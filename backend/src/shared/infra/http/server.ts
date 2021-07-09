@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import routes from './routes';
+import routes from './routes/index';
 import 'reflect-metadata';
 
 import AppError from '@shared/errors/Error';

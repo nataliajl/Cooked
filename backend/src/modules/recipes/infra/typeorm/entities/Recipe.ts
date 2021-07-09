@@ -17,14 +17,14 @@ class Recipe {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column("text")
   title: string;
 
-  @Column()
+  @Column("text")
   description: string;
 
   @Column()
-  cookingTime: number;
+  cooking_time: number;
 
   @Column()
   servingSize: number;
