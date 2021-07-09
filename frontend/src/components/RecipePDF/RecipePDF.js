@@ -1,6 +1,5 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
-import { ViewDaySharp } from '@material-ui/icons';
 import logo from '../Navbar/Logo.png';
 // Create styles
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {useFormControls} from './FormControls';
-import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button, Container } from '@material-ui/core';
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
 import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
 import Tag from './Tags/Tag';
@@ -95,7 +95,6 @@ export default function Filter() {
           <div class='inputContainer' className={classes.row}>
             <TextField
               id='outlined-search'
-              type='search'
               placeholder='Min'
               variant='outlined'
               type='number'
@@ -108,7 +107,6 @@ export default function Filter() {
         
             <TextField
               id='outlined-search'
-              type='search'
               placeholder='Max'
               variant='outlined'
               type='number'

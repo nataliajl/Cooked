@@ -1,7 +1,4 @@
 import React from 'react';
-import {getRecipes} from './../../services/recipe';
-import {getCategories} from './../../services/category';
-
 
 export const useFormControls = () => {
   const [inputData, setInputData] = React.useState("");
@@ -20,7 +17,7 @@ export const useFormControls = () => {
 
   const handleAddChip= () => {
     let newChipData = [...chipData];
-    if (inputData.length != 0) {
+    if (inputData.length !== 0) {
       newChipData = [...newChipData, {key: chipData.length, label: inputData}];
     }
     setInputData("");
@@ -92,15 +89,15 @@ export const useFormControls = () => {
 
   const handleFormSubmit= async () => {
     // alert(JSON.stringify(filterInput));
-    const resp = getRecipes(`ingredients=${filterInput.ingredients}
-                              &isOnlyIngredients=${filterInput.onlyIngredients}
-                              &category=${filterInput.cuisine}
-                              &servingSize=${filterInput.serving}
-                              &min=${filterInput.cookingTime.min}
-                              &max=${filterInput.cookingTime.max}
-                              &rate=${filterInput.rating}
-                              &vegan=false
-                              &vegetarian=false`);
+    // const resp = getRecipes(`ingredients=${filterInput.ingredients}
+    //                           &isOnlyIngredients=${filterInput.onlyIngredients}
+    //                           &category=${filterInput.cuisine}
+    //                           &servingSize=${filterInput.serving}
+    //                           &min=${filterInput.cookingTime.min}
+    //                           &max=${filterInput.cookingTime.max}
+    //                           &rate=${filterInput.rating}
+    //                           &vegan=false
+    //                           &vegetarian=false`);
           
     // alert(resp);
   };

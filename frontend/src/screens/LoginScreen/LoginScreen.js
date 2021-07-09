@@ -79,7 +79,7 @@ const LoginScreen = () => {
 				</Grid>
 				<Grid container xs={12} alignItems="center" justify="center">
 					<GoogleButton
-						startIcon={<img src={GoogleLogo} className={classes.googleImage}/>}
+						startIcon={<img src={GoogleLogo} className={classes.googleImage} alt=''/>}
 						onClick={() => handleClick("google")}
 					>
 						Sign in with Google

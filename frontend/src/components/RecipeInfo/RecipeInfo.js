@@ -3,18 +3,18 @@ import React from 'react';
 import '@fontsource/lato';
 import foodtray from './food-tray.png';
 import timer from './timer.png';
-import {Grid, Divider, List} from '@material-ui/core';
-import { Star, StarBorder, Favorite, FavoriteBorder } from '@material-ui/icons';
+import {Grid} from '@material-ui/core';
+import { Star, Favorite} from '@material-ui/icons';
 import DietaryRestrictions from './DietaryRestrictions'
 
-import {AuthContext} from '../../context/AuthContext';
+// import {AuthContext} from '../../context/AuthContext';
 
 const RecipeInfo = ({title, description, imageSource, time, portionSize, comments, rating, diet}) => {
     // const {isUserLoggedIn} = useContext(AuthContext);
     const InfoItem = ({src, text}) => {
         return (
             <div className="infoitem">
-                <img src={src}/>
+                <img src={src} alt=''/>
                 <p className="itemtext">{text}</p>
             </div>            
         );        
@@ -41,7 +41,7 @@ const RecipeInfo = ({title, description, imageSource, time, portionSize, comment
 
     return ( 
         <div className="left-container">
-            <img src={imageSource} className="image"/>
+            <img src={imageSource} className="image" alt=''/>
             <Grid container spacing={1} >
                 <Grid item xs={6}>
                     <InfoItem src={timer} text={`${time} minutes`}/>

@@ -6,7 +6,7 @@ import './RecipeScreen.css';
 import ItemCircle from '../../components/ItemCircle/ItemCircle'
 import RecipeInfo from '../../components/RecipeInfo/RecipeInfo';
 import ShareDial from '../../components/RecipeInfo/ShareDial/ShareDial'
-import { Star, StarBorder, Favorite, FavoriteBorder } from '@material-ui/icons';
+import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
