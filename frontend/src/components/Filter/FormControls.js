@@ -31,7 +31,7 @@ export const useFormControls = () => {
     setChecked((prev) => !prev);
   };
 
-  const cuisineList = getCategories();
+  const cuisineList = [];
   const cuisineSelected = [];
   const [open, setOpen] = React.useState(true);
   const handleClick = () => {
@@ -91,7 +91,7 @@ export const useFormControls = () => {
     };
 
   const handleFormSubmit= async () => {
-    alert(JSON.stringify(filterInput));
+    // alert(JSON.stringify(filterInput));
     const resp = getRecipes(`ingredients=${filterInput.ingredients}
                               &isOnlyIngredients=${filterInput.onlyIngredients}
                               &category=${filterInput.cuisine}
