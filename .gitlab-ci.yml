@@ -5,7 +5,6 @@ build-back:
   script:
     - echo "Instalando dependências do backend..."
     - cd backend
-    - yarn global add jest
     - yarn install
     - CI='' yarn build
     - echo "Build Backend executado."
@@ -15,5 +14,6 @@ test:
   script:
     - echo "Iniciando testes da API..."
     - cd backend
+    - yarn add jest
     - CI='' yarn test
     - echo "Testes da API executados."
