@@ -15,5 +15,5 @@ test:
     - echo "Iniciando testes da API..."
     - cd backend
     - yarn add jest
-    - CI='' yarn test
+    - CI='' yarn test --forceExit
     - echo "Testes da API executados."
