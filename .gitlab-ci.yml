@@ -2,7 +2,7 @@ before-script:
   stage: build
   script:
     - cd frontend
-    - yarn install
+    - npm i
     - cd ../backend
     - yarn install
 
@@ -10,9 +10,9 @@ build-job:
   stage: build
   script:
     - cd frontend
-    - yarn run build
+    - npm run build
     - cd ../backend
-    - yarn run build
+    - yarn build
 
 test-job1:
   stage: test
