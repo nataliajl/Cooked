@@ -32,15 +32,16 @@ class RecipesRepository {
         await this.ormRepository.save(recipe);
         return recipe;
     }
-    async getRecipeByIngredient(filter) {
+    async recipeByIngredient(filter) {
+        const reqtIngredients = filter.ingredients.split(",");
+        console.log(filter);
+        const recipes = this.ormRepository
+            .createQueryBuilder("recipe")
+            .innerJoin("recipe.ingredients", "ingredient")
+            .where('ingredient IN (:...title)', { title: reqtIngredients })
+            .getMany();
+        console.log(await recipes);
         if (Boolean(filter.isOnlyIngredient)) {
-            const recipes = this.ormRepository.find({
-                ingredients: typeorm_1.Raw(alias => `${alias} IN (:...title)`, { title: filter.ingredients }),
-                category: typeorm_1.Raw(alias => `${alias} IN (:...title)`, { title: filter.category }),
-                private: typeorm_1.Raw('false'),
-                cookingTime: typeorm_1.Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
-            });
-            const reqtIngredients = filter.ingredients;
             recipes.then((value) => {
                 for (let i = (value.length - 1); i >= 0; i--) {
                     reqtIngredients.forEach((ingredient) => {
@@ -49,14 +50,7 @@ class RecipesRepository {
                     });
                 }
             });
-            return recipes;
         }
-        const recipes = this.ormRepository.find({
-            ingredients: typeorm_1.Raw(alias => `${alias} IN (:...title)`, { title: filter.ingredients }),
-            category: typeorm_1.Raw(alias => `${alias} IN (:...title)`, { title: filter.category }),
-            private: typeorm_1.Raw('false'),
-            cookingTime: typeorm_1.Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
-        });
         return recipes;
     }
     async findRecipe(title) {

@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 require("@shared/infra/typeorm");
-const supertest_1 = __importDefault(require("supertest"));
-const server_1 = __importDefault(require("../../server"));
+require("../container/index");
+const request = require("supertest");
 const typeorm_1 = require("typeorm");
 const IngredientsRepository_1 = __importDefault(require("@modules/ingredients/infra/typeorm/repositories/IngredientsRepository"));
 const RecipesRepository_1 = __importDefault(require("@modules/recipes/infra/typeorm/repositories/RecipesRepository"));
@@ -15,7 +15,6 @@ const CreateCategoryService_1 = __importDefault(require("@modules/categories/ser
 const FindCategoryService_1 = __importDefault(require("@modules/categories/services/FindCategoryService"));
 const CreateRecipeService_1 = __importDefault(require("@modules/recipes/services/CreateRecipeService"));
 const addIngredientService_1 = __importDefault(require("@modules/ingredients/services/addIngredientService"));
-const RemoveCategoryService_1 = __importDefault(require("@modules/categories/services/RemoveCategoryService"));
 beforeAll(() => {
     return typeorm_1.createConnection();
 });
@@ -24,16 +23,6 @@ afterAll(async () => {
     return conn.close();
 });
 describe("Post Recipe Tests", () => {
-    afterEach(async () => {
-        try {
-            supertest_1.default(server_1.default).delete('/recipes').send({ title: "Ingredient_Test" });
-            const removeCateogry = new RemoveCategoryService_1.default(new CategoriesRepository_1.default());
-            removeCateogry.execute("category_test");
-        }
-        catch (e) {
-            expect(e.message).toMatch("Recipe not found");
-        }
-    });
     test("Should successfully return recipe ingredients list", async () => {
         const recipeRepo = new RecipesRepository_1.default();
         const createRecipe = new CreateRecipeService_1.default(recipeRepo);

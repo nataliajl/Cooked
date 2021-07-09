@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Raw, Repository } from 'typeorm';
 
 import IIngredientsRepository from '@modules/ingredients/repositories/IIngredientsRepository';
 import Ingredient from '../entities/Ingredient';
@@ -66,6 +66,27 @@ class IngredientsRepository implements IIngredientsRepository {
     });
 
     await this.ormRepository.remove(recipeIngredients)
+  }
+
+  public async getIngredientsRecipe(ingredients: string[]): Promise<string[]>{
+    const ingredientsStr = ingredients.join(',');
+    const recipesAndIngr = await this.ormRepository.find({
+      join:{
+        alias: "ingredient",
+        innerJoinAndSelect: {
+          recipe: "ingredient.recipe"
+        }
+      },
+
+      where: {
+
+          "title":  Raw(alias =>`${alias} && '{${ingredientsStr}}'`),
+      },
+    });
+
+    const recipe_id = recipesAndIngr.map((value) => { return value.recipe.id});
+    
+    return recipe_id;
   }
 }
 

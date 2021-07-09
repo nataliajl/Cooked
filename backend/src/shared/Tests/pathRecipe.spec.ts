@@ -17,16 +17,11 @@ let createRecipeForm = {
       "vegan": false,
       "lactosefree": false,
       "glutenfree": false,
-      "ingredients": [
+      "ingredients": 
           {
-              "title": "Feijao",
-              "amount": 2
-          },
-          {
-              "title": "Porco",
-              "amount": 1
-          }     
-      ],
+              "title": ["Feijao", "Porco"],
+              "amount": [2, 1]
+          },   
       "private": false,
       "steps": [
           "Colocar no fogo",
@@ -80,11 +75,8 @@ describe("Path Recipe Tests", () => {
 
   it("Should not increase the Ingredients, but replace them ", async () => {
     
-      createRecipeForm.ingredients = [
-        { "title": "Feijao preto ", "amount": 1}, 
-        {"title": "Calabresa", "amount": 3},
-        {"title": "Alho", "amount": 5}
-      ];
+      createRecipeForm.ingredients = { "title": ["Feijao preto ", "Calabresa", "Alho"], "amount": [1, 3, 5]};
+        
 
       const res = await request(app)
           .patch('/recipes').send(createRecipeForm);

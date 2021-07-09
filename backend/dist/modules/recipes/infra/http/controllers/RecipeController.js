@@ -9,7 +9,7 @@ const FindCategoryService_1 = __importDefault(require("@modules/categories/servi
 const addIngredientService_1 = __importDefault(require("@modules/ingredients/services/addIngredientService"));
 const addStepService_1 = __importDefault(require("@modules/steps/services/addStepService"));
 const CreateRecipeService_1 = __importDefault(require("@modules/recipes/services/CreateRecipeService"));
-const GetRecipeByIngredientsService_1 = __importDefault(require("@modules/recipes/services/GetRecipeByIngredientsService"));
+const RecipeByIngredientsService_1 = __importDefault(require("@modules/recipes/services/RecipeByIngredientsService"));
 const FindRecipeService_1 = __importDefault(require("@modules/recipes/services/FindRecipeService"));
 const RemoveRecipeService_1 = __importDefault(require("@modules/recipes/services/RemoveRecipeService"));
 const findStepService_1 = __importDefault(require("@modules/steps/services/findStepService"));
@@ -130,11 +130,9 @@ class RecipeController {
             private: recipe.private,
             steps: steps });
     }
-    async getRecipeByIngredients(request, response) {
-        const queryRequest = JSON.stringify(request.query);
-        const { ingredients, isOnlyIngredient, category, servingSize, rate, restriction: { vegetarian, vegan }, cookingTime: { min, max, }, } = JSON.parse(queryRequest);
-        alert(JSON.parse(queryRequest));
-        const getRecipeByIngredients = tsyringe_1.container.resolve(GetRecipeByIngredientsService_1.default);
+    async recipeByIngredients(request, response) {
+        const { ingredients, isOnlyIngredient, category, servingSize, rate, restriction: { vegetarian, vegan }, cookingTime: { min, max, }, } = request.body;
+        const getRecipeByIngredients = tsyringe_1.container.resolve(RecipeByIngredientsService_1.default);
         const recipe = await getRecipeByIngredients.execute({
             ingredients,
             isOnlyIngredient,

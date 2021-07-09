@@ -5,7 +5,7 @@ import Recipe from '../infra/typeorm/entities/Recipe';
 import Filter from '@shared/models/Filter';
 
 @injectable()
-class GetRecipeByIngredientsService {
+class RecipeByIngredientsService {
   private recipesRepository: IRecipesRepository;
 
   constructor(
@@ -16,10 +16,10 @@ class GetRecipeByIngredientsService {
     this.recipesRepository = recipesRepository;
   }
 
-  public async execute(filter : Filter) : Promise<Recipe[]>{
+  public async execute(filter : Filter, recipeID : string[]) : Promise<Recipe[]>{
     
-    return await this.recipesRepository.getRecipeByIngredient(filter);
+    return await this.recipesRepository.recipeByIngredient(filter, recipeID);
   }
 }
 
-export default GetRecipeByIngredientsService;
+export default RecipeByIngredientsService;

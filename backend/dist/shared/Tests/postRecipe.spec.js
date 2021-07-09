@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 require("@shared/infra/typeorm");
 require("../container/index");
-const supertest_1 = __importDefault(require("supertest"));
-const server_1 = __importDefault(require("../../server"));
+const request = require("supertest");
+const server_1 = __importDefault(require("../infra/http/server"));
 const typeorm_1 = require("typeorm");
 let createRecipeForm = {
     "title": "Post_Test",
@@ -45,10 +45,10 @@ afterAll(async () => {
 });
 describe("Post Recipe Tests", () => {
     afterEach(async () => {
-        await supertest_1.default(server_1.default).delete('/recipes').send({ title: "Post_Test" });
+        await request(server_1.default).delete('/recipes').send({ title: "Post_Test" });
     });
     it("Should return status 200", async () => {
-        const res = await supertest_1.default(server_1.default)
+        const res = await request(server_1.default)
             .post('/recipes').send(createRecipeForm);
         expect(res.status).toBe(201);
     });
@@ -67,7 +67,7 @@ describe("Post Recipe Tests", () => {
             "private": createRecipeForm.private,
             "steps": createRecipeForm.steps
         };
-        const res = await supertest_1.default(server_1.default)
+        const res = await request(server_1.default)
             .post('/recipes').send(recipeForm);
         expect(res.status).toBe(400);
         expect(res.body.err.message).toMatch("Missing recipe fields");

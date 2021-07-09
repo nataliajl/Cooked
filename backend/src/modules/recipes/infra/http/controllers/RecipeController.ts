@@ -1,36 +1,27 @@
-import { Request, Response } from 'express';
-import { container } from 'tsyringe';
+
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import FindCategoryService from '@modules/categories/services/FindCategoryService';
+
+import FindIngredientService from '@modules/ingredients/services/findIngredientService';
 import addIngredientService from '@modules/ingredients/services/addIngredientService';
+import RemoveIngredientService from '@modules/ingredients/services/removeIngredientService'
+
 import addStepService from '@modules/steps/services/addStepService';
+import findStepService from '@modules/steps/services/findStepService';
+import RemoveStepService from '@modules/steps/services/RemoveStepService';
+
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
-import RequestIngredients from '@shared/models/RequestIngredients';
-import GetRecipeByIngredientsService from '@modules/recipes/services/GetRecipeByIngredientsService';
-import Filter from '@shared/models/Filter';
+import RecipeByIngredientsService from '@modules/recipes/services/RecipeByIngredientsService';
 import FindRecipeService from '@modules/recipes/services/FindRecipeService';
 import RemoveRecipeService from '@modules/recipes/services/RemoveRecipeService';
-import findStepService from '@modules/steps/services/findStepService';
-import FindIngredientService from '@modules/ingredients/services/findIngredientService';
-import RemoveStepService from '@modules/steps/services/RemoveStepService';
-import RemoveIngredientService from '@modules/ingredients/services/removeIngredientService'
 import UpdateRecipeService from '@modules/recipes/services/UpdateRecipeService';
-import AppError from '@shared/errors/Error';
 
-interface IRequest {
-  title: string;
-  description: string;
-  category: string;
-  cookTime: number;
-  serves: number;
-  vegetarian: boolean;
-  vegan: boolean;
-  lactosefree: boolean;
-  glutenfree: boolean;
-  ingredients: RequestIngredients[];
-  private: boolean;
-  steps: string[];
-}
+import IRequest from '@shared/models/IRequest';
+import Filter from '@shared/models/Filter';
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+import GetRelatedRecipeIDService from '@modules/ingredients/services/GetRelatedRecipeIDService';
+
 
 export default class RecipeController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -111,7 +102,7 @@ export default class RecipeController {
       title: recipe.title,
       description: recipe.description,
       category: foundCategory,
-      cookTime: recipe.cookingTime,
+      cookTime: recipe.cooking_time,
       serves: recipe.servingSize,
       vegetarian: recipe.vegetarian,
       vegan: recipe.vegan,
@@ -188,7 +179,7 @@ export default class RecipeController {
     return response.status(200).json({title: recipe.title,
       description: recipe.description,
       category: recipe.category.title,
-      cookTime: recipe.cookingTime,
+      cookTime: recipe.cooking_time,
       serves: recipe.servingSize,
       vegetarian: recipe.vegetarian,
       vegan: recipe.vegan,
@@ -199,60 +190,56 @@ export default class RecipeController {
       steps: steps});
   }
 
-  public async getRecipeByIngredients(request: Request, response: Response): Promise<Response> {
-    const queryRequest = JSON.stringify(request.query);
+  public async recipeByIngredients(request: Request, response: Response): Promise<Response> {
     const {
       ingredients,
       isOnlyIngredient,
-      category,
+      categories,
       servingSize,
       rate,
-
       restriction: {
         vegetarian,
         vegan
-    },
-
-    cookingTime: {
+      },
+      cookingTime: {
         min,
         max,
-    },
-    }: Filter = JSON.parse(queryRequest);
-    alert(JSON.parse(queryRequest));
-    
-    const getRecipeByIngredients = container.resolve(GetRecipeByIngredientsService);
+      },
+    }: Filter = request.body;
+
+    const findCategory = container.resolve(FindCategoryService);
+    const categoryList: string[] = []; 
+    categories.forEach(async (value) => {
+      const cat = await findCategory.execute(value);
+      const ids = cat? cat.id : null;
+
+      if (ids)
+        categoryList.push(ids);
+
+    });
+
+    const getRecipesID = container.resolve(GetRelatedRecipeIDService);
+    const recipe_id = await getRecipesID.execute(ingredients);
+    const getRecipeByIngredients = container.resolve(RecipeByIngredientsService);
 
     const recipe = await getRecipeByIngredients.execute({
       ingredients,
       isOnlyIngredient,
-
-      category,
+      categories: categoryList,
       servingSize,
       rate,
-
       restriction: {
           vegetarian,
           vegan
       },
-
       cookingTime: {
           min,
           max,
       },
-    });
+    }, recipe_id);
 
 
-    return response.status(200).json({
-      title: recipe[0].title,
-      description: recipe[0].description,
-      category: recipe[0].category,
-      cookTime: recipe[0].cookingTime,
-      serves: recipe[0].servingSize,
-      vegetarian: recipe[0].vegetarian,
-      vegan: recipe[0].vegan,
-      lactosefree: recipe[0].lactosefree,
-      glutenfree: recipe[0].glutenfree,
-    });
+    return response.status(200).json(recipe);
   }
 
 }

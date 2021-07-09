@@ -26,9 +26,12 @@ export default class CategoryController {
     const getCategoryTitles = container.resolve(GetCategoryTitlesService);
 
     //Executando a função que cria categorias
-    const categoryTitles = await getCategoryTitles.execute();
+    const categories = await getCategoryTitles.execute();
     
-    return response.json(categoryTitles);
+    const titles = categories.map((value) => {
+      return value.title;
+    })
+    return response.json(titles);
   }
 
 }

@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 require("@shared/infra/typeorm");
 require("../container/index");
-const supertest_1 = __importDefault(require("supertest"));
-const server_1 = __importDefault(require("../../server"));
+const request = require("supertest");
+const server_1 = __importDefault(require("../infra/http/server"));
 const typeorm_1 = require("typeorm");
 let createRecipeForm = {
     "title": "Feijoada",
@@ -19,16 +19,10 @@ let createRecipeForm = {
     "vegan": false,
     "lactosefree": false,
     "glutenfree": false,
-    "ingredients": [
-        {
-            "title": "Feijao",
-            "amount": 2
-        },
-        {
-            "title": "Porco",
-            "amount": 1
-        }
-    ],
+    "ingredients": {
+        "title": ["Feijao", "Porco"],
+        "amount": [2, 1]
+    },
     "private": false,
     "steps": [
         "Colocar no fogo",
@@ -45,32 +39,28 @@ afterAll(async () => {
 });
 describe("Path Recipe Tests", () => {
     beforeEach(async () => {
-        await supertest_1.default(server_1.default)
+        await request(server_1.default)
             .post('/recipes').send(createRecipeForm);
     });
     afterEach(async () => {
-        await supertest_1.default(server_1.default).delete('/recipes').send({ title: "Feijoada" });
+        await request(server_1.default).delete('/recipes').send({ title: "Feijoada" });
     });
     it("Should return status 200", async () => {
-        const res = await supertest_1.default(server_1.default)
+        const res = await request(server_1.default)
             .patch('/recipes').send(createRecipeForm);
         expect(res.status).toBe(200);
     });
     it("Should successfully update modified recipe fields ", async () => {
         createRecipeForm.category = "portuguese";
         createRecipeForm.cookTime = 60;
-        const res = await supertest_1.default(server_1.default)
+        const res = await request(server_1.default)
             .patch('/recipes').send(createRecipeForm);
         expect(res.body).toHaveProperty('category', 'portuguese');
         expect(res.body).toHaveProperty('cookTime', 60);
     });
     it("Should not increase the Ingredients, but replace them ", async () => {
-        createRecipeForm.ingredients = [
-            { "title": "Feijao preto ", "amount": 1 },
-            { "title": "Calabresa", "amount": 3 },
-            { "title": "Alho", "amount": 5 }
-        ];
-        const res = await supertest_1.default(server_1.default)
+        createRecipeForm.ingredients = { "title": ["Feijao preto ", "Calabresa", "Alho"], "amount": [1, 3, 5] };
+        const res = await request(server_1.default)
             .patch('/recipes').send(createRecipeForm);
         expect(res.status).toBe(200);
         expect(res.body.ingredients).toHaveLength(3);
@@ -81,7 +71,7 @@ describe("Path Recipe Tests", () => {
             "Comer",
             "Comprar ingredients :("
         ];
-        const res = await supertest_1.default(server_1.default)
+        const res = await request(server_1.default)
             .patch('/recipes').send(createRecipeForm);
         expect(res.body.steps).toHaveLength(2);
     });

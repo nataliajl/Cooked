@@ -13,4 +13,6 @@ export default interface IIngredientsRepository {
   findIngredientsByRecipe(recipe: Recipe): Promise<Ingredient[]>;
 
   removeIngredientsByRecipe(recipe: Recipe): Promise<void>;
+  
+  getIngredientsRecipe(ingredients: string[]): Promise<string[]>
 }

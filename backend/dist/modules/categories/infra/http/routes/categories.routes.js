@@ -9,4 +9,5 @@ const CategoryController_1 = __importDefault(require("../controllers/CategoryCon
 const categoryRouter = express_1.Router();
 const categoryController = new CategoryController_1.default();
 categoryRouter.get('/', categoryController.getTitles);
+categoryRouter.post('/', categoryController.create);
 exports.default = categoryRouter;

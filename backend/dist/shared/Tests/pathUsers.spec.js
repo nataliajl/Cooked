@@ -7,7 +7,7 @@ require("reflect-metadata");
 require("@shared/infra/typeorm");
 require("../container/index");
 const request = require("supertest");
-const server_1 = __importDefault(require("../../server"));
+const server_1 = __importDefault(require("../infra/http/server"));
 const typeorm_1 = require("typeorm");
 beforeAll(() => {
     return typeorm_1.createConnection();

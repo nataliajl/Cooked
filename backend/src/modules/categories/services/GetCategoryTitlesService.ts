@@ -20,7 +20,7 @@ class FindCategoryService {
   }
 
 
-  public async execute(): Promise<string[]> {
+  public async execute(): Promise<Category[]> {
     return await this.categoriesRepository.getCategoryTitles();
   }
 }

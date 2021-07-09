@@ -24,7 +24,7 @@ class RecipesRepository implements IRecipesRepository {
     //Criando a receita
     const recipe = this.ormRepository.create({
       category: rawRecipe.category,
-      cookingTime: rawRecipe.cookTime,
+      cooking_time: rawRecipe.cookTime,
       glutenfree: rawRecipe.glutenfree,
       description: rawRecipe.description,
       lactosefree: rawRecipe.lactosefree,
@@ -41,35 +41,20 @@ class RecipesRepository implements IRecipesRepository {
     return recipe;
   }
 
-  public async getRecipeByIngredient(filter : Filter) : Promise<Recipe[]> {
-    if (Boolean(filter.isOnlyIngredient)){
-      const recipes : Promise<Recipe[]> = this.ormRepository.find({
-        ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
-        category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
-        private: Raw('false'), 
-        cookingTime: Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
-      });
+  public async recipeByIngredient(filter : Filter, recipeID : string[]) : Promise<Recipe[]> {
+    const ids = recipeID.join(',');
+    const categories = filter.categories.join(',');
 
-      const reqtIngredients = filter.ingredients;
-      recipes.then((value) => {
-        for (let i = (value.length -1); i >= 0 ; i--){
-          reqtIngredients.forEach((ingredient) => {
-            if (!Object.keys(value[i].ingredients).includes(ingredient))
-              return value.pop();
-          });
-        }
-      });
-
-      return recipes;
-    }
-    
     const recipes = this.ormRepository.find({
-      ingredients: Raw(alias =>`${alias} IN (:...title)`, {title: filter.ingredients}),
-      category: Raw(alias =>`${alias} IN (:...title)`, {title: filter.category}), 
-      private: Raw('false'), 
-      cookingTime: Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.min))
+      where: {
+        private: 'false',
+        cooking_time: Between(parseInt(filter.cookingTime.min),parseInt(filter.cookingTime.max)),
+        id: Raw(alias =>`${alias} = Any('{${ids}}')`),
+        categoryId: Raw(alias =>`${alias} = Any('{${categories}}')`),
+      }
     });
 
+    console.log(await recipes);
     return recipes;
   }
 

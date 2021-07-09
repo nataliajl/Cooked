@@ -7,5 +7,5 @@ export default interface ICategoriesRepository {
   findByTitle(title: string): Promise<Category | undefined>;
   findTitleById(id: string): Promise<string>;
   removeCategoryByTitle(title: string): Promise<void>;
-  getCategoryTitles(): Promise<string[]>;
+  getCategoryTitles(): Promise<Category[]>;
 }

@@ -31,16 +31,16 @@ afterAll( async () => {
 
 describe("Post Recipe Tests", () => {    
 
-  afterEach(async () => {
-    try{
-      request(app).delete('/recipes').send({title: "Ingredient_Test"});
-      const removeCateogry = new RemoveCategoryService(new CategoriesRepository());
-      removeCateogry.execute("category_test");
-    }catch(e){
-      expect(e.message).toMatch("Recipe not found");
-    }
+  // afterEach(async () => {
+  //   try{
+  //     request(app).delete('/recipes').send({title: "Ingredient_Test"});
+  //     const removeCateogry = new RemoveCategoryService(new CategoriesRepository());
+  //     removeCateogry.execute("category_test");
+  //   }catch(e){
+  //     expect(e.message).toMatch("Recipe not found");
+  //   }
     
-  })
+  // })
 
   test("Should successfully return recipe ingredients list", async () => {
 

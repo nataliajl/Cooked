@@ -24,7 +24,7 @@ class Recipe {
   description: string;
 
   @Column()
-  cookingTime: number;
+  cooking_time: number;
 
   @Column()
   servingSize: number;

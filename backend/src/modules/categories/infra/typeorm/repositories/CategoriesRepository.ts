@@ -41,10 +41,9 @@ class CategoriesRepository implements ICategoriesRepository {
     await this.ormRepository.delete({title: title});
   }
 
-  public async getCategoryTitles(): Promise<string[]> {
+  public async getCategoryTitles(): Promise<Category[]> {
     const categories = this.ormRepository.find({ select: ["title"] });
-    console.log(categories);
-    return Object.values(categories);
+    return categories;
   }
 }
 

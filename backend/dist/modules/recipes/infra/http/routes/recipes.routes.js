@@ -9,7 +9,7 @@ const RecipeController_1 = __importDefault(require("../controllers/RecipeControl
 const recipesRouter = express_1.Router();
 const recipesController = new RecipeController_1.default();
 recipesRouter.post('/', recipesController.create);
-recipesRouter.get('/', recipesController.getRecipeByIngredients);
+recipesRouter.post('/search', recipesController.recipeByIngredients);
 recipesRouter.get('/', recipesController.getRecipe);
 recipesRouter.delete('/', recipesController.removeRecipe);
 recipesRouter.patch('/', recipesController.updateRecipe);

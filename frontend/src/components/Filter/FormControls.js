@@ -1,5 +1,6 @@
 import React from 'react';
 import {getRecipes} from './../../services/recipe';
+import {getCategories} from './../../services/category';
 
 
 export const useFormControls = () => {
@@ -25,12 +26,12 @@ export const useFormControls = () => {
     setInputData("");
     setChipData(newChipData);
   };
-const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
   const toggleChecked = () => {
     setChecked((prev) => !prev);
   };
 
-  const cuisineList = [{type: 'Mexican'}, {type: 'Italian'}];
+  const cuisineList = getCategories();
   const cuisineSelected = [];
   const [open, setOpen] = React.useState(true);
   const handleClick = () => {
@@ -101,7 +102,7 @@ const [checked, setChecked] = React.useState(false);
                               &vegan=false
                               &vegetarian=false`);
           
-    alert(resp);
+    // alert(resp);
   };
 
   return {
