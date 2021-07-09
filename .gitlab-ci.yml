@@ -2,6 +2,9 @@ image: node:16.0.0
 
 before_script:
   - cd frontend
-  - yarn install --cache-folder .yarn
-  - cd ../backend
-  - yarn install --cache-folder .yarn
+  - yarn install
+
+build:
+  stage: build
+  script:
+    - echo "Build executados"
