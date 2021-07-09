@@ -1,17 +1,19 @@
-# This file is a template, and might need editing before it works on your project.
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/README.html#stages
+image: node:16.0.0
 
-stages:          # List of stages for jobs, and their order of execution
-  - trigger
-
-master-pipe:   
-  stage: trigger
+build-front:
+  stage: build
   script:
-    - "curl -X POST -F token=20ff3c75e3104beb6fd48e0cea9eae -F ref=master https://gitlab.com/api/v4/projects/25377873/trigger/pipeline"
+    - echo "Instalando dependências do frontend..."
+    - cd frontend
+    - yarn install
+    - CI='' yarn build
+    - echo "Build Frontend executado."
+
+build-back:
+  stage: build
+  script:
+    - echo "Instalando dependências do backend..."
+    - cd backend
+    - yarn install
+    - CI='' yarn build
+    - echo "Build Backend executado."
