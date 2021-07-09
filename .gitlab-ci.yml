@@ -1,9 +1,21 @@
+before-script:
+  stage: build
+  script:
+    - cd frontend
+    - yarn install
+    - cd ../backend
+    - yarn install
+
 build-job:
   stage: build
   script:
-    - echo "Build executado"
+    - cd frontend
+    - yarn run build
+    - cd ../backend
+    - yarn run build
 
 test-job1:
   stage: test
   script:
     - echo "Testes executados"
+
