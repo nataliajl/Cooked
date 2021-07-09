@@ -1,14 +1,5 @@
 image: node:16.0.0
 
-build-front:
-  stage: build
-  script:
-    - echo "Instalando dependências do frontend..."
-    - cd frontend
-    - yarn install
-    - CI='' yarn build
-    - echo "Build Frontend executado."
-
 build-back:
   stage: build
   script:
@@ -23,5 +14,5 @@ test:
   script:
     - echo "Iniciando testes da API..."
     - cd backend
-    - yarn test
+    - CI='' yarn test
     - echo "Testes da API executados."
