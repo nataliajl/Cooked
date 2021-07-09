@@ -5,6 +5,7 @@ build-back:
   script:
     - echo "Instalando dependências do backend..."
     - cd backend
+    - yarn global install jest
     - yarn install
     - CI='' yarn build
     - echo "Build Backend executado."
