@@ -17,3 +17,11 @@ build-back:
     - yarn install
     - CI='' yarn build
     - echo "Build Backend executado."
+
+test:
+  stage: test
+  script:
+    - echo "Iniciando testes da API..."
+    - cd backend
+    - yarn test
+    - echo "Testes da API executados."
