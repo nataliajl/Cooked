@@ -3,10 +3,10 @@ image: node:16.0.0
 before_script:
   - echo "Instalando dependências"
   - cd frontend
-  - yarn install
+  - npm i
 
 build:
   stage: build
   script:
-    - yarn build
+    - npm run build
     - echo "Build executado"
