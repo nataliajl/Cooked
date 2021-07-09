@@ -1,5 +1,14 @@
 image: node:16.0.0
 
+build-front:
+  stage: build
+  script:
+    - echo "Instalando dependências do frontend..."
+    - cd frontend
+    - yarn install
+    - CI='' yarn build
+    - echo "Build Frontend executado."
+
 build-back:
   stage: build
   script:
