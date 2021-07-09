@@ -5,9 +5,19 @@ before_script:
   - echo "Instalando dependências..."
   - cd frontend
   - yarn install
+  - cd ../backend
+  - yarn install
 
-build:
+build-front:
   stage: build
   script:
+    - cd ../frontend
     - CI='' yarn build
     - echo "Build Frontend executado"
+
+build-back:
+  stage: build
+  script:
+    - cd ../backend
+    - CI='' yarn build
+    - echo "Build Backend executado"
