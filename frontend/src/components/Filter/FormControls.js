@@ -1,4 +1,5 @@
 import React from 'react';
+import {getCategories} from './../../services/category';
 
 export const useFormControls = () => {
   const [inputData, setInputData] = React.useState("");
@@ -28,9 +29,19 @@ export const useFormControls = () => {
     setChecked((prev) => !prev);
   };
 
-  const cuisineList = [];
+  const [inputCategories, setCategories] = React.useState([]);
+  const handleCuisine = () => {
+    if(inputCategories.length == 0){
+      getCategories().then((data) => {
+        const categories = data;
+        // console.log(categories);
+          setCategories(categories);
+      });
+    }
+    return inputCategories;
+  };
   const cuisineSelected = [];
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -88,6 +99,7 @@ export const useFormControls = () => {
     };
 
   const handleFormSubmit= async () => {
+    
     // alert(JSON.stringify(filterInput));
     // const resp = getRecipes(`ingredients=${filterInput.ingredients}
     //                           &isOnlyIngredients=${filterInput.onlyIngredients}
@@ -113,7 +125,8 @@ export const useFormControls = () => {
     toggleChecked,
       
     open,
-    cuisineList,
+    inputCategories,
+    handleCuisine,
     handleClick,
     handleCheck,
       

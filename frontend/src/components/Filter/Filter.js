@@ -14,7 +14,7 @@ export default function Filter() {
     toggleChecked,
       
     open,
-    cuisineList,
+    handleCuisine,
     handleClick,
     handleCheck,
       
@@ -55,7 +55,7 @@ export default function Filter() {
 
               <Collapse in={open} timeout='auto' unmountOnExit>
                 <List component='div'  disablePadding>                 
-                    {cuisineList.map((data) => (
+                    {handleCuisine().map((data) => (
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <Checkbox edge='start' onChange={e => {handleCheck(data, e)}} disableRipple/>

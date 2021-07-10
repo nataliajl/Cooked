@@ -1,7 +1,6 @@
 import api from './api';
 
-export const getCategories = () => {
-    api.get('/categories').then((value) => {
-        return value;
-    });
+export const getCategories = async () => {
+    const response = await api.get('/categories/');
+    return response.data;
 };
