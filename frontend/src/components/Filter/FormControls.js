@@ -1,9 +1,10 @@
 import React from 'react';
 import {getCategories} from './../../services/category';
 import {filteredRecipes} from './../../services/recipe';
+import { useHistory } from "react-router-dom";
 
 export const useFormControls = () => {
-
+  const history = useHistory();
   const [inputData, setInputData] = React.useState("");
   const handleChange = (input)  => {
     setInputData(input.target.value);
@@ -37,7 +38,7 @@ export const useFormControls = () => {
 
   const [inputCategories, setCategories] = React.useState([]);
   const handleCuisine = () => {
-    if(inputCategories.length == 0){
+    if(inputCategories.length === 0){
       getCategories().then((data) => {
         const categories = data;
         // console.log(categories);
@@ -51,7 +52,7 @@ export const useFormControls = () => {
     if (checked.target.checked){
       setCuisine((selected) => [...selected, data]);
     } else{
-      const unselect = cuisineSelected.filter((value) => value != data);
+      const unselect = cuisineSelected.filter((value) => value !== data);
       setCuisine(unselect);
     }
   };
@@ -85,22 +86,31 @@ export const useFormControls = () => {
     return { 
       ingredients: chipData.map((value) => value.label),
       isOnlyIngredients: checked,
-      categories: cuisineSelected,
+      categories: cuisineSelected.length === 0? inputCategories : cuisineSelected,
       servingSize: sliderValue,
       rate: ratingValue,
       vegetarian: isVeg.vegetarian,
       vegan: isVeg.vegan,
       min: minutes.min,
-      max: minutes.max
+      max: minutes.max === 0? 1440 : minutes.max
     };
   }
 
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const filter = handleFormValues();
-    const resp = filteredRecipes(filter);
-    console.log(resp);
+    if(chipData.length !== 0){
+      const filter = handleFormValues();
+      const response =  await filteredRecipes(filter);
+      console.log(response);
+      return history.push({
+        pathname: '/search',
+        state: response
+      });
+
+    }
+    alert('AT LEAST ONE INGREDIENT MUST BE INSERTED');
+    
   };
 
   return {

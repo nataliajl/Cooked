@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {useFormControls} from './FormControls';
-import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button, FormControl} from '@material-ui/core';
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
 import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
 import Tag from './Tags/Tag';

@@ -1,7 +1,7 @@
 import api from './api';
 
-export const filteredRecipes = (filter) => {
-    return api.post('/recipes/search', {
+export const filteredRecipes = async (filter) => {
+    const response = await api.post('/recipes/search', {
         ingredients: filter.ingredients,
         isOnlyIngredients: filter.isOnlyIngredients,
         categories: filter.categories,
@@ -16,6 +16,8 @@ export const filteredRecipes = (filter) => {
             max: filter.max
         }  
     });
+
+    return response.data;
 };
 
 

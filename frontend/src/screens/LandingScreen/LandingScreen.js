@@ -5,7 +5,7 @@ import homeVisual from './home-img.png';
 import Navbar from '../../components/Navbar/Navbar';
 import {useStyles } from './LandingStyles';
 
-const HomeScreen = () => {
+const LandingScreen = () => {
   const classes = useStyles();
   return ( 
     <div className={classes.root}>
@@ -33,4 +33,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default LandingScreen;

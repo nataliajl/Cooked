@@ -33,7 +33,6 @@ export default function ChipsArray(props){
               onDelete={props.onDelete(data)}
               className={classes.chip}
               classes = {{deleteIcon: classes.deleteIcon}}
-      
               />
             </li>
           ))}
