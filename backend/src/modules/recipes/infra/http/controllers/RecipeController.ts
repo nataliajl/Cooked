@@ -206,7 +206,7 @@ export default class RecipeController {
         max,
       },
     }: Filter = request.body;
-
+    console.log(request.body);
     const findCategory = container.resolve(FindCategoryService);
     const categoryList: string[] = []; 
     categories.forEach(async (value) => {
@@ -219,7 +219,7 @@ export default class RecipeController {
     });
 
     const getRecipesID = container.resolve(GetRelatedRecipeIDService);
-    const recipe_id = await getRecipesID.execute(ingredients);
+    const recipe_id = await getRecipesID.execute(ingredients, isOnlyIngredient);
     const getRecipeByIngredients = container.resolve(RecipeByIngredientsService);
 
     const recipe = await getRecipeByIngredients.execute({

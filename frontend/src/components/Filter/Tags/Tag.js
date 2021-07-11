@@ -2,18 +2,9 @@ import React from 'react';
 import { useStyles } from './TagStyles';
 import { AddCircleRounded } from '@material-ui/icons';
 import {IconButton, Chip, InputBase} from '@material-ui/core';
-import {useFormControls} from './../FormControls';
 
-export default function ChipsArray(){
+export default function ChipsArray(props){
   const classes = useStyles();
-  const {     
-    inputData,
-    chipData,
-    handleChange,
-    handleAddChip,
-    handleDelete,
-  } = useFormControls();
-  
 
   return ( 
     <div className={classes.root}>
@@ -21,13 +12,13 @@ export default function ChipsArray(){
         <div className={classes.input}>
           <InputBase
           placeholder='Please enter your ingredients'
-          value={inputData}
-          onChange={event => handleChange(event)}
+          value={props.value}
+          onChange={props.onChange}
           />
         </div>
 
         <div className={classes.button}>
-          <IconButton onClick={handleAddChip}>
+          <IconButton onClick={props.onClick}>
             <AddCircleRounded className={classes.img} />
           </IconButton>
         </div>
@@ -35,11 +26,11 @@ export default function ChipsArray(){
       
 
       <div className={classes.tag}>
-          {chipData.map((data) => (
+          {props.data.map((data) => (
             <li key={data.key}>
               <Chip
               label={data.label}
-              onDelete={handleDelete(data)}
+              onDelete={props.onDelete(data)}
               className={classes.chip}
               classes = {{deleteIcon: classes.deleteIcon}}
       

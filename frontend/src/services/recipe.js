@@ -1,8 +1,23 @@
 import api from './api';
 
-export const getRecipes = (filter) => {
-    return api.get(`/recipes?${filter}`);
+export const filteredRecipes = (filter) => {
+    return api.post('/recipes/search', {
+        ingredients: filter.ingredients,
+        isOnlyIngredients: filter.isOnlyIngredients,
+        categories: filter.categories,
+        servingSize: filter.servingSize,
+        rate: filter.rate,
+        restriction: {
+            vegetarian: filter.vegetarian,
+            vegan: filter.vegan,
+        },
+        cookingTime: {
+            min: filter.min,
+            max: filter.max
+        }  
+    });
 };
+
 
 export const postRecipe = ({ 
     title,

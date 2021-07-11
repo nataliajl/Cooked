@@ -68,8 +68,12 @@ class IngredientsRepository implements IIngredientsRepository {
     await this.ormRepository.remove(recipeIngredients)
   }
 
-  public async getIngredientsRecipe(ingredients: string[]): Promise<string[]>{
+  public async getIngredientsRecipe(ingredients: string[], isOnlyIngredients: string): Promise<string[]>{
     const ingredientsStr = ingredients.join(',');
+    let operator = '&&';
+    if(isOnlyIngredients == "true")
+      operator = '=';
+
     const recipesAndIngr = await this.ormRepository.find({
       join:{
         alias: "ingredient",
@@ -80,9 +84,10 @@ class IngredientsRepository implements IIngredientsRepository {
 
       where: {
 
-          "title":  Raw(alias =>`${alias} && '{${ingredientsStr}}'`),
+          "title":  Raw(alias =>`${alias} ${operator} '{${ingredientsStr}}'`),
       },
     });
+    console.log(recipesAndIngr);
 
     const recipe_id = recipesAndIngr.map((value) => { return value.recipe.id});
     
