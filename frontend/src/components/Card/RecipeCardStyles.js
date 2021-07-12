@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
       width: '50rem',
       '&:hover': {
         color: colors.palette.basic.b3,
-        backgroundColor: colors.palette.secondary.light,
+        backgroundColor: colors.palette.secondary.lighter,
       }
     },
 

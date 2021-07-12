@@ -36,7 +36,7 @@ const DietaryRestrictions = ({diet}) => {
     }
     
     return (
-        <Grid container xs={6} alignItems="center" justify="space-between">
+        <Grid container xs={10} alignItems="center" justify="space-between">
             {recipeRestrictions.map(e => (
                 <Grid item xs={6/recipeRestrictions.length} alignItems="center" justify="center"  >
                     <DietItem type={e.type} Icon={e.icon}/> 

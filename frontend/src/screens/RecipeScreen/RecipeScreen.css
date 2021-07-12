@@ -34,16 +34,17 @@
     flex-direction: column;
     align-items: center;
     flex-basis: calc(100% / 2);
-    padding: calc(10%);
-   
+    padding: calc(5rem);
+    margin-left: 15rem;
 }
 
 .right-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items:stretch;
     flex-basis: calc(100% / 2);
-    padding: calc(10%);
+    padding-top: calc(5rem);
+    margin-left: 20rem;
 }
 
 .stepitem {
@@ -60,21 +61,21 @@
 }
 
 .title {
-    font-family: "Lato";
+    font-family: "Roboto";
     color: #1c1c1c;
     font-weight: bold;
     font-size: 18px;
     text-align: left;
 }
 .section-text {
-    font-family: "Lato";
+    font-family: "Roboto";
     color: #1c1c1c;
     font-weight: bold;
     font-size: 18px;
 }
 
 .text {
-    font-family: "Lato";
+    font-family: "Roboto";
     color: #1c1c1c;
     font-weight: light;
     font-size: 18px;
@@ -99,7 +100,7 @@
 
 
 .itemtext {
-    font-family: "Lato";
+    font-family: "Roboto";
     color: #1c1c1c;
     font-weight: light;
     margin-left: 2%;

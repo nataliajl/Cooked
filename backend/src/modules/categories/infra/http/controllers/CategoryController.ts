@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import GetCategoryTitlesService from '@modules/categories/services/GetCategoryTitlesService';
+import FindCategoryService from '@modules/categories/services/FindCategoryService';
 
 interface IRequest {
   title: string;
@@ -32,6 +33,17 @@ export default class CategoryController {
       return value.title;
     })
     return response.json(titles);
+  }
+
+  public async findTitleById(request: Request, response: Response): Promise<Response> {
+    const id = `${request.query.category}`;
+    //Obtendo a função criadora de categorias - Utilizando o container que servirá para a injeção de dependencias
+    const findCategory = container.resolve(FindCategoryService);
+
+    //Executando a função que cria categorias
+    const title = await findCategory.executeId(id);
+    
+    return response.json(title);
   }
 
 }

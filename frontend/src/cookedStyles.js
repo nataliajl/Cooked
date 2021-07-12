@@ -11,6 +11,7 @@ export const colors = createMuiTheme({
         },
 
         secondary: {
+            lighter:    '#EFF2DF',
             light:      '#DFE3C6',
             main:       '#A9B654',
             dark:       '#9AB364',

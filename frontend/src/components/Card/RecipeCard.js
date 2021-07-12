@@ -4,35 +4,38 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from './RecipeCardStyles';
+import { useHistory } from "react-router-dom";
+import {CardActionArea} from '@material-ui/core';
 
 export default function RecipeCard(props) {
   const classes = useStyles();
-  const handleCategory = () => {
-    // busca titulo da categoria no banco
-    return "test";
-  };
-
-  const category = handleCategory();
-
-  const handleClick = () => {
-    return 'test';
+  const history = useHistory();
+  
+  const handleClick = (e, recipe) => {
+    e.preventDefault();
+    return history.push({
+      pathname: '/recipe',
+      state: recipe
+    });
   };
 
   return (
     <div className={classes.content}>
       {props.content.map((data) =>(
         <div className={classes.card}>
-          <Card className={classes.root} onClick={handleClick}>
-            <CardHeader title={data.title} subheader={category}/>
-            {/* Set image
-            <CardMedia
-              className={classes.media}
-              image="/static/images/cards/paella.jpg"
-              title="Paella dish"
-            /> */}
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">{data.description}</Typography>
-            </CardContent>
+          <Card className={classes.root}>
+            <CardActionArea  onClick={(e) => handleClick(e, data)}>
+              <CardHeader title={data.title} />
+              {/* Set image
+              <CardMedia
+                className={classes.media}
+                image="/static/images/cards/paella.jpg"
+                title="Paella dish"
+              /> */}
+              <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p">{data.description}</Typography>
+              </CardContent>
+            </CardActionArea>
           </Card>
         </div>
       ))}

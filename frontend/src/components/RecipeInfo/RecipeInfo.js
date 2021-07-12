@@ -41,6 +41,7 @@ const RecipeInfo = ({title, description, imageSource, time, portionSize, comment
 
     return ( 
         <div className="left-container">
+       
             <img src={imageSource} className="image" alt=''/>
             <Grid container spacing={1} >
                 <Grid item xs={6}>
@@ -60,9 +61,7 @@ const RecipeInfo = ({title, description, imageSource, time, portionSize, comment
                 </Grid>
             </Grid> 
             <DietaryRestrictions diet={diet}/>
-            <p>
-                <p className="title">{title}</p>
-            </p>
+            <p className="title">{title}</p>
             <p className="text">{description}</p>
             {/* <List>
                 {comments.map(comment => (
