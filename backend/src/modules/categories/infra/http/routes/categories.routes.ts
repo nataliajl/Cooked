@@ -14,6 +14,7 @@ const categoryController = new CategoryController();
 //Rota: localhost:3333/category
 categoryRouter.get('/',  categoryController.getTitles);
 
+categoryRouter.get('/id',  categoryController.findTitleById);
 //Rota: localhost:3333/categories
 categoryRouter.post('/', categoryController.create);
 

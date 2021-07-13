@@ -1,20 +1,25 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {useFormControls} from './FormControls';
-import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button, Container } from '@material-ui/core';
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
 import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
 import Tag from './Tags/Tag';
 
 export default function Filter() {
   const classes = useStyles(); 
-  
-  const {      
+  const {    
+    inputData,
+    chipData,
+    handleChange,
+    handleAddChip,
+    handleDelete,
+
     checked,
     toggleChecked,
       
     open,
-    cuisineList,
+    handleCuisine,
     handleClick,
     handleCheck,
       
@@ -31,10 +36,10 @@ export default function Filter() {
 
     handleFormSubmit
   } = useFormControls();
-
+  
   return (
-      <form className={classes.root} onSubmit={handleFormSubmit}>
-        <Tag />
+      <form className={classes.root} onSubmit={e => handleFormSubmit(e)}>
+        <Tag value={inputData} data={chipData} onChange={handleChange} onClick={handleAddChip} onDelete={handleDelete}/>
         <div class='ingreSwitch' className={classes.row}>
             <Typography className={classes.font} gutterBottom>Only Inserted Ingredients</Typography>
             <OnlyIngredients checked={checked} onChange={toggleChecked} />  
@@ -55,7 +60,7 @@ export default function Filter() {
 
               <Collapse in={open} timeout='auto' unmountOnExit>
                 <List component='div'  disablePadding>                 
-                    {cuisineList.map((data) => (
+                    {handleCuisine().map((data) => (
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <Checkbox edge='start' onChange={e => {handleCheck(data, e)}} disableRipple/>
@@ -82,9 +87,9 @@ export default function Filter() {
               defaultValue={sliderValue}
               aria-labelledby='discrete-slider-custom'
               step={1}
-              valueLabelDisplay='auto'
+              valueLabelDisplay='OFF'
               marks={marks}
-              onChange={handleSlider}
+              onChange={(e, value) => handleSlider(value)}
             />
           </div>
         </div>
@@ -95,7 +100,6 @@ export default function Filter() {
           <div class='inputContainer' className={classes.row}>
             <TextField
               id='outlined-search'
-              type='search'
               placeholder='Min'
               variant='outlined'
               type='number'
@@ -108,7 +112,6 @@ export default function Filter() {
         
             <TextField
               id='outlined-search'
-              type='search'
               placeholder='Max'
               variant='outlined'
               type='number'
@@ -135,7 +138,7 @@ export default function Filter() {
           
         <div className={classes.button}>
           <div className={classes.font}>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type='submit' onSubmit={handleFormSubmit}>
               Let's Cook
             </Button>
           </div>

@@ -32,7 +32,7 @@ export default function Navbar() {
             <div className="appbar">
                 <div className="leftappbar">
                     <ClickableComponent onClick={() => history.push('/')}>
-                        <img className={classes.img} src={logo}/>
+                        <img className={classes.img} src={logo} alt=''/>
                     </ClickableComponent>
                     <ListItem 
                         text="Keep a Recipe"

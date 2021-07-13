@@ -1,6 +1,5 @@
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import {inputElements} from '../../cookedStyles.js';
 
 export const useStyles = makeStyles((theme) => ({
     root: {

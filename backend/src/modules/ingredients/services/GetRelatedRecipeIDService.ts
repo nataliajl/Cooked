@@ -15,9 +15,9 @@ class GetRelatedRecipeIDService {
     this.ingredientsRepository = ingredientsRepository;
   }
 
-  public async execute(ingredients: string[]): Promise<string[]> {
+  public async execute(ingredients: string[], isOnlyIngredients: string): Promise<string[]> {
     
-    return await this.ingredientsRepository.getIngredientsRecipe(ingredients);
+    return await this.ingredientsRepository.getIngredientsRecipe(ingredients, isOnlyIngredients);
   }
 }
 
