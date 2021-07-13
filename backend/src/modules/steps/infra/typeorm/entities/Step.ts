@@ -14,8 +14,8 @@ class Step {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column("text",{array: true})
-  steps: string[];
+  @Column()
+  step: string;
 
   @ManyToOne(() => Recipe)
   @JoinColumn({ name: 'recipe_id' })

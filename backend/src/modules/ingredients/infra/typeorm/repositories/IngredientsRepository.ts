@@ -16,33 +16,33 @@ class IngredientsRepository implements IIngredientsRepository {
   public async addToRecipe(
     ingredients: RequestIngredients[],
     recipe: Recipe
-  ): Promise<Ingredient> {
+  ): Promise<Ingredient[]> {
     //Criando os ingredientes
 
-    if(!ingredients || ingredients.length < 1){
-      throw new AppError("Missing Ingredients", 400);
+    if (!ingredients || ingredients.length < 1) {
+      throw new AppError('Missing Ingredients', 400);
     }
 
-    ingredients.forEach(element => {
-      if (element.amount < 1 || element.amount > 50){
-        throw new AppError("Ingredient " + element.title + " has unpermitted amount of " + element.amount, 400);
-      }      
-    });
-    
-    this.removeIngredientsByRecipe(recipe);
-
-    const titles: string[] = [];
-    const amounts: number[] = [];
-
-    ingredients.map(({ amount, title }) => {
-      titles.push(title);
-      amounts.push(amount);
+    ingredients.forEach((element) => {
+      if (element.amount < 1 || element.amount > 50) {
+        console.log('Ueeepaaa', element);
+        throw new AppError(
+          'Ingredient ' +
+            element.title +
+            ' has unpermitted amount of ' +
+            element.amount,
+          400
+        );
+      }
     });
 
-    const newIngredients = this.ormRepository.create({     
-      recipe: recipe,
-      title: titles,
-      amount: amounts});
+    const newIngredients = ingredients.map((ingredient) =>
+      this.ormRepository.create({
+        recipe: recipe,
+        title: ingredient.title,
+        amount: ingredient.amount,
+      })
+    );
 
     //Salvando no banco
     await this.ormRepository.save(newIngredients);
@@ -51,13 +51,11 @@ class IngredientsRepository implements IIngredientsRepository {
   }
 
   public async findIngredientsByRecipe(recipe: Recipe): Promise<Ingredient[]> {
-    
     const recipeIngredients = await this.ormRepository.find({
       where: { recipe },
     });
 
     return recipeIngredients;
-
   }
 
   public async removeIngredientsByRecipe(recipe: Recipe): Promise<void> {
@@ -65,32 +63,35 @@ class IngredientsRepository implements IIngredientsRepository {
       where: { recipe },
     });
 
-    await this.ormRepository.remove(recipeIngredients)
+    await this.ormRepository.remove(recipeIngredients);
   }
 
-  public async getIngredientsRecipe(ingredients: string[], isOnlyIngredients: string): Promise<string[]>{
+  public async getIngredientsRecipe(
+    ingredients: string[],
+    isOnlyIngredients: string
+  ): Promise<string[]> {
     const ingredientsStr = ingredients.join(',');
     let operator = '&&';
-    if(isOnlyIngredients == "true")
-      operator = '=';
+    if (isOnlyIngredients == 'true') operator = '=';
 
     const recipesAndIngr = await this.ormRepository.find({
-      join:{
-        alias: "ingredient",
+      join: {
+        alias: 'ingredient',
         innerJoinAndSelect: {
-          recipe: "ingredient.recipe"
-        }
+          recipe: 'ingredient.recipe',
+        },
       },
 
       where: {
-
-          "title":  Raw(alias =>`${alias} ${operator} '{${ingredientsStr}}'`),
+        title: Raw((alias) => `${alias} ${operator} '{${ingredientsStr}}'`),
       },
     });
     console.log(recipesAndIngr);
 
-    const recipe_id = recipesAndIngr.map((value) => { return value.recipe.id});
-    
+    const recipe_id = recipesAndIngr.map((value) => {
+      return value.recipe.id;
+    });
+
     return recipe_id;
   }
 }

@@ -8,11 +8,14 @@ export default interface IIngredientsRepository {
   addToRecipe(
     ingredients: RequestIngredients[],
     recipeId: Recipe
-  ): Promise<Ingredient>;
+  ): Promise<Ingredient[]>;
 
   findIngredientsByRecipe(recipe: Recipe): Promise<Ingredient[]>;
 
   removeIngredientsByRecipe(recipe: Recipe): Promise<void>;
-  
-  getIngredientsRecipe(ingredients: string[], isOnlyIngredients: string): Promise<string[]>
+
+  getIngredientsRecipe(
+    ingredients: string[],
+    isOnlyIngredients: string
+  ): Promise<string[]>;
 }
