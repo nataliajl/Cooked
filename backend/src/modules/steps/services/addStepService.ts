@@ -20,7 +20,7 @@ class AddStepService {
     this.stepsRepository = stepsRepository;
   }
 
-  public async execute(rawSteps: string[], recipe: Recipe): Promise<Step> {
+  public async execute(rawSteps: string[], recipe: Recipe): Promise<Step[]> {
     //Atribuindo o ingrediente à receita
     return await this.stepsRepository.addToRecipe(rawSteps, recipe);
   }

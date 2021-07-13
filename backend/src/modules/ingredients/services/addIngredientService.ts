@@ -25,7 +25,7 @@ class AddIngredientService {
   public async execute(
     ingredients: RequestIngredients[],
     recipe: Recipe
-  ): Promise<Ingredient> {
+  ): Promise<Ingredient[]> {
     //Atribuindo o ingrediente à receita
     return await this.ingredientsRepository.addToRecipe(ingredients, recipe);
   }

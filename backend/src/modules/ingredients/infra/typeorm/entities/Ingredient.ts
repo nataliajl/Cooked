@@ -14,13 +14,13 @@ class Ingredient {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column("text",{array: true})
-  title: string[];
+  @Column()
+  title: string;
 
-  @Column("int",{array: true})
-  amount: number[];
+  @Column()
+  amount: number;
 
-  @ManyToOne(() => Recipe, recipe => recipe.ingredients)
+  @ManyToOne(() => Recipe, (recipe) => recipe.ingredients)
   @JoinColumn({ name: 'recipe_id' })
   recipe: Recipe;
 

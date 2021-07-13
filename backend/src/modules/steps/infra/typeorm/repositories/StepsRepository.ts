@@ -14,27 +14,22 @@ class StepsRepository implements IStepsRepository {
   public async addToRecipe(
     rawSteps: string[],
     recipe: Recipe
-  ): Promise<Step> {
-
+  ): Promise<Step[]> {
     this.removeStepsByRecipe(recipe);
 
-    const steps: string[] = []; 
-    rawSteps.map((text) => {
-      steps.push(text);
-    });
+    const steps = rawSteps.map((step) =>
+      this.ormRepository.create({
+        step,
+        recipe,
+      })
+    );
 
-    const newSteps = this.ormRepository.create({
-      steps,
-      recipe,
-    });
-
-    return await this.ormRepository.save(newSteps);
+    return await this.ormRepository.save(steps);
   }
 
   public async findStep(recipe: Recipe): Promise<Step[]> {
-
     const recipeSteps = await this.ormRepository.find({
-      where: { recipe }
+      where: { recipe },
     });
 
     return recipeSteps;
@@ -42,7 +37,7 @@ class StepsRepository implements IStepsRepository {
 
   public async removeStepsByRecipe(recipe: Recipe): Promise<void> {
     const recipeSteps = await this.ormRepository.find({
-      where: { recipe }
+      where: { recipe },
     });
 
     await this.ormRepository.remove(recipeSteps);
