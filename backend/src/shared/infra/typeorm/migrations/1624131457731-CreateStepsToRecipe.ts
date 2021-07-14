@@ -14,7 +14,7 @@ export class CreateStepsToRecipe1624131457731 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'text',
+            name: 'step',
             type: 'varchar',
           },
           {

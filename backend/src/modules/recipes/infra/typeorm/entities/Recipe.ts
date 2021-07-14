@@ -46,6 +46,9 @@ class Recipe {
 
   @OneToMany(() => Ingredient, ingredient => ingredient.recipe)
   ingredients: Ingredient[];
+
+  @OneToMany(() => Step, step => step.recipe)
+  steps: Ingredient[];
   
   @Column({ name: 'category_id' })
   categoryId: string;
