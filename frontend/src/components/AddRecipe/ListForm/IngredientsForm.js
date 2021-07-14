@@ -25,7 +25,7 @@ const IngredientsForm = ({ ingredients, setIngredients }) => {
     }
 
     const handleQuantityChange = (event, index) => {
-        ingredients[index].quantity = event.target.value;
+        ingredients[index].amount = event.target.value;
         setIngredients([...ingredients]);
     }
 
@@ -44,7 +44,7 @@ const IngredientsForm = ({ ingredients, setIngredients }) => {
                                     required
                                     type="number"
                                     onChange={(e) => handleQuantityChange(e, i)}
-                                    value={ingredient.quantity}
+                                    value={ingredient.amount}
                                     helperText="Quantity"
                                     margin="normal"
                                 />

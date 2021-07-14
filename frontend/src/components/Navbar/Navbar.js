@@ -40,12 +40,8 @@ export default function Navbar() {
                     />
                     <ListItem 
                         text="Favorites"
-                        link='/recipe'
+                        link='/'
                     />
-                    <ListItem 
-                        text="Threads"
-                        link='/keeparecipe'
-                    />  
                 </div>
                 <div className="rightappbar">
                     {

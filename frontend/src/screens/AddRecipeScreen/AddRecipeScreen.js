@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar/Navbar';
 
 const AddRecipeScreen = () => {
     return (
-        <div >
+        <div>
             <Navbar/>
             <div>
             <AddRecipeForm />
