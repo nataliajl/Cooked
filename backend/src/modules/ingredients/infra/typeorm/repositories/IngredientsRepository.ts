@@ -70,7 +70,7 @@ class IngredientsRepository implements IIngredientsRepository {
     ingredients: string[],
     isOnlyIngredients: string
   ): Promise<string[]> {
-    const ingredientsStr = ingredients.join(',');
+    const ingredientsStr = ingredients.join(',').replace('"', '');
     let operator = '&&';
     if (isOnlyIngredients == 'true') operator = '=';
 
@@ -83,10 +83,10 @@ class IngredientsRepository implements IIngredientsRepository {
       },
 
       where: {
-        title: Raw((alias) => `${alias} ${operator} '{${ingredientsStr}}'`),
+        title: Raw((alias) => `${alias} = ANY('{${ingredientsStr}}')`)
       },
     });
-    console.log(recipesAndIngr);
+    // console.log(recipesAndIngr);
 
     const recipe_id = recipesAndIngr.map((value) => {
       return value.recipe.id;

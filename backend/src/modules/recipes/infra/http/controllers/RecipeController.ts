@@ -221,6 +221,8 @@ export default class RecipeController {
     const getRecipesID = container.resolve(GetRelatedRecipeIDService);
     const recipe_id = await getRecipesID.execute(ingredients, isOnlyIngredient);
     const getRecipeByIngredients = container.resolve(RecipeByIngredientsService);
+    const findSteps = container.resolve(findStepService);
+    const findIngredients = container.resolve(FindIngredientService);
 
     const recipe = await getRecipeByIngredients.execute({
       ingredients,
@@ -238,8 +240,16 @@ export default class RecipeController {
       },
     }, recipe_id);
 
-
-    return response.status(200).json(recipe);
+    const foundIngredients = await findIngredients.execute(recipe[0]);
+    const _ingredients = foundIngredients.map((value) => {
+        return { title: value.title, amount: value.amount };
+    });
+    console.log(_ingredients)
+    console.log('----------')
+    const resp = { ...recipe[0], ingredients: _ingredients };
+    console.log(resp)
+    
+    return response.status(200).json(resp);
   }
 
 }

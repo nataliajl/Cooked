@@ -29,11 +29,7 @@ const RecipeScreen = () => {
       description: captalize(state.description),
       portionSize: state.servingSize,
       time: state.cooking_time,
-      ingredients: [
-          {quantity: 4, title: 'small cucumbers'},
-          {quantity: 3, title: 'chilis'},
-          {quantity: 5, title: 'springs of aspargus'}
-      ],
+      ingredients: state.ingredients,
       rating: 4.5,
       steps: [
           'Wash the cucumbers', 
