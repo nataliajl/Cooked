@@ -48,7 +48,7 @@ class Recipe {
   ingredients: Ingredient[];
 
   @OneToMany(() => Step, step => step.recipe)
-  steps: Ingredient[];
+  steps: Step[];
   
   @Column({ name: 'category_id' })
   categoryId: string;
