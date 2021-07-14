@@ -24,7 +24,7 @@ class RecipesRepository implements IRecipesRepository {
     //Criando a receita
     const recipe = this.ormRepository.create({
       category: rawRecipe.category,
-      cooking_time: rawRecipe.cookTime,
+      cookingTime: rawRecipe.cookTime,
       glutenfree: rawRecipe.glutenfree,
       description: rawRecipe.description,
       lactosefree: rawRecipe.lactosefree,
@@ -41,21 +41,21 @@ class RecipesRepository implements IRecipesRepository {
     return recipe;
   }
 
-  public async recipeByIngredient(filter : Filter, recipeID : string[]) : Promise<Recipe[]> {
+  public async findRecipeByIngredient(filter : Filter, recipeID : string[]) : Promise<Recipe[]> {
     const ids = recipeID.join(',');
     const categories = filter.categories.join(',');
 
     const recipes = this.ormRepository.find({
       where: {
         private: 'false',
-        vegan: filter.restriction.vegan,
-        vegetarian: filter.restriction.vegetarian,
-        cooking_time: Between(parseInt(filter.cookingTime.min),parseInt(filter.cookingTime.max)),
+        // vegan: filter.restriction.vegan,
+        // vegetarian: filter.restriction.vegetarian,
+        // cookingTime: Between(parseInt(filter.cookingTime.min),parseInt(filter.cookingTime.max)),
         id: Raw(alias =>`${alias} = Any('{${ids}}')`),
         categoryId: Raw(alias =>`${alias} = Any('{${categories}}')`),
       }
     });
-
+    
     return recipes;
   }
 

@@ -2,25 +2,25 @@
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import FindCategoryService from '@modules/categories/services/FindCategoryService';
 
-import FindIngredientService from '@modules/ingredients/services/findIngredientService';
-import addIngredientService from '@modules/ingredients/services/addIngredientService';
-import RemoveIngredientService from '@modules/ingredients/services/removeIngredientService'
+import AddIngredientService from '@modules/ingredients/services/AddIngredientService';
+import FindIngredientService from '@modules/ingredients/services/FindIngredientService';
+import RemoveIngredientService from '@modules/ingredients/services/RemoveIngredientService'
 
-import addStepService from '@modules/steps/services/addStepService';
-import findStepService from '@modules/steps/services/findStepService';
+import AddStepService from '@modules/steps/services/AddStepService';
+import FindStepService from '@modules/steps/services/FindStepService';
 import RemoveStepService from '@modules/steps/services/RemoveStepService';
 
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
-import RecipeByIngredientsService from '@modules/recipes/services/RecipeByIngredientsService';
 import FindRecipeService from '@modules/recipes/services/FindRecipeService';
-import RemoveRecipeService from '@modules/recipes/services/RemoveRecipeService';
 import UpdateRecipeService from '@modules/recipes/services/UpdateRecipeService';
+import RemoveRecipeService from '@modules/recipes/services/RemoveRecipeService';
 
 import IRequest from '@shared/models/IRequest';
 import Filter from '@shared/models/Filter';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import GetRelatedRecipeIDService from '@modules/ingredients/services/GetRelatedRecipeIDService';
+import AllRecipe from '@shared/models/AllRecipe';
 
 
 export default class RecipeController {
@@ -44,8 +44,8 @@ export default class RecipeController {
     const createCategory = container.resolve(CreateCategoryService);
     const FindCategory = container.resolve(FindCategoryService);
     const createRecipe = container.resolve(CreateRecipeService);
-    const addIngredientToRecipe = container.resolve(addIngredientService);
-    const addStepsToRecipe = container.resolve(addStepService);
+    const addIngredientToRecipe = container.resolve(AddIngredientService);
+    const addStepsToRecipe = container.resolve(AddStepService);
 
     //Buscando ou criando uma categoria
     const category =
@@ -78,7 +78,7 @@ export default class RecipeController {
   public async getRecipe(request: Request, response: Response): Promise<Response> {
     
     const findRecipe = container.resolve(FindRecipeService);
-    const findSteps = container.resolve(findStepService);
+    const findSteps = container.resolve(FindStepService);
     const findIngredients =  container.resolve(FindIngredientService);
     const findCategory = container.resolve(FindCategoryService);
 
@@ -102,7 +102,7 @@ export default class RecipeController {
       title: recipe.title,
       description: recipe.description,
       category: foundCategory,
-      cookTime: recipe.cooking_time,
+      cookTime: recipe.cookingTime,
       serves: recipe.servingSize,
       vegetarian: recipe.vegetarian,
       vegan: recipe.vegan,
@@ -153,8 +153,8 @@ export default class RecipeController {
     const createCategory = container.resolve(CreateCategoryService);
     const FindCategory = container.resolve(FindCategoryService);
     const updateRecipe = container.resolve(UpdateRecipeService);
-    const addIngredientToRecipe = container.resolve(addIngredientService);
-    const addStepsToRecipe = container.resolve(addStepService);
+    const addIngredientToRecipe = container.resolve(AddIngredientService);
+    const addStepsToRecipe = container.resolve(AddStepService);
 
     const category =
       (await FindCategory.execute(categoryName)) ||
@@ -179,7 +179,7 @@ export default class RecipeController {
     return response.status(200).json({title: recipe.title,
       description: recipe.description,
       category: recipe.category.title,
-      cookTime: recipe.cooking_time,
+      cookTime: recipe.cookingTime,
       serves: recipe.servingSize,
       vegetarian: recipe.vegetarian,
       vegan: recipe.vegan,
@@ -190,7 +190,7 @@ export default class RecipeController {
       steps: steps});
   }
 
-  public async recipeByIngredients(request: Request, response: Response): Promise<Response> {
+  public async getRecipeByIngredients(request: Request, response: Response): Promise<Response> {
     const {
       ingredients,
       isOnlyIngredient,
@@ -206,7 +206,7 @@ export default class RecipeController {
         max,
       },
     }: Filter = request.body;
-    console.log(request.body);
+
     const findCategory = container.resolve(FindCategoryService);
     const categoryList: string[] = []; 
     categories.forEach(async (value) => {
@@ -220,11 +220,9 @@ export default class RecipeController {
 
     const getRecipesID = container.resolve(GetRelatedRecipeIDService);
     const recipe_id = await getRecipesID.execute(ingredients, isOnlyIngredient);
-    const getRecipeByIngredients = container.resolve(RecipeByIngredientsService);
-    const findSteps = container.resolve(findStepService);
-    const findIngredients = container.resolve(FindIngredientService);
+    const getRecipeByIngredients = container.resolve(FindRecipeService);
 
-    const recipe = await getRecipeByIngredients.execute({
+    const recipe = await getRecipeByIngredients.executeByIngredient({
       ingredients,
       isOnlyIngredient,
       categories: categoryList,
@@ -240,16 +238,22 @@ export default class RecipeController {
       },
     }, recipe_id);
 
-    const foundIngredients = await findIngredients.execute(recipe[0]);
-    const _ingredients = foundIngredients.map((value) => {
-        return { title: value.title, amount: value.amount };
-    });
-    console.log(_ingredients)
-    console.log('----------')
-    const resp = { ...recipe[0], ingredients: _ingredients };
-    console.log(resp)
+    const findIngredients = container.resolve(FindIngredientService);
+    const findSteps = container.resolve(FindStepService);
+
+    let allRecipes: AllRecipe[] = [];
     
-    return response.status(200).json(resp);
+    for (let i = 0; i < recipe.length; i++){
+      const _ingredients = await findIngredients.execute(recipe[i]);
+      const _steps = await findSteps.execute(recipe[i]);
+
+     allRecipes.push({recipe: recipe[i], 
+                            ingredients: _ingredients, 
+                            steps: _steps});
+    };
+  
+    
+    return  response.status(200).json(allRecipes);
   }
 
 }

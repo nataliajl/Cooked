@@ -25,7 +25,7 @@ class IngredientsRepository implements IIngredientsRepository {
 
     ingredients.forEach((element) => {
       if (element.amount < 1 || element.amount > 50) {
-        console.log('Ueeepaaa', element);
+        // console.log('Ueeepaaa', element);
         throw new AppError(
           'Ingredient ' +
             element.title +
@@ -86,7 +86,7 @@ class IngredientsRepository implements IIngredientsRepository {
         title: Raw((alias) => `${alias} = ANY('{${ingredientsStr}}')`)
       },
     });
-    // console.log(recipesAndIngr);
+    
 
     const recipe_id = recipesAndIngr.map((value) => {
       return value.recipe.id;

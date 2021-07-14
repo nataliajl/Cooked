@@ -13,7 +13,7 @@ import CategoriesRepository from '@modules/categories/infra/typeorm/repositories
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import FindCategoryService from '@modules/categories/services/FindCategoryService';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
-import AddIngredientService from '@modules/ingredients/services/addIngredientService';
+import AddIngredientService from '@modules/ingredients/services/AddIngredientService';
 import RemoveCategoryService from '@modules/categories/services/RemoveCategoryService';
 import Ingredient from '@modules/ingredients/infra/typeorm/entities/Ingredient';
 import AppError from '@shared/errors/Error';
