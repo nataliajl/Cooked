@@ -20,6 +20,9 @@ let FindRecipeService = class FindRecipeService {
     async execute(title) {
         return await this.recipesRepository.findRecipe(title);
     }
+    async executeByIngredient(filter, recipeID) {
+        return await this.recipesRepository.findRecipeByIngredient(filter, recipeID);
+    }
 };
 FindRecipeService = __decorate([
     tsyringe_1.injectable(),

@@ -105,7 +105,7 @@ export const useFormControls = () => {
       console.log(response);
       return history.push({
         pathname: '/search',
-        state: [response]
+        state: response
       });
 
     }

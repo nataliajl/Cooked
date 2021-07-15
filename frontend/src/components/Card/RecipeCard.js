@@ -25,7 +25,7 @@ export default function RecipeCard(props) {
         <div className={classes.card}>
           <Card className={classes.root}>
             <CardActionArea  onClick={(e) => handleClick(e, data)}>
-              <CardHeader title={data.title} />
+              <CardHeader title={data.recipe.title} />
               {/* Set image
               <CardMedia
                 className={classes.media}
@@ -33,7 +33,7 @@ export default function RecipeCard(props) {
                 title="Paella dish"
               /> */}
               <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">{data.description}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p">{data.recipe.description}</Typography>
               </CardContent>
             </CardActionArea>
           </Card>

@@ -19,7 +19,7 @@ class RecipesRepository {
         }
         const recipe = this.ormRepository.create({
             category: rawRecipe.category,
-            cooking_time: rawRecipe.cookTime,
+            cookingTime: rawRecipe.cookTime,
             glutenfree: rawRecipe.glutenfree,
             description: rawRecipe.description,
             lactosefree: rawRecipe.lactosefree,
@@ -32,15 +32,12 @@ class RecipesRepository {
         await this.ormRepository.save(recipe);
         return recipe;
     }
-    async recipeByIngredient(filter, recipeID) {
+    async findRecipeByIngredient(filter, recipeID) {
         const ids = recipeID.join(',');
         const categories = filter.categories.join(',');
         const recipes = this.ormRepository.find({
             where: {
                 private: 'false',
-                vegan: filter.restriction.vegan,
-                vegetarian: filter.restriction.vegetarian,
-                cooking_time: typeorm_1.Between(parseInt(filter.cookingTime.min), parseInt(filter.cookingTime.max)),
                 id: typeorm_1.Raw(alias => `${alias} = Any('{${ids}}')`),
                 categoryId: typeorm_1.Raw(alias => `${alias} = Any('{${categories}}')`),
             }

@@ -16,7 +16,6 @@ class IngredientsRepository {
         }
         ingredients.forEach((element) => {
             if (element.amount < 1 || element.amount > 50) {
-                console.log('Ueeepaaa', element);
                 throw new Error_1.default('Ingredient ' +
                     element.title +
                     ' has unpermitted amount of ' +

@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("@modules/categories/infra/typeorm/entities/Category"));
 const Ingredient_1 = __importDefault(require("@modules/ingredients/infra/typeorm/entities/Ingredient"));
+const Step_1 = __importDefault(require("@modules/steps/infra/typeorm/entities/Step"));
 const typeorm_1 = require("typeorm");
 let Recipe = class Recipe {
 };
@@ -32,7 +33,7 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
-], Recipe.prototype, "cooking_time", void 0);
+], Recipe.prototype, "cookingTime", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
@@ -61,6 +62,10 @@ __decorate([
     typeorm_1.OneToMany(() => Ingredient_1.default, ingredient => ingredient.recipe),
     __metadata("design:type", Array)
 ], Recipe.prototype, "ingredients", void 0);
+__decorate([
+    typeorm_1.OneToMany(() => Step_1.default, step => step.recipe),
+    __metadata("design:type", Array)
+], Recipe.prototype, "steps", void 0);
 __decorate([
     typeorm_1.Column({ name: 'category_id' }),
     __metadata("design:type", String)

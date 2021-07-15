@@ -16,9 +16,7 @@
     --basic-7:              #F4F4F4;
     --basic-8:              #FFFFFF;
     
-
     --font-family: Roboto;
-    font-size: 60%;
 }
 
 input,
@@ -26,18 +24,11 @@ button,
 area {
     font-weight: 500;
     font-family: var(--font-family);
-    font-size: 1.6rem;
     color: var(--basic-0);
 }
 
 button {
     color: var(--basic-5);
 }
-
-@media (min-width: 700px) {
-    :root {
-        font-size: 62.5%; /* todo 1 rem vai ser equivalente a 10px*/
-    }
-}  
 
 

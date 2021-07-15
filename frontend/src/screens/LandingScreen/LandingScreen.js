@@ -13,19 +13,19 @@ const LandingScreen = () => {
       
       <div className={classes.content}>
 
-        <div >
+        <div className={classes.leftContainer}>
           <div className={classes.text}>
-            <Typography variant='h2' component='name'>
+            <Typography variant='h3' component='name'>
               Cooked
             </Typography>
-            <Typography variant='h4' component='slogan'>
+            <Typography variant='h5' component='slogan'>
               Make the leftovers a festivity
             </Typography>
           </div>
           <Filter />
         </div>
         
-        <div className={classes.visual}>
+        <div className={classes.rightContainer}>
           <img src={homeVisual} alt="Cooked - Making the leftovers a festivity"/>
         </div>
       </div>

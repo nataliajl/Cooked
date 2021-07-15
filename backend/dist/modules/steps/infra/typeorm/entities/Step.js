@@ -23,7 +23,7 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], Step.prototype, "step", void 0);
+], Step.prototype, "text", void 0);
 __decorate([
     typeorm_1.ManyToOne(() => Recipe_1.default),
     typeorm_1.JoinColumn({ name: 'recipe_id' }),

@@ -9,13 +9,13 @@ class StepsRepository {
     constructor() {
         this.ormRepository = typeorm_1.getRepository(Step_1.default);
     }
-    async addToRecipe(rawSteps, recipe) {
+    async addToRecipe(steps, recipe) {
         this.removeStepsByRecipe(recipe);
-        const steps = rawSteps.map((step) => this.ormRepository.create({
-            step,
-            recipe,
+        const newSteps = steps.map((step) => this.ormRepository.create({
+            text: step,
+            recipe: recipe,
         }));
-        return await this.ormRepository.save(steps);
+        return await this.ormRepository.save(newSteps);
     }
     async findStep(recipe) {
         const recipeSteps = await this.ormRepository.find({
