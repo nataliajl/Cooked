@@ -19,7 +19,7 @@ class StepsRepository implements IStepsRepository {
 
     const newSteps = steps.map((step) =>
       this.ormRepository.create({
-        step: step,
+        text: step,
         recipe: recipe,
       })
     );

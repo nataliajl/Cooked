@@ -15,7 +15,7 @@ class Step {
   id: string;
 
   @Column()
-  step: string;
+  text: string;
 
   @ManyToOne(() => Recipe)
   @JoinColumn({ name: 'recipe_id' })

@@ -1,89 +1,20 @@
-import { makeStyles, Slider, Switch, withStyles } from '@material-ui/core';
+import {Slider, Switch, withStyles } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import { colors, inputElements} from './../../cookedStyles.js';
-
-export const useStyles = makeStyles((theme) => ({
-  root: {
-    '& div': {
-      marginTop: '1rem'
-    }
-    
-  },
-
-  list: {
-    width: '54rem',
-    marginLeft: '-1rem',
-    marginTop: '-3rem'
-  },
-
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyItems: 'center',
-  },
-
-  button: {
-    '& div': {
-      marginTop: '2rem',
-
-      '& button': {
-        width: '20rem',
-        height: '6rem',
-      }
-    }
-  },
-
-  font: {
-    fontFamily: inputElements.font.fontFamily,
-    fontWeight: inputElements.inputFont.fontWeight,
-    fontSize: inputElements.inputFont.fontSize,
-
-    '& subtitle' : {
-      fontSize: inputElements.font.fontSize,
-      color: colors.palette.basic.b3,
-    },
-
-    '& button': {
-      fontWeight: '600',
-      backgroundColor: colors.palette.secondary.dark,
-      color: colors.palette.basic.b7,
-
-      '&:hover': {
-        color: colors.palette.basic.b3,
-        backgroundColor: colors.palette.secondary.light,
-      },
-    },
-
-  },
-
-  subtitle : {
-    fontSize: inputElements.font.fontSize,
-    color: colors.palette.basic.b3,
-  },
-
-  margin: {
-    marginLeft: '1rem',
-    marginRight: '1rem',
-  },
-
-}));
+import { colors} from './../../cookedStyles.js';
 
 export const StyledSlider = withStyles({
     root: {
       color: colors.palette.primary.main,
-      height: 8,
-      marginTop: '1rem',
-      marginLeft: '2rem',
+      height: 1,
+      marginTop:'6%',
+      marginLeft: '3%',
+      marginBottom: '5%',
+      maxWidth: '90%'
     },
 
     thumb: {
-      height: 18,
-      width: 18,
+      height: 22,
+      width: 22,
       backgroundColor: colors.palette.background.main,
       border: '2px solid #ffff',
       marginTop: -8,
@@ -95,17 +26,17 @@ export const StyledSlider = withStyles({
 
     active: {},
     valueLabel: {
-      left: 'calc(-70% + 0.2rem)',
+      left: 'calc(-40%)',
     },
 
     track: {
-      height: 4,
-      borderRadius: 4,
+      height: 8,
+      borderRadius: 8,
     },
 
     rail: {
-      height: 4,
-      borderRadius: 4,
+      height: 8,
+      borderRadius: 8,
     },
 })(Slider);
 
@@ -165,6 +96,10 @@ root: {
 }))(Switch);
 
 export const StyledRating = withStyles({
+  root: {
+    marginTop: '2%',
+    marginLeft: '3.5%'
+  }, 
   iconEmpty: {
     color: colors.palette.secondary.light,
   },

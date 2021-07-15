@@ -24,23 +24,17 @@ const DietaryRestrictions = ({diet}) => {
 
     const DietItem = ({type, Icon}) => {
         return (
-            <Grid container alignItems="center" justify="space-around">
-                <Grid item>
-                    {Icon}
-                </Grid>
-                <Grid item>
-                    <p className="itemtext">{type}</p>
-                </Grid>
-            </Grid>
+            <div className="tag">
+                {Icon}
+                <span className="itemtext">{type}</span>  
+            </div>   
         )
     }
     
     return (
-        <Grid container xs={10} alignItems="center" justify="space-between">
+        <Grid item xs={9} className="rightBox"> 
             {recipeRestrictions.map(e => (
-                <Grid item xs={6/recipeRestrictions.length} alignItems="center" justify="center"  >
-                    <DietItem type={e.type} Icon={e.icon}/> 
-                </Grid>
+                <DietItem type={e.type} Icon={e.icon}/> 
             ))}
         </Grid>
     )

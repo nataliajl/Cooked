@@ -1,13 +1,13 @@
 import React from 'react';
-import { useStyles } from './TagStyles';
 import { AddCircleRounded } from '@material-ui/icons';
 import {IconButton, Chip, InputBase} from '@material-ui/core';
+import { useStyles } from '../../../screens/LandingScreen/LandingStyles';
 
 export default function ChipsArray(props){
   const classes = useStyles();
 
   return ( 
-    <div className={classes.root}>
+    <div className={classes.main}>
       <div className={classes.container}>
         <div className={classes.input}>
           <InputBase
@@ -19,7 +19,7 @@ export default function ChipsArray(props){
 
         <div className={classes.button}>
           <IconButton onClick={props.onClick}>
-            <AddCircleRounded className={classes.img} />
+            <AddCircleRounded className={classes.plusB} />
           </IconButton>
         </div>
       </div>

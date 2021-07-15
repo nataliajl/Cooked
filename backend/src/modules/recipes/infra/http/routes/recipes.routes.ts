@@ -13,7 +13,7 @@ const recipesController = new RecipeController();
 //Rota: localhost:3333/recipes
 recipesRouter.post('/', recipesController.create);
 
-recipesRouter.post('/search', recipesController.recipeByIngredients);
+recipesRouter.post('/search', recipesController.getRecipeByIngredients);
 
 recipesRouter.get('/',  recipesController.getRecipe);
 

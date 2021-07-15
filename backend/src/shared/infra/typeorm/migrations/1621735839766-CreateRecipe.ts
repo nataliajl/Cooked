@@ -26,11 +26,11 @@ export default class CreateRecipe1621735839766 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'cooking-time',
+            name: 'cookingTime',
             type: 'smallint',
           },
           {
-            name: 'serving-size',
+            name: 'servingSize',
             type: 'smallint',
           },
           {

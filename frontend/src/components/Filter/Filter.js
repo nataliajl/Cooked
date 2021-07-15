@@ -3,8 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import {useFormControls} from './FormControls';
 import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
 import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
-import { OnlyIngredients, StyledSlider, StyledRating, useStyles } from './FilterStyles';
+import { OnlyIngredients, StyledSlider, StyledRating} from './FilterStyles';
 import Tag from './Tags/Tag';
+import { useStyles } from '../../screens/LandingScreen/LandingStyles';
 
 export default function Filter() {
   const classes = useStyles(); 
@@ -47,13 +48,11 @@ export default function Filter() {
           </div>
         
         <div class='cuisineList'>
-            <List className={classes.list}>
-              <ListItem className={classes.list}button onClick={handleClick}>
+            <List>
+              <ListItem button  className={classes.list} onClick={handleClick}>
                 <ListItemText
                   primary='Cuisine'
                   secondary='Choose by cooking style'
-                  classes={{primary: classes.font, secondary:classes.subtitle}}
-                  
                 />
                 {open ? <ExpandMore /> : <NavigateNext />}
               </ListItem>
@@ -75,7 +74,7 @@ export default function Filter() {
 
         <div class='serveSlider'>
           <div class='text'>
-            <Typography className={classes.font} id='discrete-slider-custom' gutterBottom compnent='title'>
+            <Typography id='discrete-slider-custom' gutterBottom>
               Serving Rage
             </Typography>
             <Typography className={classes.subtitle}>
@@ -95,7 +94,9 @@ export default function Filter() {
         </div>
 
         <div class='cookingContainer'>
-          <Typography className={classes.font} gutterBottom>Cooking Time</Typography>
+          <Typography className={classes.font} gutterBottom>
+            Cooking Time
+          </Typography>
 
           <div class='inputContainer' className={classes.row}>
             <TextField

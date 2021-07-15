@@ -6,7 +6,9 @@ const AddRecipeScreen = () => {
     return (
         <div>
             <Navbar/>
+            <div>
             <AddRecipeForm />
+            </div>
         </div>
     );
 }
