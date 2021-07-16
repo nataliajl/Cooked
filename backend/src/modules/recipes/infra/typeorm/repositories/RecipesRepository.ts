@@ -48,9 +48,9 @@ class RecipesRepository implements IRecipesRepository {
     const recipes = this.ormRepository.find({
       where: {
         private: 'false',
-        // vegan: filter.restriction.vegan,
-        // vegetarian: filter.restriction.vegetarian,
-        // cookingTime: Between(parseInt(filter.cookingTime.min),parseInt(filter.cookingTime.max)),
+        vegan: filter.restriction.vegan,
+        vegetarian: filter.restriction.vegetarian,
+        cookingTime: Between(parseInt(filter.cookingTime.min),parseInt(filter.cookingTime.max)),
         id: Raw(alias =>`${alias} = Any('{${ids}}')`),
         categoryId: Raw(alias =>`${alias} = Any('{${categories}}')`),
       }

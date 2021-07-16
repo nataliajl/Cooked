@@ -42,11 +42,8 @@ class IngredientsRepository {
         });
         await this.ormRepository.remove(recipeIngredients);
     }
-    async getIngredientsRecipe(ingredients, isOnlyIngredients) {
+    async findIngredientsRecipe(ingredients, isOnlyIngredients) {
         const ingredientsStr = ingredients.join(',').replace('"', '');
-        let operator = '&&';
-        if (isOnlyIngredients == 'true')
-            operator = '=';
         const recipesAndIngr = await this.ormRepository.find({
             join: {
                 alias: 'ingredient',
@@ -55,7 +52,7 @@ class IngredientsRepository {
                 },
             },
             where: {
-                title: typeorm_1.Raw((alias) => `${alias} = ANY('{${ingredientsStr}}')`)
+                title: typeorm_1.Raw((alias) => `${alias} % ANY('{${ingredientsStr}}')`)
             },
         });
         const recipe_id = recipesAndIngr.map((value) => {
