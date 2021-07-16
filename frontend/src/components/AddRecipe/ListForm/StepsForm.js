@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, IconButton, TextField } from '@material-ui/core';
+import { colors, Grid, IconButton, TextField } from '@material-ui/core';
 import { AddCircle, RemoveCircleOutline } from '@material-ui/icons';
 
 import ItemCircle from '../../ItemCircle/ItemCircle';

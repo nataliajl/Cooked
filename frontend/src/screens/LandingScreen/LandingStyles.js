@@ -64,7 +64,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     padding: '0.5%'
   },
 
@@ -154,7 +154,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
     listStyle: 'none',
-    padding: '0.5%',
+    padding: '1%',
     maxWidth: '16rem',
 
     [theme.breakpoints.down(700)]: { //@media
@@ -174,6 +174,14 @@ export const useStyles = makeStyles((theme) => ({
       color: colors.palette.secondary.light,
       transition: 'color 0.4s',
     },
-  }
+  },
+
+  leafUnchecked: {
+    color: colors.palette.basic.b4,
+  },
+
+  leafChecked: {
+    color: colors.palette.secondary.main,
+  },
     
 }));

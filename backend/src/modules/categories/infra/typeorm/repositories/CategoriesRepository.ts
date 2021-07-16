@@ -43,6 +43,7 @@ class CategoriesRepository implements ICategoriesRepository {
 
   public async getCategoryTitles(): Promise<Category[]> {
     const categories = this.ormRepository.find({ select: ["title"] });
+
     return categories;
   }
 }

@@ -110,17 +110,20 @@ const NewAddRecipeForm = () => {
                                     margin="normal"
                                     multiline
                                 />
-                                <InputLabel id="cuisine-select">Cuisine</InputLabel>
-                                <Select
+                                {/* <InputLabel id="cuisine-select">Cuisine</InputLabel> */}
+                                <TextField
                                     fullWidth
                                     required
                                     id="cuisine-select"
-                                    name="category"
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    formControlProps={{ fullWidth: true }}
+                                    type="text"
+                                    onInput={(e) => setCategory(e.target.value)}
+                                    value={category}
+                                    label="Cuisine"
+                                    helperText="i.e. Mexican"
                                     margin="normal"
-                                >
-                                    <MenuItem value="american">American</MenuItem>
+                                    className="input-test"
+                                />
+                                    {/* <MenuItem value="american">American</MenuItem>
                                     <MenuItem value="chinese">Chinese</MenuItem>
                                     <MenuItem value="french">French</MenuItem>
                                     <MenuItem value="indian">Indian</MenuItem>
@@ -130,7 +133,7 @@ const NewAddRecipeForm = () => {
                                     <MenuItem value="spanish">Spanish</MenuItem>
                                     <MenuItem value="thai">Thai</MenuItem>
                                     <MenuItem value="other">Other</MenuItem>
-                                </Select>
+                                </Select> */}
                                 <Grid container spacing={10} justify="space-between">
                                     <Grid item xs={5}>
                                         <TextField

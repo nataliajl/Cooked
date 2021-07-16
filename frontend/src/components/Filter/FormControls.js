@@ -30,10 +30,10 @@ export const useFormControls = () => {
 
   const [isVeg, setVeg] = React.useState({vegetarian: false, vegan: false});
   const handleVegetarian = () => {
-    setVeg((prev) => !prev.vegetarian);
+    setVeg((prev) => {return {vegetarian:prev.vegetarian, vegan: !prev.vegan}});
   };
   const handleVegan = () => {
-    setVeg((prev) => !prev.vegan);
+    setVeg((prev) => {return {vegetarian:prev.vegetarian, vegan: !prev.vegan}});
   };
 
   const [inputCategories, setCategories] = React.useState([]);
@@ -89,7 +89,7 @@ export const useFormControls = () => {
       categories: cuisineSelected.length === 0? inputCategories : cuisineSelected,
       servingSize: sliderValue,
       rate: ratingValue,
-      vegetarian: isVeg.vegetarian,
+      vegetarian: isVeg.vegan? true : isVeg.vegetarian,
       vegan: isVeg.vegan,
       min: minutes.min,
       max: minutes.max === 0? 1440 : minutes.max
@@ -101,6 +101,7 @@ export const useFormControls = () => {
     e.preventDefault();
     if(chipData.length !== 0){
       const filter = handleFormValues();
+      console.log(filter);
       const response =  await filteredRecipes(filter);
       console.log(response);
       return history.push({
