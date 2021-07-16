@@ -1,8 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {useFormControls} from './FormControls';
-import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
-import { ExpandMore, FavoriteTwoTone, NavigateNext } from '@material-ui/icons';
+import { Checkbox, TextField, List, Collapse, ListItem, ListItemIcon, ListItemText, Button, FormControlLabel} from '@material-ui/core';
+import { ExpandMore, FavoriteTwoTone, NavigateNext, Eco } from '@material-ui/icons';
 import { OnlyIngredients, StyledSlider, StyledRating} from './FilterStyles';
 import Tag from './Tags/Tag';
 import { useStyles } from '../../screens/LandingScreen/LandingStyles';
@@ -23,7 +23,9 @@ export default function Filter() {
     handleCuisine,
     handleClick,
     handleCheck,
-      
+    
+    handleVegetarian,
+    handleVegan,
 
     marks,
     sliderValue,
@@ -41,12 +43,24 @@ export default function Filter() {
   return (
       <form className={classes.root} onSubmit={e => handleFormSubmit(e)}>
         <Tag value={inputData} data={chipData} onChange={handleChange} onClick={handleAddChip} onDelete={handleDelete}/>
-        <div class='ingreSwitch' className={classes.row}>
+
+        <div className={classes.row}> 
+          <div class='ingreSwitch' className={classes.row}>
             <Typography className={classes.font} gutterBottom>Only Inserted Ingredients</Typography>
-            <OnlyIngredients checked={checked} onChange={toggleChecked} />  
-            
+            <OnlyIngredients checked={checked} onChange={toggleChecked} />        
           </div>
-        
+
+          <div>
+            <FormControlLabel
+            control={<Checkbox icon={<Eco className={classes.leafUnchecked}/>} checkedIcon={<Eco className={classes.leafChecked} />} onChange={handleVegetarian} name="checkedA"/>}
+            label="Vegetarian"
+            />
+            <FormControlLabel
+            control={<Checkbox icon={<Eco className={classes.leafUnchecked}/>} checkedIcon={<Eco className={classes.leafChecked} />} onChange={handleVegan} name="checkedA"/>}
+            label="Vegan"
+            />
+          </div>
+        </div>
         <div class='cuisineList'>
             <List>
               <ListItem button  className={classes.list} onClick={handleClick}>
