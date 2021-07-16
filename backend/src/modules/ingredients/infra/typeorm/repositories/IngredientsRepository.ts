@@ -70,25 +70,39 @@ class IngredientsRepository implements IIngredientsRepository {
     ingredients: string[],
     isOnlyIngredients: string
     ): Promise<string[]> {
-      const ingredientsStr = ingredients.join(',').replace('"', '');
-      
-      const recipesAndIngr = await this.ormRepository.find({
-        join: {
-          alias: 'ingredient',
-          innerJoinAndSelect: {
-            recipe: 'ingredient.recipe',
-          },
-        },
+      const ingredientsStr = ingredients.join(',');
+      const length = ingredients.length;
+      let recipesAndIngr: Ingredient[];
+      let recipe_id;
+
+      if(isOnlyIngredients == 'true'){
         
-        where: {
-          title: Raw((alias) => `${alias} % ANY('{${ingredientsStr}}')`)
-        },
-      });
-      
-      
-      const recipe_id = recipesAndIngr.map((value) => {
-        return value.recipe.id;
-      });
+        recipesAndIngr = await this.ormRepository.query(`SELECT r.id FROM ingredients i 
+                                                          INNER JOIN recipes r ON r.id = i.recipe_id 
+                                                          WHERE i.title % ANY('{${ingredientsStr}}') 
+                                                          GROUP BY r.id 
+                                                          HAVING COUNT(*) = ${length}`);
+        recipe_id = recipesAndIngr.map((value) => {
+          return value.id;
+        });
+      } else{
+        recipesAndIngr = await this.ormRepository.find({
+          join: {
+            alias: 'ingredient',
+            innerJoinAndSelect: {
+              recipe: 'ingredient.recipe',
+            },
+          },
+          
+          where: {
+            title: Raw((alias) => `${alias} % ANY('{${ingredientsStr}}')`)
+          },
+        });
+
+        recipe_id = recipesAndIngr.map((value) => {
+          return value.recipe.id;
+        });
+      }
       
       return recipe_id;
     }

@@ -18,7 +18,7 @@ let GetRelatedRecipeIDService = class GetRelatedRecipeIDService {
         this.ingredientsRepository = ingredientsRepository;
     }
     async execute(ingredients, isOnlyIngredients) {
-        return await this.ingredientsRepository.getIngredientsRecipe(ingredients, isOnlyIngredients);
+        return await this.ingredientsRepository.findIngredientsRecipe(ingredients, isOnlyIngredients);
     }
 };
 GetRelatedRecipeIDService = __decorate([

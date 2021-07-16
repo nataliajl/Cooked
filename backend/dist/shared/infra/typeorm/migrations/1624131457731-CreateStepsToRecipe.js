@@ -15,7 +15,7 @@ class CreateStepsToRecipe1624131457731 {
                     default: 'uuid_generate_v4()',
                 },
                 {
-                    name: 'step',
+                    name: 'text',
                     type: 'varchar',
                 },
                 {
